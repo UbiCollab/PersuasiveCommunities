@@ -1,18 +1,26 @@
 package no.haktho.cossmic.forest.session;
 
+import javax.faces.bean.*;
+//Get validation jar from: http://mvnrepository.com/artifact/javax.validation/validation-api/1.1.0.Final
+import javax.validation.constraints.*;
+
+@ManagedBean(name="loginbean")
+@RequestScoped
 public class LoginBean {
 	
-	private String name;
+	private String username;
 	private String password;
 	
-	public String getName(){
-		return name;
+	@NotNull
+	public String getUsername(){
+		return username;
 	}
 	
-	public void setName(final String name){
-		this.name = name;
+	public void setUsername(final String name){
+		this.username = name;
 	}
 	
+	@NotNull
 	public String getPassword(){
 		return password;
 	}
@@ -20,4 +28,5 @@ public class LoginBean {
 	public void setPassword(final String password){
 		this.password = password;
 	}
+	
 }
