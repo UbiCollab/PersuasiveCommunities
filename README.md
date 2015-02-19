@@ -1,4 +1,4 @@
 PersuasiveCommunities
 =====================
 
-Repository for Thomas and Håvard's master thesis.
+Repository for Thomas and Håkon's master thesis.
