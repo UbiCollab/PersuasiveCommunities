@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14243436061870" configfile="/CoSSMicForest/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="240" y="72" id="pf14243440536181" outlinks="pf14243457629903" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="welcome.xhtml" x="456" y="72" id="pf14243440536182" inlinks="pf14243457629903" path="/welcome.xhtml"/>
-  <links id="pf14243457629903" target="pf14243440536182" source="pf14243440536181" outcome="login"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="240" y="72" id="pf14243440536181" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14243457629903" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="welcome.xhtml" x="456" y="72" id="pf14243440536182" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14243457629903" path="/welcome.xhtml"/>
+  <links id="pf14243457629903" target="pf14243440536182" source="pf14243440536181" outcome="success"/>
 </pageflow:Pageflow>
