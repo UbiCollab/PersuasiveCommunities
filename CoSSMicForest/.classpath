@@ -21,6 +21,6 @@
 			<attribute name="owner.project.facets" value="jst.jsf"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Giraff/Downloads/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="src/libs/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
