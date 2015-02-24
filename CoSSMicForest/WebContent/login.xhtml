@@ -9,16 +9,22 @@
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content">
 		<h:form>
-			<h:panelGrid columns="2" rendered="#{!loginBean.loggedIn}">
+			<h:panelGrid columns="2" rendered="#{!loginbean.loggedIn}">
 				<f:validateBean>
 					<h:outputText value="Name"></h:outputText>
-					<h:inputText id="username" value="#{loginBean.username}" />
+					<h:inputText id="username" value="#{loginbean.username}" />
 					<h:outputText value="Password"></h:outputText>
-					<h:inputSecret id="password" value="#{loginBean.password}" />
+					<h:inputSecret id="password" value="#{loginbean.password}" />
 				</f:validateBean>
 			</h:panelGrid>
-			<h:commandButton value="Login" action="#{loginBean.validateUser}" rendered="#{!loginBean.loggedIn}" />
-			<h:commandButton value="Logout" action="#{loginBean.invalidateUser}" rendered="#{loginBean.loggedIn}" />
+			<h:commandButton value="Login" action="#{loginbean.validateUser}" rendered="#{!loginbean.loggedIn}" />
+		</h:form>
+		<h:form>
+			<h:panelGrid rendered="#{loginbean.loggedIn}">
+				<h:link value="Home page" outcome="welcome" /><br />
+				<h:outputLabel value="Click here to logout #{loginbean.username}" /><br />
+			</h:panelGrid>
+			<h:commandButton value="Logout" action="#{loginbean.invalidateUser}" rendered="#{loginbean.loggedIn}"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

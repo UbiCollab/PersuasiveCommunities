@@ -13,4 +13,12 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/login.xhtml</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>/welcome.xhtml</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>/userpage.xhtml</url-pattern>
+  </servlet-mapping>
 </web-app>

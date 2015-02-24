@@ -1,6 +1,9 @@
 package no.haktho.cossmic.forest.session;
 
+import java.io.Serializable;
+
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,8 +14,10 @@ import javax.validation.constraints.*;
 import no.haktho.cossmic.forest.model.User;
 
 @ManagedBean(name="loginbean")
-@RequestScoped
-public class LoginBean {
+@SessionScoped
+public class LoginBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String username;
 	private String password;
@@ -69,6 +74,8 @@ public class LoginBean {
 	
 	public String invalidateUser(){
 		setLoggedIn(false);
+		
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		
 		return "logout";
 	}
