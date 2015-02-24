@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14243436061870" configfile="/CoSSMicForest/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="Manage" x="240" y="72" id="pf14243440536181" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14243457629903 pf14247080074940" inlinks="pf14247080074940" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="welcome.xhtml" x="456" y="72" id="pf14243440536182" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14243457629903" path="/welcome.xhtml"/>
-  <links id="pf14243457629903" target="pf14243440536182" source="pf14243440536181" outcome="success"/>
-  <links id="pf14247080074940" target="pf14243440536181" source="pf14243440536181" outcome="logout">
-    <bendPoints d1Height="-36" d2Height="-36"/>
-    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
-    <bendPoints d1Width="-64" d2Width="-64"/>
-  </links>
+  <nodes xsi:type="pageflow:PFPage" name="Manage" x="240" y="72" id="pf14243440536181" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="welcome.xhtml" x="456" y="72" id="pf14243440536182" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="/welcome.xhtml"/>
 </pageflow:Pageflow>

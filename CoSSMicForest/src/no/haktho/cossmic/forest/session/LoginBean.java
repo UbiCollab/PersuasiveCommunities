@@ -2,6 +2,7 @@ package no.haktho.cossmic.forest.session;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -17,13 +18,14 @@ import no.haktho.cossmic.forest.model.User;
 @SessionScoped
 public class LoginBean implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9102385811515184383L;
 	
 	private String username;
 	private String password;
 	private boolean loggedIn = false;
 	
-	public LoginBean() {}
+	@ManagedProperty(value="#{navigationbean}")
+	private NavigationBean navigationBean;
 	
 	@NotNull
 	public String getUsername(){
@@ -50,9 +52,12 @@ public class LoginBean implements Serializable{
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
+	
+	public void setNavigationBean(NavigationBean navigationBean){
+		this.navigationBean = navigationBean;
+	}
 
 	public String validateUser(){
-		String flag = "failure";
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Users");
 		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery("SELECT u FROM User u WHERE u.username = :un AND u.password = :pw");
@@ -61,22 +66,29 @@ public class LoginBean implements Serializable{
 		
 		try{
 			User user = (User)q.getSingleResult();
+			System.out.println("USER FOUND" + user.getFirstName() + user.getLastName());
 			if(username.equalsIgnoreCase(user.getUsername())&&password.equalsIgnoreCase(user.getPassword())){
-				flag = "success";
 				setLoggedIn(true);
+				return navigationBean.redirectToWelcome();
 			}
 		}
 		catch(Exception e){
 				return null;
 		}
-		return flag;
+		FacesMessage msg = new FacesMessage("Login failed", "ERROR MSG");
+		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
+		return navigationBean.toLogin();
 	}
 	
 	public String invalidateUser(){
 		setLoggedIn(false);
 		
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		FacesMessage msg = new FacesMessage("Logout successful", "ERROR MSG");
+		msg.setSeverity(FacesMessage.SEVERITY_INFO);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 		
-		return "logout";
+		return navigationBean.toLogin();
 	}
 }

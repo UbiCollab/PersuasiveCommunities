@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>CoSSMicForest</display-name>
+  <!-- Login filter -->
+  <filter>
+  	<filter-name>LoginFilter</filter-name>
+  	<filter-class>no.haktho.cossmic.forest.filters.LoginFilter</filter-class>
+  </filter>
+  <!-- Set the login filter to apply to all files in the secure folder/path -->
+  <filter-mapping>
+  	<filter-name>LoginFilter</filter-name>
+  	<url-pattern>/secure/*</url-pattern>
+  </filter-mapping>
   <welcome-file-list>
-  	<welcome-file>login.xhtml</welcome-file>
+  	<welcome-file>secure/welcome.xhtml</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
@@ -11,14 +21,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>/login.xhtml</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>/welcome.xhtml</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>/userpage.xhtml</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
 </web-app>

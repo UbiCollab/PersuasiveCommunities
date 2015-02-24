@@ -7,12 +7,9 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
-	<ui:define name="content">
-	    <h:outputLabel value="Welcome #{loginBean.username}" />
-	    <br />
-	    <h:link value="User page" outcome="userpage"/>
-	    <br />
-	    <h:link value="Login - Logout" outcome="login"/>
+	<ui:define name="content" rendered="#{loginBean.loggedIn}">
+	    Here will be some user info. <br />
+	    <h:link value="Back to startpage" outcome="welcome" />
 	</ui:define>
 </ui:composition>
 </html>
