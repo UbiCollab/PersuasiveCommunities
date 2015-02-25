@@ -30,6 +30,12 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 			System.out.println("pv_kwh: "+get(i).getPv_kwh());
 			System.out.println("pv_power: "+get(i).getPv_power());
 			System.out.println("pv_kwhd: "+get(i).getPv_kwhd());
+			System.out.println("consumption_kwh_id: "+get(i).getConsumption_kwh_id());
+			System.out.println("consumption_power_id: "+get(i).getConsumption_power_id());
+			System.out.println("consumption_kwhd_id: "+get(i).getConsumption_kwhd_id());
+			System.out.println("pv_kwh_id: "+get(i).getPv_kwh_id());
+			System.out.println("pv_power_id: "+get(i).getPv_power_id());
+			System.out.println("pv_kwhd_id: "+get(i).getPv_kwhd_id());
 			System.out.println("__________________________________________");
 		}
 		
@@ -41,32 +47,40 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 		
 		int n = name.indexOf('_');
 		for (int i = 0; i < this.size(); i++) {
+			Node temp = this.get(i);
+			temp.setTime(jsonO.getLong("time"));
 		
 			String subStr = jsonO.get("name").toString().substring(0, n);
 			
 			if(jsonO.get("tag").toString().equals(get(i).getName())){
-
+				
 				for(char c : subStr.toCharArray()){
 					
 					if(n > 3 || !Character.isDigit(c)){
 						switch (jsonO.get("name").toString()) {
 						case "consumption_kwh":
-							this.get(i).setConsumption_kwh(jsonO.getDouble("value"));
+							temp.setConsumption_kwh(jsonO.getDouble("value"));
+							temp.setConsumption_kwh_id(jsonO.getInt("id"));
 							break;
 						case "consumption_power":
-							this.get(i).setConsumption_power(jsonO.getDouble("value"));
+							temp.setConsumption_power(jsonO.getDouble("value"));
+							temp.setConsumption_power_id(jsonO.getInt("id"));
 							break;
 						case "consumption_kwhd":
-							this.get(i).setConsumption_kwhd(jsonO.getDouble("value"));
+							temp.setConsumption_kwhd(jsonO.getDouble("value"));
+							temp.setConsumption_kwhd_id(jsonO.getInt("id"));
 							break;
 						case "pv_kwh":
-							this.get(i).setPv_kwh(jsonO.getDouble("value"));
+							temp.setPv_kwh(jsonO.getDouble("value"));
+							temp.setPv_kwh_id(jsonO.getInt("id"));
 							break;
 						case "pv_power":
-							this.get(i).setPv_power(jsonO.getDouble("value"));
+							temp.setPv_power(jsonO.getDouble("value"));
+							temp.setPv_power_id(jsonO.getInt("id"));
 							break;
 						case "pv_kwhd":
-							this.get(i).setPv_kwhd(jsonO.getDouble("value"));
+							temp.setPv_kwhd(jsonO.getDouble("value"));
+							temp.setPv_kwhd_id(jsonO.getInt("id"));
 						default:
 							break;
 						}
@@ -77,22 +91,28 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 						String data_name = name.substring(n+1, name.length());
 						switch (data_name) {
 						case "consumption_kwh":
-							this.get(i).setConsumption_kwh(jsonO.getDouble("value"));
+							temp.setConsumption_kwh(jsonO.getDouble("value"));
+							temp.setConsumption_kwh_id(jsonO.getInt("id"));
 							break;
 						case "consumption_power":
-							this.get(i).setConsumption_power(jsonO.getDouble("value"));
+							temp.setConsumption_power(jsonO.getDouble("value"));
+							temp.setConsumption_power_id(jsonO.getInt("id"));
 							break;
 						case "consumption_kwhd":
-							this.get(i).setConsumption_kwhd(jsonO.getDouble("value"));
+							temp.setConsumption_kwhd(jsonO.getDouble("value"));
+							temp.setConsumption_kwhd_id(jsonO.getInt("id"));
 							break;
 						case "pv_kwh":
-							this.get(i).setPv_kwh(jsonO.getDouble("value"));
+							temp.setPv_kwh(jsonO.getDouble("value"));
+							temp.setPv_kwh_id(jsonO.getInt("id"));
 							break;
 						case "pv_power":
-							this.get(i).setPv_power(jsonO.getDouble("value"));
+							temp.setPv_power(jsonO.getDouble("value"));
+							temp.setPv_power_id(jsonO.getInt("id"));
 							break;
 						case "pv_kwhd":
-							this.get(i).setPv_kwhd(jsonO.getDouble("value"));
+							temp.setPv_kwhd(jsonO.getDouble("value"));
+							temp.setPv_kwhd_id(jsonO.getInt("id"));
 						default:
 							break;
 						}
@@ -100,10 +120,6 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 				}
 			}
 		}
-		
-		
-		
 	}
-	
 }
 
