@@ -1,12 +1,13 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
 
 
-public class Nodes extends ArrayList<Node> {
+public class Nodes extends ArrayList<Node> implements Serializable{
 
-	
-	
+	private static final long serialVersionUID = -4612385844126776249L;
+
 	public boolean checkForNode(String tag){
 		boolean isPresent = false;
 		

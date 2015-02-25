@@ -1,13 +1,49 @@
+import java.io.Serializable;
 
-public class Node {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
+
+@Entity
+@Table(name="USER_DATA")
+public class Node implements Serializable{
+
+	private static final long serialVersionUID = -1178957056634479706L;
+
+	@TableGenerator(
+			name="incrementByOne",
+			allocationSize=1,
+			initialValue=0)
+	
+	@Id
+	@Column(name="ID", nullable=false)
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="incrementByOne")
+	private long id;
+	
+	@Column(name="NODE_NAME", nullable=false)
+	String name;
+	
 	double consumption_kwh;
 	double consumption_power;
 	double consumption_kwhd;
 	double pv_power;
 	double pv_kwhd;
 	double pv_kwh;
-	String name;
+	
+	public Node(){}
+	
+	public long getId(){
+		return id;
+	}
+	
+	public void setId(long id){
+		this.id = id;
+	}
 	
 	public String getName() {
 		return name;

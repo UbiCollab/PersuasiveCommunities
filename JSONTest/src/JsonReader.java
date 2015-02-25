@@ -69,7 +69,6 @@ public class JsonReader {
 //				System.out.println(json.toString());
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
