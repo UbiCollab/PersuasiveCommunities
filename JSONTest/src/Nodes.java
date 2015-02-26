@@ -38,6 +38,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 			System.out.println("pv_kwh_id: "+get(i).getPv_kwh_id());
 			System.out.println("pv_power_id: "+get(i).getPv_power_id());
 			System.out.println("pv_kwhd_id: "+get(i).getPv_kwhd_id());
+			System.out.println("time: "+get(i).getTime());
 			System.out.println("__________________________________________");
 		}
 		

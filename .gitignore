@@ -24,3 +24,13 @@ proguard/
 
 # Log Files
 *.log
+
+# Classpath file
+*.classpath
+
+# Project file
+*.project
+
+# metadata and settings folders
+.metadata/
+.settings/
