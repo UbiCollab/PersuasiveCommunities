@@ -16,17 +16,15 @@ public class TestDB {
 	static EntityManager em;
 	
 	public static void main(String[]args){
-		emf = Persistence.createEntityManagerFactory("Users");
-		em = emf.createEntityManager();
-		
 		listAllUsers();
 //		createAUser("Hakon", "Gulbrandsen", "hakongul", "lol123");
 		
-		em.close();
-		emf.close();
 	}
 	
 	public static void listAllUsers(){
+		emf = Persistence.createEntityManagerFactory("Users");
+		em = emf.createEntityManager();
+		
 		Query q = em.createQuery("SELECT u FROM User u");
 		@SuppressWarnings("unchecked")
 		List<User> userList = q.getResultList();
@@ -34,9 +32,13 @@ public class TestDB {
 			System.out.println(user.getUsername());
 		}
 		System.out.println("User list size: "+userList.size());
+		em.close();
+		emf.close();
 	}
 	
 	public static void createAUser(String fName, String lName, String uName, String pw){
+		emf = Persistence.createEntityManagerFactory("Users");
+		em = emf.createEntityManager();
 		EntityTransaction trans = em.getTransaction();
 		
 		trans.begin();
@@ -48,6 +50,7 @@ public class TestDB {
 		
 		em.persist(u);
 		trans.commit();
-		
+		em.close();
+		emf.close();
 	}
 }

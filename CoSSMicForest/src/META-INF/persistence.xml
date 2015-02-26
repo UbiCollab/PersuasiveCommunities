@@ -3,6 +3,7 @@
 	<persistence-unit name="Users" transaction-type="RESOURCE_LOCAL">
 		
 		<class>no.haktho.cossmic.forest.model.User</class>
+		<class>no.haktho.cossmic.forest.model.Node</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
