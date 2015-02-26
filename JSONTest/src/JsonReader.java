@@ -45,9 +45,7 @@ public class JsonReader {
 				
 				json = readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/list.json&apikey=f3e4a2cf68ffda12cacd7d1e5bc44c08");
 				
-				JSONObject jsonFirst = (JSONObject) json.get(0);
-				Node node = new Node(jsonFirst.get("tag").toString());
-				nodes.add(node);
+				Node node;
 				
 				for (int i = 0; i < json.length()-1; i++) {
 					

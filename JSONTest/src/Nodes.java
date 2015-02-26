@@ -14,7 +14,10 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 		if(this.size() == 0) return true;
 		
 		for (int i = 0; i < this.size(); i++) {
-			if(get(i).getName().equals(tag)) isPresent = true;
+			if(get(i).getName().equals(tag)){ 
+				isPresent = true;
+				break;
+			}
 			
 		}
 		if(isPresent) return false;
@@ -38,7 +41,12 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 			System.out.println("pv_kwh_id: "+get(i).getPv_kwh_id());
 			System.out.println("pv_power_id: "+get(i).getPv_power_id());
 			System.out.println("pv_kwhd_id: "+get(i).getPv_kwhd_id());
-			System.out.println("time: "+get(i).getTime());
+			System.out.println("consumption_kwh_time: "+get(i).getConsumption_kwh_time());
+			System.out.println("consumption_power_time: "+get(i).getConsumption_power_time());
+			System.out.println("consumption_kwhd_time: "+get(i).getConsumption_kwhd_time());
+			System.out.println("pv_kwh_time: "+get(i).getPv_kwh_time());
+			System.out.println("pv_power_time: "+get(i).getPv_power_time());
+			System.out.println("pv_kwhd_time: "+get(i).getPv_kwhd_time());
 			System.out.println("__________________________________________");
 		}
 		
@@ -51,7 +59,6 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 		int n = name.indexOf('_');
 		for (int i = 0; i < this.size(); i++) {
 			Node temp = this.get(i);
-			temp.setTime(jsonO.getLong("time"));
 		
 			String subStr = jsonO.get("name").toString().substring(0, n);
 			
@@ -64,26 +71,62 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 						case "consumption_kwh":
 							temp.setConsumption_kwh(jsonO.getDouble("value"));
 							temp.setConsumption_kwh_id(jsonO.getInt("id"));
+							try{
+								temp.setConsumption_kwh_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setConsumption_kwh_time(0);
+							}
 							break;
 						case "consumption_power":
 							temp.setConsumption_power(jsonO.getDouble("value"));
 							temp.setConsumption_power_id(jsonO.getInt("id"));
+							try{
+								temp.setConsumption_power_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setConsumption_power_time(0);
+							}
 							break;
 						case "consumption_kwhd":
 							temp.setConsumption_kwhd(jsonO.getDouble("value"));
 							temp.setConsumption_kwhd_id(jsonO.getInt("id"));
+							try{
+								temp.setConsumption_kwhd_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setConsumption_kwhd_time(0);
+							}
 							break;
 						case "pv_kwh":
 							temp.setPv_kwh(jsonO.getDouble("value"));
 							temp.setPv_kwh_id(jsonO.getInt("id"));
+							try{
+								temp.setPv_kwh_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setPv_kwh_time(0);
+							}
 							break;
 						case "pv_power":
 							temp.setPv_power(jsonO.getDouble("value"));
 							temp.setPv_power_id(jsonO.getInt("id"));
+							try{
+								temp.setPv_power_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setPv_power_time(0);
+							}
 							break;
 						case "pv_kwhd":
 							temp.setPv_kwhd(jsonO.getDouble("value"));
 							temp.setPv_kwhd_id(jsonO.getInt("id"));
+							try{
+								temp.setPv_kwhd_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setPv_kwhd_time(0);
+							}
 						default:
 							break;
 						}
@@ -96,26 +139,62 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 						case "consumption_kwh":
 							temp.setConsumption_kwh(jsonO.getDouble("value"));
 							temp.setConsumption_kwh_id(jsonO.getInt("id"));
+							try{
+								temp.setConsumption_kwh_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setConsumption_kwh_time(0);
+							}
 							break;
 						case "consumption_power":
 							temp.setConsumption_power(jsonO.getDouble("value"));
 							temp.setConsumption_power_id(jsonO.getInt("id"));
+							try{
+								temp.setConsumption_power_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setConsumption_power_time(0);
+							}
 							break;
 						case "consumption_kwhd":
 							temp.setConsumption_kwhd(jsonO.getDouble("value"));
 							temp.setConsumption_kwhd_id(jsonO.getInt("id"));
+							try{
+								temp.setConsumption_kwhd_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setConsumption_kwhd_time(0);
+							}
 							break;
 						case "pv_kwh":
 							temp.setPv_kwh(jsonO.getDouble("value"));
 							temp.setPv_kwh_id(jsonO.getInt("id"));
+							try{
+								temp.setPv_kwh_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setPv_kwh_time(0);
+							}
 							break;
 						case "pv_power":
 							temp.setPv_power(jsonO.getDouble("value"));
 							temp.setPv_power_id(jsonO.getInt("id"));
+							try{
+								temp.setPv_power_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setPv_power_time(0);
+							}
 							break;
 						case "pv_kwhd":
 							temp.setPv_kwhd(jsonO.getDouble("value"));
 							temp.setPv_kwhd_id(jsonO.getInt("id"));
+							try{
+								temp.setPv_kwhd_time(jsonO.getLong("time"));
+							}
+							catch(Exception E){
+								temp.setPv_kwhd_time(0);
+							}
 						default:
 							break;
 						}
