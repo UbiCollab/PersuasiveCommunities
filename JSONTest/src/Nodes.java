@@ -11,13 +11,15 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 	public boolean isUniqueNode(String tag){
 		boolean isPresent = false;
 		
+		if(this.size() == 0) return true;
+		
 		for (int i = 0; i < this.size(); i++) {
 			if(get(i).getName().equals(tag)) isPresent = true;
 			
 		}
-		if(isPresent) return true;
+		if(isPresent) return false;
 		
-		return false;
+		return true;
 	}
 	
 	public void printNames(){
