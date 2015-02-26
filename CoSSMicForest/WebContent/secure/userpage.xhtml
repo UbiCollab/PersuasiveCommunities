@@ -8,8 +8,9 @@
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content" rendered="#{loginBean.loggedIn}">
-	    Here will be some user info. <br />
-	    <h:link value="Back to startpage" outcome="welcome" />
+	    <p>Here will be some user info. <br />
+	    <h:link value="Back to startpage" outcome="welcome" /></p>
+	    
 	</ui:define>
 </ui:composition>
 </html>
