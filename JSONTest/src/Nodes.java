@@ -8,7 +8,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 
 	private static final long serialVersionUID = -4612385844126776249L;
 
-	public boolean checkForNode(String tag){
+	public boolean isUniqueNode(String tag){
 		boolean isPresent = false;
 		
 		for (int i = 0; i < this.size(); i++) {

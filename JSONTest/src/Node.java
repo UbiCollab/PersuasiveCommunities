@@ -31,6 +31,8 @@ public class Node implements Serializable{
 	@Column(name="NODE_NAME", nullable=false)
 	String name;
 	
+	boolean isTotal;
+	
 	double consumption_kwh;
 	double consumption_power;
 	double consumption_kwhd;
@@ -172,6 +174,16 @@ public class Node implements Serializable{
 
 	public void setTime(long time) {
 		this.time = time;
+	}
+	
+	
+	
+	public boolean isTotal() {
+		return isTotal;
+	}
+
+	public void setTotal(boolean isTotal) {
+		this.isTotal = isTotal;
 	}
 
 	@PrePersist
