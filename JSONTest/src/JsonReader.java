@@ -49,17 +49,34 @@ public class JsonReader {
 				Node node = new Node(jsonFirst.get("tag").toString());
 				nodes.add(node);
 				
-				for (int i = 0; i < json.length(); i++) {
-					JSONObject jsonO = (JSONObject) json.get(i);
-					String name = jsonO.get("tag").toString();
+				for (int i = 0; i < json.length()-1; i++) {
 					
-		
-					if(name.length() > 0 && !nodes.checkForNode(name)){
-						node = new Node(name);
-						nodes.add(node);	
+					JSONObject jsonO = (JSONObject) json.get(i);
+					String name = jsonO.get("name").toString();
+					
+					int n;
+					n = name.indexOf('_');
+					char c = name.charAt(0);
+
+					if(n >=0 && n < 3 && Character.isDigit(c)){
+						name = name.substring(0,n);
 					}
 					
-					if(name.length() > 0) nodes.setValuesForNodes(jsonO);
+					if(c == 'c' || c == 'p'){
+						name = "0";
+					}
+			
+					name = "Node:"+name;
+					
+					if(name != "Power" && nodes.isUniqueNode(name)){
+						
+						if(!name.equals("Node:0") && !name.equals("Node:3") && !name.equals("Node:4")){
+							node = new Node(name);
+							nodes.add(node);
+						}
+					}
+					
+					nodes.setValuesForNodes(jsonO);
 				}
 				
 				for (int i = 0; i < json.length(); i++) {

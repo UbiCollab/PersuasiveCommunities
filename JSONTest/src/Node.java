@@ -30,7 +30,7 @@ public class Node implements Serializable{
 	
 	@Column(name="NODE_NAME", nullable=false)
 	String name;
-	
+		
 	double consumption_kwh;
 	double consumption_power;
 	double consumption_kwhd;
