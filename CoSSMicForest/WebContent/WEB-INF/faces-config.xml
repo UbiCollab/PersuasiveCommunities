@@ -14,5 +14,10 @@
 		<managed-bean-class>no.haktho.cossmic.forest.session.NavigationBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userDataBean</managed-bean-name>
+		<managed-bean-class>no.haktho.cossmic.forest.session.UserDataBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

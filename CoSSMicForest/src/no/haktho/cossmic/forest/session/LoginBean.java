@@ -75,6 +75,10 @@ public class LoginBean implements Serializable{
 		catch(Exception e){
 				return null;
 		}
+		
+		em.close();
+		emf.close();
+		
 		FacesMessage msg = new FacesMessage("Login failed", "ERROR MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -84,6 +88,7 @@ public class LoginBean implements Serializable{
 	
 	public String invalidateUser(){
 		setLoggedIn(false);
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		
 		FacesMessage msg = new FacesMessage("Logout successful", "ERROR MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);

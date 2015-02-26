@@ -7,10 +7,26 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
-	<ui:define name="content" rendered="#{loginBean.loggedIn}">
+	<ui:define name="content">
 	    <p>Here will be some user info. <br />
 	    <h:link value="Back to startpage" outcome="welcome" /></p>
-	    
+	    <h:form rendered="#{userdata.notPopulated}">
+	    	<h:outputText value="Click the button to load the data" /><br />
+	    	<h:commandButton value="Get!" action="#{userdata.getData}" />
+	    	<br />
+		    <h:messages />
+		    <br />
+	    </h:form>
+	    <h:form rendered="#{userdata.populated}">
+		    <h:outputText value="Consumption kwh: " />
+		    <h:outputLabel value="#{userdata.node.consumption_kwh}"/>
+		    <br />
+		    <h:outputText value="Consumption power: " />
+		    <h:outputLabel value="#{userdata.node.consumption_power}"/>
+		    <br />
+		    <h:messages />
+		    <br />
+	    </h:form>
 	</ui:define>
 </ui:composition>
 </html>

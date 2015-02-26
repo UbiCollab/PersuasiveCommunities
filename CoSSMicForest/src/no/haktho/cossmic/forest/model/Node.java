@@ -45,7 +45,12 @@ public class Node implements Serializable{
 	int pv_power_id;
 	int pv_kwhd_id;
 	int pv_kwh_id;
-	long time;
+	long consumption_kwh_time;
+	long consumption_power_time;
+	long consumption_kwhd_time;
+	long pv_power_time;
+	long pv_kwhd_time;
+	long pv_kwh_time;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
@@ -168,12 +173,52 @@ public class Node implements Serializable{
 		this.pv_kwh_id = pv_kwh_id;
 	}
 	
-	public long getTime() {
-		return time;
+	public long getConsumption_kwh_time() {
+		return consumption_kwh_time;
 	}
 
-	public void setTime(long time) {
-		this.time = time;
+	public void setConsumption_kwh_time(long consumption_kwh_time) {
+		this.consumption_kwh_time = consumption_kwh_time;
+	}
+
+	public long getConsumption_power_time() {
+		return consumption_power_time;
+	}
+
+	public void setConsumption_power_time(long consumption_power_time) {
+		this.consumption_power_time = consumption_power_time;
+	}
+
+	public long getConsumption_kwhd_time() {
+		return consumption_kwhd_time;
+	}
+
+	public void setConsumption_kwhd_time(long consumption_kwhd_time) {
+		this.consumption_kwhd_time = consumption_kwhd_time;
+	}
+
+	public long getPv_power_time() {
+		return pv_power_time;
+	}
+
+	public void setPv_power_time(long pv_power_time) {
+		this.pv_power_time = pv_power_time;
+	}
+
+	public long getPv_kwhd_time() {
+		return pv_kwhd_time;
+	}
+
+	public void setPv_kwhd_time(long pv_kwhd_time) {
+		this.pv_kwhd_time = pv_kwhd_time;
+	}
+
+	public long getPv_kwh_time() {
+		return pv_kwh_time;
+	}
+
+	public void setPv_kwh_time(long pv_kwh_time) {
+		this.pv_kwh_time = pv_kwh_time;
 	}
 
 	@PrePersist
