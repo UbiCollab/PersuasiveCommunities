@@ -52,14 +52,13 @@ public class NodeCreator {
 			
 			nodes.setValuesForNodes(jsonO);
 		}
+		NodeHistoryFetcher nhf;
+		nhf = new NodeHistoryFetcher(nodes);
 		
-		for (int i = 0; i < json.length(); i++) {
-			
-			
-			
-		}
+		nhf.retrieveHistoryForNode(); //fetching the history
 		
-//			System.out.println(nodes.size());
+		
+			System.out.println(nodes.size());
 		nodes.printNames();
 		
 		//Persist nodes to database

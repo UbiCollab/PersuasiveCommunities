@@ -64,7 +64,8 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 		for (int i = 0; i < this.size(); i++) {
 			Node temp = this.get(i);
 			NodeID nid = temp.getNodeID();
-		
+			
+			
 			String subStr = jsonO.get("name").toString().substring(0, n);
 			
 			if(jsonO.get("tag").toString().equals(get(i).getName())){
