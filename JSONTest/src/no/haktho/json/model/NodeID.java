@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class NodeID implements Serializable{
 
 	private static final long serialVersionUID = 6739918989686032682L;
-
+	
 	@Id
 	@Column(name="NODE_NAME", nullable=false, unique=true)
 	String name;
@@ -23,6 +23,14 @@ public class NodeID implements Serializable{
 	int pv_kwhd_id;
 	int pv_kwh_id;
 	
+	public NodeID(){
+		
+	}
+	
+	public NodeID(String name2) {
+		this.name = name2;
+	}
+
 	public int getConsumption_kwh_id() {
 		return consumption_kwh_id;
 	}

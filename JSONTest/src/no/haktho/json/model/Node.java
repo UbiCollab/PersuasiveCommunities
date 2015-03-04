@@ -2,11 +2,14 @@ package no.haktho.json.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.PrePersist;
@@ -18,6 +21,7 @@ import javax.persistence.TemporalType;
 public class Node implements Serializable{
 
 	private static final long serialVersionUID = -1178957056634479706L;
+	
 
 	@TableGenerator(
 			name="incrementByOne",
@@ -38,23 +42,34 @@ public class Node implements Serializable{
 	double pv_power;
 	double pv_kwhd;
 	double pv_kwh;
-	int consumption_kwh_id;
-	int consumption_power_id;
-	int consumption_kwhd_id;
-	int pv_power_id;
-	int pv_kwhd_id;
-	int pv_kwh_id;
+//	int consumption_kwh_id;
+//	int consumption_power_id;
+//	int consumption_kwhd_id;
+//	int pv_power_id;
+//	int pv_kwhd_id;
+//	int pv_kwh_id;
 	long consumption_kwh_time;
 	long consumption_power_time;
 	long consumption_kwhd_time;
 	long pv_power_time;
 	long pv_kwhd_time;
 	long pv_kwh_time;
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn(name="NODE_NAME")
+	NodeID nodeid;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 	
 	public Node(){}
+	
+	public void setNodeID(NodeID nid){
+		this.nodeid = nid;
+	}
+	
+	public NodeID getNodeID(){
+		return nodeid;
+	}
 	
 	public long getId(){
 		return id;
@@ -124,53 +139,53 @@ public class Node implements Serializable{
 		return pv_kwh;
 	}
 
-	public int getConsumption_kwh_id() {
-		return consumption_kwh_id;
-	}
-
-	public void setConsumption_kwh_id(int consumption_kwh_id) {
-		this.consumption_kwh_id = consumption_kwh_id;
-	}
-
-	public int getConsumption_power_id() {
-		return consumption_power_id;
-	}
-
-	public void setConsumption_power_id(int consumption_power_id) {
-		this.consumption_power_id = consumption_power_id;
-	}
-
-	public int getConsumption_kwhd_id() {
-		return consumption_kwhd_id;
-	}
-
-	public void setConsumption_kwhd_id(int consumption_kwhd_id) {
-		this.consumption_kwhd_id = consumption_kwhd_id;
-	}
-
-	public int getPv_power_id() {
-		return pv_power_id;
-	}
-
-	public void setPv_power_id(int pv_power_id) {
-		this.pv_power_id = pv_power_id;
-	}
-
-	public int getPv_kwhd_id() {
-		return pv_kwhd_id;
-	}
-
-	public void setPv_kwhd_id(int pv_kwhd_id) {
-		this.pv_kwhd_id = pv_kwhd_id;
-	}
-
-	public int getPv_kwh_id() {
-		return pv_kwh_id;
-	}
-
-	public void setPv_kwh_id(int pv_kwh_id) {
-		this.pv_kwh_id = pv_kwh_id;
-	}
+//	public int getConsumption_kwh_id() {
+//		return consumption_kwh_id;
+//	}
+//
+//	public void setConsumption_kwh_id(int consumption_kwh_id) {
+//		this.consumption_kwh_id = consumption_kwh_id;
+//	}
+//
+//	public int getConsumption_power_id() {
+//		return consumption_power_id;
+//	}
+//
+//	public void setConsumption_power_id(int consumption_power_id) {
+//		this.consumption_power_id = consumption_power_id;
+//	}
+//
+//	public int getConsumption_kwhd_id() {
+//		return consumption_kwhd_id;
+//	}
+//
+//	public void setConsumption_kwhd_id(int consumption_kwhd_id) {
+//		this.consumption_kwhd_id = consumption_kwhd_id;
+//	}
+//
+//	public int getPv_power_id() {
+//		return pv_power_id;
+//	}
+//
+//	public void setPv_power_id(int pv_power_id) {
+//		this.pv_power_id = pv_power_id;
+//	}
+//
+//	public int getPv_kwhd_id() {
+//		return pv_kwhd_id;
+//	}
+//
+//	public void setPv_kwhd_id(int pv_kwhd_id) {
+//		this.pv_kwhd_id = pv_kwhd_id;
+//	}
+//
+//	public int getPv_kwh_id() {
+//		return pv_kwh_id;
+//	}
+//
+//	public void setPv_kwh_id(int pv_kwh_id) {
+//		this.pv_kwh_id = pv_kwh_id;
+//	}
 	
 	public long getConsumption_kwh_time() {
 		return consumption_kwh_time;

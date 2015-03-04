@@ -5,6 +5,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import no.haktho.json.model.Node;
+import no.haktho.json.model.NodeID;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ public class NodeCreator {
 		
 		Nodes nodes = new Nodes();
 		Node node;
+		NodeID nodeid;
 		
 		for (int i = 0; i < json.length()-1; i++) {
 			
@@ -42,6 +44,8 @@ public class NodeCreator {
 				
 				if(!name.equals("Node:0") && !name.equals("Node:3") && !name.equals("Node:4")){
 					node = new Node(name);
+					nodeid = new NodeID(name);
+					node.setNodeID(nodeid);
 					nodes.add(node);
 				}
 			}

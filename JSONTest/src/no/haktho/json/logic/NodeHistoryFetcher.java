@@ -13,12 +13,12 @@ public class NodeHistoryFetcher {
 	
 	public NodeHistoryFetcher(Node node) {
 	
-		idArray[0] = node.getConsumption_kwh_id();
-		idArray[1] = node.getConsumption_power_id();
-		idArray[2] = node.getConsumption_kwhd_id();
-		idArray[3] = node.getPv_kwh_id();
-		idArray[4] = node.getPv_power_id();
-		idArray[5] = node.getPv_kwhd_id();
+//		idArray[0] = node.getConsumption_kwh_id();
+//		idArray[1] = node.getConsumption_power_id();
+//		idArray[2] = node.getConsumption_kwhd_id();
+//		idArray[3] = node.getPv_kwh_id();
+//		idArray[4] = node.getPv_power_id();
+//		idArray[5] = node.getPv_kwhd_id();
 	}
 	
 	public void retrieveHistoryForNode(){
