@@ -1,5 +1,8 @@
+package no.haktho.json.logic;
 import java.io.IOException;
 import java.util.Calendar;
+
+import no.haktho.json.model.Node;
 
 import org.json.JSONArray;
 
@@ -12,7 +15,7 @@ public class NodeHistoryFetcher {
 	
 		idArray[0] = node.getConsumption_kwh_id();
 		idArray[1] = node.getConsumption_power_id();
-		idArray[2] = node.consumption_kwhd_id;
+		idArray[2] = node.getConsumption_kwhd_id();
 		idArray[3] = node.getPv_kwh_id();
 		idArray[4] = node.getPv_power_id();
 		idArray[5] = node.getPv_kwhd_id();

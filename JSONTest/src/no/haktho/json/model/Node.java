@@ -1,3 +1,4 @@
+package no.haktho.json.model;
 import java.io.Serializable;
 import java.util.Date;
 

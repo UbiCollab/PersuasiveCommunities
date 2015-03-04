@@ -1,5 +1,8 @@
+package no.haktho.json.logic;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import no.haktho.json.model.Node;
 
 import org.json.JSONObject;
 

@@ -1,3 +1,4 @@
+package no.haktho.json.logic;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.*;
