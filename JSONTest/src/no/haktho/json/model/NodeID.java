@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +14,7 @@ public class NodeID implements Serializable{
 	private static final long serialVersionUID = 6739918989686032682L;
 	
 	@Id
+	@OneToMany
 	@Column(name="NODE_NAME", nullable=false, unique=true)
 	String name;
 	

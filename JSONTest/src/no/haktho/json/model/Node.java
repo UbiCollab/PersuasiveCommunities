@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -54,7 +55,8 @@ public class Node implements Serializable{
 	long pv_power_time;
 	long pv_kwhd_time;
 	long pv_kwh_time;
-	@OneToOne(cascade=CascadeType.ALL)
+	
+	@ManyToOne(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn(name="NODE_NAME")
 	NodeID nodeid;
 	
@@ -62,6 +64,24 @@ public class Node implements Serializable{
 	private Date timestamp;
 	
 	public Node(){}
+	
+	public Node(String name){
+		this.name = name;
+		
+		this.consumption_kwh = 0;
+		this.consumption_power= 0;
+		this.consumption_kwhd = 0;
+		this.pv_power= 0;
+		this.pv_kwhd = 0;
+		this.pv_kwh= 0;
+		this.consumption_kwh_time= 0;
+		this.consumption_power_time = 0;
+		this.consumption_kwhd_time= 0;
+		this.pv_power_time= 0;
+		this.pv_kwhd_time = 0;
+		this.pv_kwh_time = 0;
+		this.nodeid = null;
+	}
 	
 	public void setNodeID(NodeID nid){
 		this.nodeid = nid;
@@ -109,10 +129,6 @@ public class Node implements Serializable{
 
 	public void setPv_kwh(double pv_kwh) {
 		this.pv_kwh = pv_kwh;
-	}
-
-	public Node(String name) {
-		this.name = name;
 	}
 
 	public double getConsumption_kwh() {
