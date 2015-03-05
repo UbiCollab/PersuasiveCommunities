@@ -19,20 +19,47 @@ public class NodeHistoryFetcher {
 	
 	public void writeHistoryToDB(Node node, ArrayList<JSONArray> jsonList, int[] idArray){
 		
+		Node tempNode;
+		
 		long smallestTime = 0;
 		int fID = 0;
+		int amountOfObjects = 0;
+		
+		//Find out which feed is the longest (AKA, how long we have to keep iterating)
 		for (int i = 0; i < jsonList.size(); i++) {
+			amountOfObjects += jsonList.get(i).length();
+		}
+				
+		//Find the smallest timestamp amongst the first entry in the feeds
+		for (int i = 0; i < jsonList.size(); i++) {
+			long temp = jsonList.get(i).getLong(0);
 			
-			JSONArray json = jsonList.get(i).getJSONArray(i);
-			
-			
-			if(smallestTime <= json.getLong(0)){
-				smallestTime = json.getLong(0);
+			if(smallestTime <= temp){
+				smallestTime = temp;
 				fID = idArray[i];
 			}
-			
 		}
 		
+		//Once we have the smallest timestamp, start creating a Node object with the values from this exact timestamp
+		while(amountOfObjects != 0){
+			tempNode = new Node();
+			switch (fID) {
+			case 0:
+				tempNode.setConsumption_kwh(jsonList.get(fID).getDouble(1));
+				jsonList.get(fID).remove(0);
+				for (int i = 0; i < 6; i++) {
+					if(i == fID) break;
+					if(jsonList.get(i).getLong(0) == smallestTime && i == 1){
+							
+						}
+					}
+				}
+				break;
+	
+			default:
+				break;
+			}
+		}
 		
 		
 		System.out.println("Smallest time: "+smallestTime);
@@ -63,7 +90,7 @@ public class NodeHistoryFetcher {
 						long start = Calendar.getInstance().getTimeInMillis();
 						long end = 1425477323137L;
 						
-						json = jReader.readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id="+idArray[j]+"&start=1420074061000&end="+end+"&dp=400&"+APIKey);
+						json = jReader.readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id="+idArray[j]+"&start=1420074061000&end="+end+"&dp=40&"+APIKey);
 						jsonList.add(json);
 						//writing each feeds entries to the database on the specific node.
 						
