@@ -27,7 +27,6 @@ public class NodeHistoryFetcher {
 		
 		
 		long smallestTime = 0;
-		int fID = 0;
 		int amountOfObjects = 3;
 		ArrayList<Integer> timestamps = new ArrayList<Integer>();
 		
@@ -219,7 +218,6 @@ public class NodeHistoryFetcher {
 						
 						System.out.println();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 					}
 				}
 			}
