@@ -18,7 +18,8 @@ public class TestDB {
 	public static void main(String[]args){
 		listAllUsers();
 //		createAUser("Hakon", "Gulbrandsen", "hakongul", "lol123");
-		
+//		createAUser("Lollert", "Lollertsen", "lollerts", "lol123");
+//		createAUser("Thomas", "Franang", "thomfra", "lol123");
 	}
 	
 	public static void listAllUsers(){
