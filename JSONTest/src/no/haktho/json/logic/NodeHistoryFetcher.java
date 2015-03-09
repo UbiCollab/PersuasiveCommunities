@@ -7,8 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import no.haktho.json.model.Node;
+import no.haktho.json.model.NodeID;
 
 import org.json.JSONArray;
 
@@ -50,7 +52,6 @@ public class NodeHistoryFetcher {
 		//Once we have the smallest timestamp, start creating a Node object with the values from this exact timestamp
 		while(amountOfObjects > -1){
 			Node tempNode = new Node(node.getName());
-			tempNode.setNodeID(node.getNodeID());
 			System.out.println();
 			
 			for (int i = 0; i < jsonList.size(); i++) {
@@ -189,12 +190,24 @@ public class NodeHistoryFetcher {
 		for (int i = 0; i < 1; i++) { //nodes.size()
 			ArrayList<JSONArray> jsonList = new ArrayList<JSONArray>();
 			
-			idArray[0] = nodes.get(i).getNodeID().getConsumption_kwh_id();
-			idArray[1] = nodes.get(i).getNodeID().getConsumption_power_id();
-			idArray[2] = nodes.get(i).getNodeID().getConsumption_kwhd_id();
-			idArray[3] = nodes.get(i).getNodeID().getPv_kwh_id();
-			idArray[4] = nodes.get(i).getNodeID().getPv_power_id();
-			idArray[5] = nodes.get(i).getNodeID().getPv_kwhd_id();
+			String name = nodes.get(i).getName();
+			
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("USER_DATA");
+			EntityManager em = emf.createEntityManager();
+			
+			Query q = em.createQuery("SELECT nid FROM NodeID nid WHERE nid.name = :n");
+			q.setParameter("n", name);
+			NodeID nid = (NodeID)q.getSingleResult();
+			
+			em.close();
+			emf.close();
+			
+			idArray[0] = nid.getConsumption_kwh_id();
+			idArray[1] = nid.getConsumption_power_id();
+			idArray[2] = nid.getConsumption_kwhd_id();
+			idArray[3] = nid.getPv_kwh_id();
+			idArray[4] = nid.getPv_power_id();
+			idArray[5] = nid.getPv_kwhd_id();
 			
 			System.out.println(nodes.get(i).getName());
 			System.out.println("----------------------------------------------------------------------");

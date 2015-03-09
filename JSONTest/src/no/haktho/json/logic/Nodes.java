@@ -1,6 +1,13 @@
 package no.haktho.json.logic;
+import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import no.haktho.json.model.Node;
 import no.haktho.json.model.NodeID;
@@ -11,6 +18,8 @@ import org.json.JSONObject;
 public class Nodes extends ArrayList<Node> implements Serializable{
 
 	private static final long serialVersionUID = -4612385844126776249L;
+	
+	ArrayList<NodeID> nids = new ArrayList<NodeID>(); 
 
 	public boolean isUniqueNode(String tag){
 		boolean isPresent = false;
@@ -39,12 +48,6 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 			System.out.println("pv_kwh: "+get(i).getPv_kwh());
 			System.out.println("pv_power: "+get(i).getPv_power());
 			System.out.println("pv_kwhd: "+get(i).getPv_kwhd());
-			System.out.println("consumption_kwh_id: "+get(i).getNodeID().getConsumption_kwh_id());
-			System.out.println("consumption_power_id: "+get(i).getNodeID().getConsumption_power_id());
-			System.out.println("consumption_kwhd_id: "+get(i).getNodeID().getConsumption_kwhd_id());
-			System.out.println("pv_kwh_id: "+get(i).getNodeID().getPv_kwh_id());
-			System.out.println("pv_power_id: "+get(i).getNodeID().getPv_power_id());
-			System.out.println("pv_kwhd_id: "+get(i).getNodeID().getPv_kwhd_id());
 			System.out.println("consumption_kwh_time: "+get(i).getConsumption_kwh_time());
 			System.out.println("consumption_power_time: "+get(i).getConsumption_power_time());
 			System.out.println("consumption_kwhd_time: "+get(i).getConsumption_kwhd_time());
@@ -60,11 +63,11 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 	public void setValuesForNodes(JSONObject jsonO){
 		String name = jsonO.get("name").toString();
 		
+		
 		int n = name.indexOf('_');
 		for (int i = 0; i < this.size(); i++) {
 			Node temp = this.get(i);
-			NodeID nid = temp.getNodeID();
-			
+			NodeID nid = new NodeID(jsonO.get("tag").toString());
 			
 			String subStr = jsonO.get("name").toString().substring(0, n);
 			
@@ -143,8 +146,11 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 						String data_name = name.substring(n+1, name.length());
 						switch (data_name) {
 						case "consumption_kwh":
+							System.out.println("********** Consumption kwh stage **********");
 							temp.setConsumption_kwh(jsonO.getDouble("value"));
+							System.out.println("Node consumption kwh value: "+temp.getConsumption_kwh());
 							nid.setConsumption_kwh_id(jsonO.getInt("id"));
+							System.out.println("NodeID consumption kwh id value: "+nid.getConsumption_kwh_id());
 							try{
 								temp.setConsumption_kwh_time(jsonO.getLong("time"));
 							}
@@ -153,6 +159,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							}
 							break;
 						case "consumption_power":
+							System.out.println("********** Consumption power stage **********");
 							temp.setConsumption_power(jsonO.getDouble("value"));
 							nid.setConsumption_power_id(jsonO.getInt("id"));
 							try{
@@ -208,6 +215,36 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 				}
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setNodeIDs (){
+		List<NodeID> existingIDs = null;
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("USER_DATA");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		
+		try{
+			Query q = em.createQuery("SELECT nid FROM NodeID nid");
+			existingIDs = q.getResultList();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		for (int i = 0; i < nids.size(); i++) {
+			for (int j = 0; j < existingIDs.size(); j++) {
+				if(!nids.get(i).getName().equals(existingIDs.get(j).getName())){
+					et.begin();
+					em.persist(nids.get(i));
+					et.commit();
+				}
+			}
+		}
+		
+		em.close();
+		emf.close();
 	}
 }
 

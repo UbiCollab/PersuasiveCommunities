@@ -2,14 +2,11 @@ package no.haktho.json.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.PrePersist;
@@ -42,22 +39,12 @@ public class Node implements Serializable{
 	double pv_power;
 	double pv_kwhd;
 	double pv_kwh;
-//	int consumption_kwh_id;
-//	int consumption_power_id;
-//	int consumption_kwhd_id;
-//	int pv_power_id;
-//	int pv_kwhd_id;
-//	int pv_kwh_id;
 	long consumption_kwh_time;
 	long consumption_power_time;
 	long consumption_kwhd_time;
 	long pv_power_time;
 	long pv_kwhd_time;
 	long pv_kwh_time;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn(name="NODE_NAME")
-	NodeID nodeid;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
@@ -79,15 +66,6 @@ public class Node implements Serializable{
 		this.pv_power_time= 0;
 		this.pv_kwhd_time = 0;
 		this.pv_kwh_time = 0;
-		this.nodeid = null;
-	}
-	
-	public void setNodeID(NodeID nid){
-		this.nodeid = nid;
-	}
-	
-	public NodeID getNodeID(){
-		return nodeid;
 	}
 	
 	public long getId(){

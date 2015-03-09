@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,7 +13,6 @@ public class NodeID implements Serializable{
 	private static final long serialVersionUID = 6739918989686032682L;
 	
 	@Id
-	@OneToMany
 	@Column(name="NODE_NAME", nullable=false, unique=true)
 	String name;
 	
@@ -31,6 +29,10 @@ public class NodeID implements Serializable{
 	
 	public NodeID(String name2) {
 		this.name = name2;
+	}
+	
+	public String getName(){
+		return name;
 	}
 
 	public int getConsumption_kwh_id() {
