@@ -31,6 +31,12 @@ public class NodeID implements Serializable{
 		this.name = name2;
 	}
 	
+	public String toString(){
+		System.out.println();
+		return "NodeID name: "+getName()+"\nc_kwh: "+getConsumption_kwh_id()+"\nc_pow: "+getConsumption_power_id()+"\nc_kwhd: "+getConsumption_kwhd_id()+
+				"\npv_kwh: "+getPv_kwh_id()+"\npv_pow: "+getPv_power_id()+"\npv_kwhd: "+getPv_kwhd_id();
+	}
+	
 	public String getName(){
 		return name;
 	}

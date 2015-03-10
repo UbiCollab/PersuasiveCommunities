@@ -1,5 +1,4 @@
 package no.haktho.json.logic;
-import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,8 +46,25 @@ public class NodeCreator {
 				if(!name.equals("Node:0") && !name.equals("Node:3") && !name.equals("Node:4")){
 					node = new Node(name);
 					nodes.add(node);
+					
+					//create a new NodeID object
 					nid = new NodeID(name);
-					nodes.nids.add(nid);
+					
+					//If the nids arraylist is empty, just add the object
+					if(nodes.nids.isEmpty()){
+						nodes.nids.add(nid);
+					}
+					//Else if the arraylist is not empty, check to see if there is already a NodeID object in the list with the same name
+					else{
+						//Assuming that the object does not already exist
+						boolean alreadyExists = false;
+						//Going through the arraylist and if one object is found with the same name, set the boolean to true
+						for (int j = 0; j < nodes.nids.size(); j++) {
+							if(nodes.nids.get(j).getName().equals(nid.getName())) alreadyExists = true;
+						}
+						//After the for loop, it should be safe to add the object if the alreadyExists boolean is still false
+						if(!alreadyExists) nodes.nids.add(nid);
+					}
 				}
 			}
 			

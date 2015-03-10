@@ -14,22 +14,18 @@ import no.haktho.json.model.NodeID;
 
 import org.json.JSONArray;
 
-
 public class NodeHistoryFetcher {
 	
 	int[] idArray = new int[6];
 	Nodes nodes;
 	public NodeHistoryFetcher(Nodes nodes) {
 		this.nodes = nodes;
-		
 	}
 	
 	public void writeHistoryToDB(Node node, ArrayList<JSONArray> jsonList, int[] idArray){
 		
-		
-		
 		long smallestTime = 0;
-		int amountOfObjects = 3;
+		int amountOfObjects = jsonList.size();
 		ArrayList<Integer> timestamps = new ArrayList<Integer>();
 		
 		//Find out which feed is the longest (AKA, how long we have to keep iterating)
@@ -46,8 +42,6 @@ public class NodeHistoryFetcher {
 				smallestTime = temp;
 			}
 		}
-
-
 		
 		//Once we have the smallest timestamp, start creating a Node object with the values from this exact timestamp
 		while(amountOfObjects > -1){
@@ -62,15 +56,11 @@ public class NodeHistoryFetcher {
 					
 					if(smallestTime == temp){
 						timestamps.add(idArray[i]);
-						
 					}
 				}
 			}
 			
-			
 			for (int i = 0; i < timestamps.size(); i++) {
-				
-				
 				System.out.println("In timestamps: "+timestamps.get(i));
 			}
 			
@@ -82,7 +72,6 @@ public class NodeHistoryFetcher {
 					if(timestamps.get(i) == idArray[j]){
 						timestamps.set(i, j);
 					}
-					
 				}
 			}
 			
@@ -150,9 +139,7 @@ public class NodeHistoryFetcher {
 						smallestTime = temp;
 					}
 				}
-				
 			}
-			
 			
 			System.out.println("Objects: "+amountOfObjects);
 			System.out.println("Name: "+tempNode.getName());
@@ -180,8 +167,6 @@ public class NodeHistoryFetcher {
 			em.close();
 			emf.close();
 		}
-				
-	
 	}
 	
 	public void retrieveHistoryForNode(){

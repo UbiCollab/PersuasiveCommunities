@@ -63,15 +63,17 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 	public void setValuesForNodes(JSONObject jsonO){
 		String name = jsonO.get("name").toString();
 		
-		
 		int n = name.indexOf('_');
 		for (int i = 0; i < this.size(); i++) {
 			Node temp = this.get(i);
-			NodeID nid = new NodeID(jsonO.get("tag").toString());
+			NodeID nid = null;
 			
 			String subStr = jsonO.get("name").toString().substring(0, n);
 			
 			if(jsonO.get("tag").toString().equals(get(i).getName())){
+				for (int j = 0; j < nids.size(); j++) {
+					if(nids.get(i).getName().equals(temp.getName()))nid = nids.get(i);
+				}
 				
 				for(char c : subStr.toCharArray()){
 					
@@ -233,12 +235,37 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 			e.printStackTrace();
 		}
 		
+//		System.out.println("**EXISTING IDS: ***");
+//		for (int i = 0; i < existingIDs.size(); i++) {
+//			System.out.println(existingIDs.get(i).toString());
+//		}
+//		
+//		System.out.println("**QUEUED IDS: ***");
+//		for (int i = 0; i < nids.size(); i++) {
+//			System.out.println(nids.get(i).toString());
+//		}
+		
+		System.out.println("Size of the nids list: "+nids.size());
 		for (int i = 0; i < nids.size(); i++) {
-			for (int j = 0; j < existingIDs.size(); j++) {
-				if(!nids.get(i).getName().equals(existingIDs.get(j).getName())){
-					et.begin();
-					em.persist(nids.get(i));
-					et.commit();
+			if(existingIDs.isEmpty()){
+				et.begin();
+				em.persist(nids.get(i));
+				et.commit();
+				existingIDs.add(nids.get(i));
+			}
+			else{
+				for (int j = 0; j < existingIDs.size(); j++) {
+					System.out.println("Inside the second for loop! MAGAD!");
+					System.out.println("The size of existingID list is: "+existingIDs.size());
+					if(!nids.get(i).getName().equals(existingIDs.get(j).getName())){
+						System.out.println("Time to persist to the DB");
+						System.out.println("The nids object name: "+nids.get(i).getName());
+						System.out.println("The existingID name: "+existingIDs.get(j).getName());
+						et.begin();
+						em.persist(nids.get(i));
+						et.commit();
+						existingIDs.add(nids.get(i));
+					}
 				}
 			}
 		}
