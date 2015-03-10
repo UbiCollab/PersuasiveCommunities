@@ -26,6 +26,7 @@ public class NodeHistoryFetcher {
 		
 		long smallestTime = 0;
 		int amountOfObjects = jsonList.size();
+		System.out.println("Amounts of objects! "+amountOfObjects);
 		ArrayList<Integer> timestamps = new ArrayList<Integer>();
 		
 		//Find out which feed is the longest (AKA, how long we have to keep iterating)
@@ -35,16 +36,19 @@ public class NodeHistoryFetcher {
 				
 		//Find the smallest timestamp amongst the first entry in the feeds
 		for (int i = 0; i < jsonList.size(); i++) {
-			JSONArray jsonO = (JSONArray) jsonList.get(i).get(0);
-			long temp = jsonO.getLong(0);
-			System.out.println(temp);
-			if(smallestTime <= temp){
-				smallestTime = temp;
+			for (int j = 0; j < jsonList.size(); j++) {
+				JSONArray jsonO = (JSONArray) jsonList.get(i).get(j);
+				long temp = jsonO.getLong(0);
+				System.out.println(temp);
+				if(smallestTime <= temp){
+					smallestTime = temp;
+				}
+				
 			}
 		}
 		
 		//Once we have the smallest timestamp, start creating a Node object with the values from this exact timestamp
-		while(amountOfObjects > -1){
+		while(amountOfObjects > 0){
 			Node tempNode = new Node(node.getName());
 			System.out.println();
 			
@@ -66,6 +70,7 @@ public class NodeHistoryFetcher {
 			
 			System.out.println();
 			
+			//converting the ids to 0,1,2 .. so that the switch gets run.
 			for (int i = 0; i < timestamps.size(); i++) {
 				for (int j = 0; j < idArray.length; j++) {
 					
@@ -83,6 +88,7 @@ public class NodeHistoryFetcher {
 				case 0: //c_kwd
 					tempNode.setConsumption_kwh(jsonO.getDouble(1));
 					tempNode.setConsumption_kwh_time(smallestTime);
+					System.out.println("Writing c_kwd for: "+tempNode.getName());
 					jsonList.get(0).remove(0);
 					amountOfObjects --;
 					break;
@@ -90,6 +96,7 @@ public class NodeHistoryFetcher {
 				case 1: //c_power	
 					tempNode.setConsumption_power(jsonO.getDouble(1));
 					tempNode.setConsumption_power_time(smallestTime);
+					System.out.println("Writing c_pwr at iteration: "+tempNode.getName());
 					jsonList.get(1).remove(0);
 					amountOfObjects --;
 					break;
@@ -97,6 +104,7 @@ public class NodeHistoryFetcher {
 				case 2: //c_kwhd
 					tempNode.setConsumption_kwhd(jsonO.getDouble(1));
 					tempNode.setConsumption_kwhd_time(smallestTime);
+					System.out.println("Writing c_kwhd for: "+tempNode.getName());
 					jsonList.get(2).remove(0);
 					amountOfObjects --;
 					break;
@@ -104,6 +112,7 @@ public class NodeHistoryFetcher {
 				case 3: //pv_kwd
 					tempNode.setPv_kwh(jsonO.getDouble(1));
 					tempNode.setPv_kwh_time(smallestTime);
+					System.out.println("Writing pv_kwd for: "+tempNode.getName());
 					jsonList.get(3).remove(0);
 					amountOfObjects --;
 					break;
@@ -111,6 +120,7 @@ public class NodeHistoryFetcher {
 				case 4: //pv_power
 					tempNode.setPv_power(jsonO.getDouble(1));
 					tempNode.setPv_power_time(smallestTime);
+					System.out.println("Writing pv_pwr for: "+tempNode.getName());
 					jsonList.get(4).remove(0);
 					amountOfObjects --;
 					break;
@@ -118,6 +128,7 @@ public class NodeHistoryFetcher {
 				case 5: //pv_kwhd
 					tempNode.setPv_kwhd(jsonO.getDouble(1));
 					tempNode.setPv_kwhd_time(smallestTime);
+					System.out.println("Writing pv_kwhd for: "+tempNode.getName());
 					jsonList.get(5).remove(0);
 					amountOfObjects --;
 					break;
@@ -172,7 +183,7 @@ public class NodeHistoryFetcher {
 	public void retrieveHistoryForNode(){
 		JSONArray json;
 		JsonReader jReader = new JsonReader();
-		for (int i = 0; i < 1; i++) { //nodes.size()
+		for (int i = 0; i < nodes.size(); i++) { //nodes.size()
 			ArrayList<JSONArray> jsonList = new ArrayList<JSONArray>();
 			
 			String name = nodes.get(i).getName();
@@ -200,12 +211,16 @@ public class NodeHistoryFetcher {
 			for (int j = 0; j < idArray.length; j++) {
 				if(idArray[j] != 0){
 					try {
+						System.out.println("Working on node: "+nodes.get(i).getName());
 						int dp = 20; //Number of datapoints
 						String APIKey = "apikey=f3e4a2cf68ffda12cacd7d1e5bc44c08";
 						long start = Calendar.getInstance().getTimeInMillis();
 						long end = 1425477323137L;
 						
-						json = jReader.readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id="+idArray[j]+"&start=1420074061000&end="+end+"&dp=40&"+APIKey);
+						
+						//asking for specific feed based on the feed id.
+						json = jReader.readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id="+idArray[j]+"&start=1420074061000&end="+end+"&dp=400&"+APIKey);
+						System.out.println("json size for feed: "+json.length());
 						jsonList.add(json);
 						//writing each feeds entries to the database on the specific node.
 						
