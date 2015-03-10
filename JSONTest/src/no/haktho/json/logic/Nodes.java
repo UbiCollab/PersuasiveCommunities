@@ -245,27 +245,30 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 //			System.out.println(nids.get(i).toString());
 //		}
 		
+		//First off, run a for loop across the range of the nids array (amount of unique NodeID objects we have accumulated)
 		System.out.println("Size of the nids list: "+nids.size());
 		for (int i = 0; i < nids.size(); i++) {
+			//If the list of NodeIDs we have fetched from the DB is empty we are clear and can add the first NodeID object
 			if(existingIDs.isEmpty()){
 				et.begin();
 				em.persist(nids.get(i));
 				et.commit();
 				existingIDs.add(nids.get(i));
 			}
+			//If the existingIDs list is not empty, check to see if the NodeID object we want to persist is already present in the existingIDs list
 			else{
+				boolean exists = false;
 				for (int j = 0; j < existingIDs.size(); j++) {
-					System.out.println("Inside the second for loop! MAGAD!");
-					System.out.println("The size of existingID list is: "+existingIDs.size());
-					if(!nids.get(i).getName().equals(existingIDs.get(j).getName())){
-						System.out.println("Time to persist to the DB");
-						System.out.println("The nids object name: "+nids.get(i).getName());
-						System.out.println("The existingID name: "+existingIDs.get(j).getName());
-						et.begin();
-						em.persist(nids.get(i));
-						et.commit();
-						existingIDs.add(nids.get(i));
+					if(nids.get(i).getName().equals(existingIDs.get(j).getName())){
+						exists = true;
 					}
+				}
+				//If the boolean is still false after looping through the existingIDs list, we should be clear to persist the NodeID object
+				if(!exists){
+					et.begin();
+					em.persist(nids.get(i));
+					et.commit();
+					existingIDs.add(nids.get(i));
 				}
 			}
 		}
