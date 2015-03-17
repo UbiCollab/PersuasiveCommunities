@@ -276,5 +276,9 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 		em.close();
 		emf.close();
 	}
+	
+	public Nodes getNodes(){
+		return this;
+	}
 }
 

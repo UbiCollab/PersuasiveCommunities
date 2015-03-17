@@ -20,10 +20,18 @@ public class NodeHistoryFetcher {
 	
 	int[] idArray = new int[6];
 	Nodes nodes;
-	public NodeHistoryFetcher(Nodes nodes) {
+	long start, end;
+	public NodeHistoryFetcher(Nodes nodes) { //
 		this.nodes = nodes;
+		start = 1420074061000l;
+		end = System.currentTimeMillis();
 	}
 	
+	public NodeHistoryFetcher(Nodes nodes, long start, long end) {
+		this.nodes = nodes;
+		this.start = start;
+		this.end = end;
+	}
 	public void writeHistoryToDB(Node node, ArrayList<JSONArray> jsonList, int[] idArray){
 		
 		//combining the different feeds and matches the correct ones.
@@ -155,11 +163,10 @@ public class NodeHistoryFetcher {
 						System.out.println("Working on node: "+nodes.get(i).getName());
 						int dp = 400; //Number of datapoints
 						String APIKey = "apikey=f3e4a2cf68ffda12cacd7d1e5bc44c08";
-						long end = 1425477323137L;
-						
-						
+
+						System.out.println("End: "+end+". Start: "+start);
 						//asking for specific feed based on the feed id.
-						json = jReader.readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id="+idArray[j]+"&start=1420074061000&end="+end+"&dp="+dp+"&"+APIKey);
+						json = jReader.readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id="+idArray[j]+"&start="+start+"&end="+end+"&dp="+dp+"&"+APIKey);
 						System.out.println("json size for feed: "+json.length());
 						jsonList.add(json);
 						//writing each feeds entries to the database on the specific node.

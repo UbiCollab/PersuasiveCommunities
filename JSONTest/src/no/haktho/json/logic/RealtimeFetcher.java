@@ -1,19 +1,26 @@
 package no.haktho.json.logic;
 
-public class RealtimeFetcher {
+import java.util.Date;
 
-	public RealtimeFetcher() {
+public class RealtimeFetcher extends Thread{
+
+	Nodes nodes;
+	long endTime, startTime;
+	public RealtimeFetcher(Nodes nodes) {
+		this.nodes = nodes;
 	}
 	
-	public void fetch(){
+	public void run(){
+
+		endTime = System.currentTimeMillis();
 		
-		int n = 1;
-		
-		while(n != 0){
-			
-			
-			
+		if(startTime != 0){
+			NodeHistoryFetcher nhf = new NodeHistoryFetcher(nodes, startTime, endTime);
+			nhf.retrieveHistoryForNode();
+			startTime = endTime;
 		}
+	
+		startTime = endTime;
 		
 	}
 	

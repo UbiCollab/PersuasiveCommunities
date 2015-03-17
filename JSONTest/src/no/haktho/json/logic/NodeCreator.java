@@ -15,10 +15,10 @@ import org.json.JSONObject;
 public class NodeCreator {
 
 	Node node;
-	
+	Nodes nodes;
 	public void createNodesFromUrl(JSONArray json){
 		
-		Nodes nodes = new Nodes();
+		nodes = new Nodes();
 		Node node;
 		NodeID nid;
 		
@@ -94,5 +94,9 @@ public class NodeCreator {
 		
 		em.close();
 		emf.close();
+	}
+	
+	public Nodes getNodes(){
+		return nodes.getNodes();
 	}
 }

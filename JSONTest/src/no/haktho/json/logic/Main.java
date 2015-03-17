@@ -1,6 +1,9 @@
 package no.haktho.json.logic;
 
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 
@@ -22,12 +25,21 @@ public class Main {
 			
 //			
 //			json = readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id=75&start=1420074061000&end=1425477323137&dp=400&apikey=f3e4a2cf68ffda12cacd7d1e5bc44c08"); //histogram data
-
+			
+			//create all the nodes listed on emoncms
 			nCreator.createNodesFromUrl(json);
 			
-//			for (int i = 0; i < json.length(); i++) {
-//				System.out.println(json.get(i));
-//			}
+			
+			
+			System.out.println("Size of the nodes after everything!! : "+nCreator.getNodes().size());
+			
+			//start fetching data from nodes every x seconds
+			RealtimeFetcher rf = new RealtimeFetcher(nCreator.getNodes());
+
+			ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+			executor.scheduleAtFixedRate(rf, 0, 10, TimeUnit.SECONDS); //
+			
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
