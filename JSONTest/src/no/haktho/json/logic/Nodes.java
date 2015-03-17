@@ -148,7 +148,6 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 						String data_name = name.substring(n+1, name.length());
 						switch (data_name) {
 						case "consumption_kwh":
-							System.out.println("********** Consumption kwh stage **********");
 							temp.setConsumption_kwh(jsonO.getDouble("value"));
 							System.out.println("Node consumption kwh value: "+temp.getConsumption_kwh());
 							nid.setConsumption_kwh_id(jsonO.getInt("id"));
@@ -161,7 +160,6 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							}
 							break;
 						case "consumption_power":
-							System.out.println("********** Consumption power stage **********");
 							temp.setConsumption_power(jsonO.getDouble("value"));
 							nid.setConsumption_power_id(jsonO.getInt("id"));
 							try{
@@ -210,6 +208,75 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							catch(Exception E){
 								temp.setPv_kwhd_time(0);
 							}
+							break;
+						case "grid2storage_kwh":
+							
+							break;
+						case "grid2storage_power":
+							
+							break;
+						
+						case "grid2storage_kwhd":
+							break;
+							
+						case "grid2household_kwh:":
+							
+							break;
+						
+						case "grid2household_power":
+							
+							break;
+						
+						case "grid2household_kwhd":
+							
+							break;
+					
+						case "pv2storage_kwh":
+							
+							break;
+							
+						case "pv2storage_power":
+							break;
+						
+						case "pv2storage_kwhd":
+							
+							break;
+							
+						case "pv2household_kwh":
+							break;
+						
+						case "pv2household_power":
+							break;
+						
+						case "pv2household_kwhd":
+							break;
+							
+						case "pv2grid_kwh":
+							break;
+						
+						case "pv2grid_power":
+							break;
+						
+						case "pv2grid_kwhd":
+							break;
+						
+						case "storage2grid_khw":
+							break;
+						
+						case "storage2grid_power":
+							break;
+						case "storage2grid_kwhd":
+							break;
+							
+						case "storage2household_kwh":
+							break;
+						
+						case "storage2household_power":
+							break;
+						
+						case "storage2household_kwhd":
+							break;
+						
 						default:
 							break;
 						}

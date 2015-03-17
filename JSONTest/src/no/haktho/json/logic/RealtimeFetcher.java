@@ -1,7 +1,5 @@
 package no.haktho.json.logic;
 
-import java.util.Date;
-
 public class RealtimeFetcher extends Thread{
 
 	Nodes nodes;
