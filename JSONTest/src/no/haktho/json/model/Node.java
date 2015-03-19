@@ -434,11 +434,6 @@ public class Node implements Serializable{
 		this.pv_kwh_time = pv_kwh_time;
 	}
 
-	@PrePersist
-	protected void onCreate(){
-		timestamp = new Date();
-	}
-
 	public long getGrid2storage_kwh_time() {
 		return grid2storage_kwh_time;
 	}
@@ -607,5 +602,8 @@ public class Node implements Serializable{
 		this.storage2household_kwhd_time = storage2household_kwhd_time;
 	}
 	
-	
+	@PrePersist
+	protected void onCreate(){
+		timestamp = new Date();
+	}
 }
