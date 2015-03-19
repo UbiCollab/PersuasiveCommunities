@@ -213,7 +213,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setGrid2storage_kwh(jsonO.getDouble("value"));
 							nid.setGrid2storage_kwh_id(jsonO.getInt("id"));
 							try {
-								temp.setGrid2storage_kwh_time(jsonO.getDouble("value"));
+								temp.setGrid2storage_kwh_time(jsonO.getLong("value"));
 							} catch (Exception e) {
 								temp.setGrid2storage_kwh_time(0);
 							}
@@ -222,7 +222,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setGrid2storage_power(jsonO.getDouble("value"));
 							nid.setGrid2storage_power_id(jsonO.getInt("id"));
 							try {
-								temp.setGrid2storage_power_time(jsonO.getDouble("time"));
+								temp.setGrid2storage_power_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setGrid2storage_power_time(0);
 							}
@@ -232,7 +232,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setGrid2storage_kwhd(jsonO.getDouble("value"));
 							nid.setGrid2storage_kwhd_id(jsonO.getInt("id"));
 							try {
-								temp.setGrid2storage_kwhd_time(jsonO.getDouble("time"));
+								temp.setGrid2storage_kwhd_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setGrid2storage_kwhd_time(0);
 							}
@@ -242,7 +242,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setGrid2household_kwh(jsonO.getDouble("value"));
 							nid.setGrid2household_kwh_id(jsonO.getInt("id"));
 							try {
-								temp.setGrid2household_kwh_time(jsonO.getDouble("time"));
+								temp.setGrid2household_kwh_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setGrid2household_kwh_time(0);
 							}
@@ -252,7 +252,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setGrid2household_power(jsonO.getDouble("value"));
 							nid.setGrid2household_power_id(jsonO.getInt("id"));
 							try {
-								temp.setGrid2household_power_time(jsonO.getDouble("time"));
+								temp.setGrid2household_power_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setGrid2household_power_time(0);
 							}
@@ -262,7 +262,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setGrid2household_kwhd(jsonO.getDouble("value"));
 							nid.setGrid2household_kwhd_id(jsonO.getInt("id"));
 							try {
-								temp.setGrid2household_kwhd_time(jsonO.getDouble("time"));
+								temp.setGrid2household_kwhd_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setGrid2household_kwhd_time(0);
 							}
@@ -272,7 +272,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2storage_kwh(jsonO.getDouble("value"));
 							nid.setPv2storage_kwh_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2storage_kwh_time(jsonO.getDouble("time"));
+								temp.setPv2storage_kwh_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2storage_kwh_time(0);
 							}
@@ -282,7 +282,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2storage_power(jsonO.getDouble("value"));
 							nid.setPv2storage_power_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2storage_power_time(jsonO.getDouble("time"));
+								temp.setPv2storage_power_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2storage_power_time(0);
 							}
@@ -292,7 +292,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2storage_kwhd(jsonO.getDouble("value"));
 							nid.setPv2storage_kwhd_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2storage_kwhd_time(jsonO.getDouble("time"));
+								temp.setPv2storage_kwhd_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2storage_kwhd_time(0);
 							}
@@ -302,7 +302,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2household_kwh(jsonO.getDouble("value"));
 							nid.setPv2household_kwh_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2household_kwh_time(jsonO.getDouble("time"));
+								temp.setPv2household_kwh_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2household_kwh_time(0);
 							}
@@ -312,7 +312,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2household_power(jsonO.getDouble("value"));
 							nid.setPv2household_power_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2household_power_time(jsonO.getDouble("time"));
+								temp.setPv2household_power_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2household_power_time(0);
 							}
@@ -323,7 +323,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2household_kwhd(jsonO.getDouble("value"));
 							nid.setPv2household_kwhd_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2household_kwhd_time(jsonO.getDouble("time"));
+								temp.setPv2household_kwhd_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2household_kwhd_time(0);
 							}
@@ -333,7 +333,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2grid_kwh(jsonO.getDouble("value"));
 							nid.setPv2grid_kwh_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2grid_kwh_time(jsonO.getDouble("time"));
+								temp.setPv2grid_kwh_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2grid_kwh_time(0);
 							}
@@ -343,7 +343,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2grid_power(jsonO.getDouble("value"));
 							nid.setPv2grid_power_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2grid_power_time(jsonO.getDouble("time"));
+								temp.setPv2grid_power_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2grid_power_time(0);
 							}
@@ -353,7 +353,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setPv2grid_kwhd(jsonO.getDouble("value"));
 							nid.setPv2grid_kwhd_id(jsonO.getInt("id"));
 							try {
-								temp.setPv2grid_kwhd_time(jsonO.getDouble("time"));
+								temp.setPv2grid_kwhd_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setPv2grid_kwhd_time(0);
 							}
@@ -363,7 +363,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setStorage2grid_kwh(jsonO.getDouble("value"));
 							nid.setStorage2grid_kwh_id(jsonO.getInt("id"));
 							try {
-								temp.setStorage2grid_kwh_time(jsonO.getDouble("time"));
+								temp.setStorage2grid_kwh_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setStorage2grid_kwh_time(0);
 							}
@@ -373,7 +373,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setStorage2grid_power(jsonO.getDouble("value"));
 							nid.setStorage2grid_power_id(jsonO.getInt("id"));
 							try {
-								temp.setStorage2grid_power_time(jsonO.getDouble("time"));
+								temp.setStorage2grid_power_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setStorage2grid_power_time(0);
 							}
@@ -382,7 +382,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setStorage2grid_kwhd(jsonO.getDouble("value"));
 							nid.setStorage2grid_kwhd_id(jsonO.getInt("id"));
 							try {
-								temp.setStorage2grid_kwhd_time(jsonO.getDouble("time"));
+								temp.setStorage2grid_kwhd_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setStorage2grid_kwhd_time(0);
 							}
@@ -392,7 +392,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setStorage2household_kwh(jsonO.getDouble("value"));
 							nid.setStorage2household_kwh_id(jsonO.getInt("id"));
 							try {
-								temp.setStorage2household_kwh_time(jsonO.getDouble("time"));
+								temp.setStorage2household_kwh_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setStorage2household_kwh_time(0);
 							}
@@ -402,7 +402,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setStorage2household_power(jsonO.getDouble("value"));
 							nid.setStorage2household_power_id(jsonO.getInt("id"));
 							try {
-								temp.setStorage2household_power_time(jsonO.getDouble("time"));
+								temp.setStorage2household_power_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setStorage2household_power_time(0);
 							}
@@ -412,7 +412,7 @@ public class Nodes extends ArrayList<Node> implements Serializable{
 							temp.setStorage2household_kwhd(jsonO.getDouble("value"));
 							nid.setStorage2household_kwhd_id(jsonO.getInt("id"));
 							try {
-								temp.setStorage2household_kwhd_time(jsonO.getDouble("time"));
+								temp.setStorage2household_kwhd_time(jsonO.getLong("time"));
 							} catch (Exception e) {
 								temp.setStorage2household_kwhd_time(0);
 							}
