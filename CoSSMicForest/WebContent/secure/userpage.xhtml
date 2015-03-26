@@ -8,21 +8,36 @@
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content">
-	    <p>Here will be some user info. <br />
+	    <p>Here you can see your latest data!<br /><br />
 	    <h:link value="Back to startpage" outcome="welcome" /></p>
-	    <h:form rendered="#{userdata.notPopulated}">
+	    <h:form rendered="#{not userdata.populated}">
 	    	<h:outputText value="Click the button to load the data" /><br />
-	    	<h:commandButton value="Get!" action="#{userdata.getData}" />
+	    	<h:commandButton value="Show me" action="#{userdata.getData}" />
 	    	<br />
 		    <h:messages />
 		    <br />
 	    </h:form>
 	    <h:form rendered="#{userdata.populated}">
-		    <h:outputText value="Consumption kwh: " />
-		    <h:outputLabel value="#{userdata.node.consumption_kwh}"/>
-		    <br />
-		    <h:outputText value="Consumption power: " />
-		    <h:outputLabel value="#{userdata.node.consumption_power}"/>
+	    	<p>These are your newest numbers: </p>
+	    	
+	    	<h:dataTable value="#{userdata.node}" var="node">
+	    		<h:column>
+	    			<f:facet name="header">Kwh used total</f:facet>
+	    			#{node.consumption_kwh}
+	    		</h:column>
+	    		<h:column>
+	    			<f:facet name="header">Kwh used today</f:facet>
+	    			#{node.consumption_kwhd}
+	    		</h:column>
+	    		<h:column>
+	    			<f:facet name="header">Kwh from PV</f:facet>
+	    			#{node.pv_kwh}
+	    		</h:column>
+	    		<h:column>
+	    			<f:facet name="header">Kwh from PV today</f:facet>
+	    			#{node.pv_kwhd}
+	    		</h:column>
+	    	</h:dataTable>
 		    <br />
 		    <h:messages />
 		    <br />

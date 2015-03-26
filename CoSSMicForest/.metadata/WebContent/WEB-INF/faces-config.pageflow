@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14243436061870" configfile="/CoSSMicForest/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="Manage" x="240" y="72" id="pf14243440536181" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="welcome.xhtml" x="456" y="72" id="pf14243440536182" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="/welcome.xhtml"/>
-</pageflow:Pageflow>

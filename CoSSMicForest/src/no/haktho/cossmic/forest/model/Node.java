@@ -39,18 +39,55 @@ public class Node implements Serializable{
 	double pv_power;
 	double pv_kwhd;
 	double pv_kwh;
-	int consumption_kwh_id;
-	int consumption_power_id;
-	int consumption_kwhd_id;
-	int pv_power_id;
-	int pv_kwhd_id;
-	int pv_kwh_id;
+	double grid2storage_kwh;
+	double grid2storage_power;
+	double grid2storage_kwhd;	
+	double grid2household_kwh;
+	double grid2household_power;
+	double grid2household_kwhd;
+	double pv2storage_kwh;
+	double pv2storage_power;
+	double pv2storage_kwhd;
+	double pv2household_kwh;
+	double pv2household_power;
+	double pv2household_kwhd;
+	double pv2grid_kwh;
+	double pv2grid_power;
+	double pv2grid_kwhd;
+	double storage2grid_kwh;
+	double storage2grid_power;
+	double storage2grid_kwhd;
+	double storage2household_kwh;
+	double storage2household_power;
+	double storage2household_kwhd;
+	
 	long consumption_kwh_time;
 	long consumption_power_time;
 	long consumption_kwhd_time;
 	long pv_power_time;
 	long pv_kwhd_time;
 	long pv_kwh_time;
+	long grid2storage_kwh_time;
+	long grid2storage_power_time;
+	long grid2storage_kwhd_time;	
+	long grid2household_kwh_time;
+	long grid2household_power_time;
+	long grid2household_kwhd_time;
+	long pv2storage_kwh_time;
+	long pv2storage_power_time;
+	long pv2storage_kwhd_time;
+	long pv2household_kwh_time;
+	long pv2household_power_time;
+	long pv2household_kwhd_time;
+	long pv2grid_kwh_time;
+	long pv2grid_power_time;
+	long pv2grid_kwhd_time;
+	long storage2grid_kwh_time;
+	long storage2grid_power_time;
+	long storage2grid_kwhd_time;
+	long storage2household_kwh_time;
+	long storage2household_power_time;
+	long storage2household_kwhd_time;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
@@ -124,55 +161,175 @@ public class Node implements Serializable{
 	public double getPv_kwh() {
 		return pv_kwh;
 	}
-
-	public int getConsumption_kwh_id() {
-		return consumption_kwh_id;
-	}
-
-	public void setConsumption_kwh_id(int consumption_kwh_id) {
-		this.consumption_kwh_id = consumption_kwh_id;
-	}
-
-	public int getConsumption_power_id() {
-		return consumption_power_id;
-	}
-
-	public void setConsumption_power_id(int consumption_power_id) {
-		this.consumption_power_id = consumption_power_id;
-	}
-
-	public int getConsumption_kwhd_id() {
-		return consumption_kwhd_id;
-	}
-
-	public void setConsumption_kwhd_id(int consumption_kwhd_id) {
-		this.consumption_kwhd_id = consumption_kwhd_id;
-	}
-
-	public int getPv_power_id() {
-		return pv_power_id;
-	}
-
-	public void setPv_power_id(int pv_power_id) {
-		this.pv_power_id = pv_power_id;
-	}
-
-	public int getPv_kwhd_id() {
-		return pv_kwhd_id;
-	}
-
-	public void setPv_kwhd_id(int pv_kwhd_id) {
-		this.pv_kwhd_id = pv_kwhd_id;
-	}
-
-	public int getPv_kwh_id() {
-		return pv_kwh_id;
-	}
-
-	public void setPv_kwh_id(int pv_kwh_id) {
-		this.pv_kwh_id = pv_kwh_id;
-	}
 	
+	public double getGrid2storage_kwh() {
+		return grid2storage_kwh;
+	}
+
+	public void setGrid2storage_kwh(double grid2storage_kwh) {
+		this.grid2storage_kwh = grid2storage_kwh;
+	}
+
+	public double getGrid2storage_power() {
+		return grid2storage_power;
+	}
+
+	public void setGrid2storage_power(double grid2storage_power) {
+		this.grid2storage_power = grid2storage_power;
+	}
+
+	public double getGrid2storage_kwhd() {
+		return grid2storage_kwhd;
+	}
+
+	public void setGrid2storage_kwhd(double grid2storage_kwhd) {
+		this.grid2storage_kwhd = grid2storage_kwhd;
+	}
+
+	public double getGrid2household_kwh() {
+		return grid2household_kwh;
+	}
+
+	public void setGrid2household_kwh(double grid2household_kwh) {
+		this.grid2household_kwh = grid2household_kwh;
+	}
+
+	public double getGrid2household_power() {
+		return grid2household_power;
+	}
+
+	public void setGrid2household_power(double grid2household_power) {
+		this.grid2household_power = grid2household_power;
+	}
+
+	public double getGrid2household_kwhd() {
+		return grid2household_kwhd;
+	}
+
+	public void setGrid2household_kwhd(double grid2household_kwhd) {
+		this.grid2household_kwhd = grid2household_kwhd;
+	}
+
+	public double getPv2storage_kwh() {
+		return pv2storage_kwh;
+	}
+
+	public void setPv2storage_kwh(double pv2storage_kwh) {
+		this.pv2storage_kwh = pv2storage_kwh;
+	}
+
+	public double getPv2storage_power() {
+		return pv2storage_power;
+	}
+
+	public void setPv2storage_power(double pv2storage_power) {
+		this.pv2storage_power = pv2storage_power;
+	}
+
+	public double getPv2storage_kwhd() {
+		return pv2storage_kwhd;
+	}
+
+	public void setPv2storage_kwhd(double pv2storage_kwhd) {
+		this.pv2storage_kwhd = pv2storage_kwhd;
+	}
+
+	public double getPv2household_kwh() {
+		return pv2household_kwh;
+	}
+
+	public void setPv2household_kwh(double pv2household_kwh) {
+		this.pv2household_kwh = pv2household_kwh;
+	}
+
+	public double getPv2household_power() {
+		return pv2household_power;
+	}
+
+	public void setPv2household_power(double pv2household_power) {
+		this.pv2household_power = pv2household_power;
+	}
+
+	public double getPv2household_kwhd() {
+		return pv2household_kwhd;
+	}
+
+	public void setPv2household_kwhd(double pv2household_kwhd) {
+		this.pv2household_kwhd = pv2household_kwhd;
+	}
+
+	public double getPv2grid_kwh() {
+		return pv2grid_kwh;
+	}
+
+	public void setPv2grid_kwh(double pv2grid_kwh) {
+		this.pv2grid_kwh = pv2grid_kwh;
+	}
+
+	public double getPv2grid_power() {
+		return pv2grid_power;
+	}
+
+	public void setPv2grid_power(double pv2grid_power) {
+		this.pv2grid_power = pv2grid_power;
+	}
+
+	public double getPv2grid_kwhd() {
+		return pv2grid_kwhd;
+	}
+
+	public void setPv2grid_kwhd(double pv2grid_kwhd) {
+		this.pv2grid_kwhd = pv2grid_kwhd;
+	}
+
+	public double getStorage2grid_kwh() {
+		return storage2grid_kwh;
+	}
+
+	public void setStorage2grid_kwh(double storage2grid_kwh) {
+		this.storage2grid_kwh = storage2grid_kwh;
+	}
+
+	public double getStorage2grid_power() {
+		return storage2grid_power;
+	}
+
+	public void setStorage2grid_power(double storage2grid_power) {
+		this.storage2grid_power = storage2grid_power;
+	}
+
+	public double getStorage2grid_kwhd() {
+		return storage2grid_kwhd;
+	}
+
+	public void setStorage2grid_kwhd(double storage2grid_kwhd) {
+		this.storage2grid_kwhd = storage2grid_kwhd;
+	}
+
+	public double getStorage2household_kwh() {
+		return storage2household_kwh;
+	}
+
+	public void setStorage2household_kwh(double storage2household_kwh) {
+		this.storage2household_kwh = storage2household_kwh;
+	}
+
+	public double getStorage2household_power() {
+		return storage2household_power;
+	}
+
+	public void setStorage2household_power(double storage2household_power) {
+		this.storage2household_power = storage2household_power;
+	}
+
+	public double getStorage2household_kwhd() {
+		return storage2household_kwhd;
+	}
+
+	public void setStorage2household_kwhd(double storage2household_kwhd) {
+		this.storage2household_kwhd = storage2household_kwhd;
+	}
+
 	public long getConsumption_kwh_time() {
 		return consumption_kwh_time;
 	}
@@ -219,6 +376,174 @@ public class Node implements Serializable{
 
 	public void setPv_kwh_time(long pv_kwh_time) {
 		this.pv_kwh_time = pv_kwh_time;
+	}
+
+	public long getGrid2storage_kwh_time() {
+		return grid2storage_kwh_time;
+	}
+
+	public void setGrid2storage_kwh_time(long grid2storage_kwh_time) {
+		this.grid2storage_kwh_time = grid2storage_kwh_time;
+	}
+
+	public long getGrid2storage_power_time() {
+		return grid2storage_power_time;
+	}
+
+	public void setGrid2storage_power_time(long grid2storage_power_time) {
+		this.grid2storage_power_time = grid2storage_power_time;
+	}
+
+	public long getGrid2storage_kwhd_time() {
+		return grid2storage_kwhd_time;
+	}
+
+	public void setGrid2storage_kwhd_time(long grid2storage_kwhd_time) {
+		this.grid2storage_kwhd_time = grid2storage_kwhd_time;
+	}
+
+	public long getGrid2household_kwh_time() {
+		return grid2household_kwh_time;
+	}
+
+	public void setGrid2household_kwh_time(long grid2household_kwh_time) {
+		this.grid2household_kwh_time = grid2household_kwh_time;
+	}
+
+	public long getGrid2household_power_time() {
+		return grid2household_power_time;
+	}
+
+	public void setGrid2household_power_time(long grid2household_power_time) {
+		this.grid2household_power_time = grid2household_power_time;
+	}
+
+	public long getGrid2household_kwhd_time() {
+		return grid2household_kwhd_time;
+	}
+
+	public void setGrid2household_kwhd_time(long grid2household_kwhd_time) {
+		this.grid2household_kwhd_time = grid2household_kwhd_time;
+	}
+
+	public long getPv2storage_kwh_time() {
+		return pv2storage_kwh_time;
+	}
+
+	public void setPv2storage_kwh_time(long pv2storage_kwh_time) {
+		this.pv2storage_kwh_time = pv2storage_kwh_time;
+	}
+
+	public long getPv2storage_power_time() {
+		return pv2storage_power_time;
+	}
+
+	public void setPv2storage_power_time(long pv2storage_power_time) {
+		this.pv2storage_power_time = pv2storage_power_time;
+	}
+
+	public long getPv2storage_kwhd_time() {
+		return pv2storage_kwhd_time;
+	}
+
+	public void setPv2storage_kwhd_time(long pv2storage_kwhd_time) {
+		this.pv2storage_kwhd_time = pv2storage_kwhd_time;
+	}
+
+	public long getPv2household_kwh_time() {
+		return pv2household_kwh_time;
+	}
+
+	public void setPv2household_kwh_time(long pv2household_kwh_time) {
+		this.pv2household_kwh_time = pv2household_kwh_time;
+	}
+
+	public long getPv2household_power_time() {
+		return pv2household_power_time;
+	}
+
+	public void setPv2household_power_time(long pv2household_power_time) {
+		this.pv2household_power_time = pv2household_power_time;
+	}
+
+	public long getPv2household_kwhd_time() {
+		return pv2household_kwhd_time;
+	}
+
+	public void setPv2household_kwhd_time(long pv2household_kwhd_time) {
+		this.pv2household_kwhd_time = pv2household_kwhd_time;
+	}
+
+	public long getPv2grid_kwh_time() {
+		return pv2grid_kwh_time;
+	}
+
+	public void setPv2grid_kwh_time(long pv2grid_kwh_time) {
+		this.pv2grid_kwh_time = pv2grid_kwh_time;
+	}
+
+	public long getPv2grid_power_time() {
+		return pv2grid_power_time;
+	}
+
+	public void setPv2grid_power_time(long pv2grid_power_time) {
+		this.pv2grid_power_time = pv2grid_power_time;
+	}
+
+	public long getPv2grid_kwhd_time() {
+		return pv2grid_kwhd_time;
+	}
+
+	public void setPv2grid_kwhd_time(long pv2grid_kwhd_time) {
+		this.pv2grid_kwhd_time = pv2grid_kwhd_time;
+	}
+
+	public long getStorage2grid_kwh_time() {
+		return storage2grid_kwh_time;
+	}
+
+	public void setStorage2grid_kwh_time(long storage2grid_kwh_time) {
+		this.storage2grid_kwh_time = storage2grid_kwh_time;
+	}
+
+	public long getStorage2grid_power_time() {
+		return storage2grid_power_time;
+	}
+
+	public void setStorage2grid_power_time(long storage2grid_power_time) {
+		this.storage2grid_power_time = storage2grid_power_time;
+	}
+
+	public long getStorage2grid_kwhd_time() {
+		return storage2grid_kwhd_time;
+	}
+
+	public void setStorage2grid_kwhd_time(long storage2grid_kwhd_time) {
+		this.storage2grid_kwhd_time = storage2grid_kwhd_time;
+	}
+
+	public long getStorage2household_kwh_time() {
+		return storage2household_kwh_time;
+	}
+
+	public void setStorage2household_kwh_time(long storage2household_kwh_time) {
+		this.storage2household_kwh_time = storage2household_kwh_time;
+	}
+
+	public long getStorage2household_power_time() {
+		return storage2household_power_time;
+	}
+
+	public void setStorage2household_power_time(long storage2household_power_time) {
+		this.storage2household_power_time = storage2household_power_time;
+	}
+
+	public long getStorage2household_kwhd_time() {
+		return storage2household_kwhd_time;
+	}
+
+	public void setStorage2household_kwhd_time(long storage2household_kwhd_time) {
+		this.storage2household_kwhd_time = storage2household_kwhd_time;
 	}
 
 	@PrePersist

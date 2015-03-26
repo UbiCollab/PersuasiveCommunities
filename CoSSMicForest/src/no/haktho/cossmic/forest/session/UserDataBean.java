@@ -24,7 +24,7 @@ public class UserDataBean implements Serializable{
 	private NavigationBean navigationBean;
 	
 	Node node = null;
-	private boolean notPopulated = true;
+//	private boolean notPopulated = true;
 	private boolean populated = false;
 	
 	public String getData(){
@@ -36,7 +36,7 @@ public class UserDataBean implements Serializable{
 		
 		try{
 			setNode((Node)q.getSingleResult());
-			setNotPopulated(false);
+//			setNotPopulated(false);
 			setPopulated(true);
 		}
 		catch(Exception e){
@@ -55,13 +55,13 @@ public class UserDataBean implements Serializable{
 		this.navigationBean = navigationBean;
 	}
 
-	public boolean isNotPopulated() {
-		return notPopulated;
-	}
-
-	public void setNotPopulated(boolean isNotPopulated) {
-		this.notPopulated = isNotPopulated;
-	}
+//	public boolean isNotPopulated() {
+//		return notPopulated;
+//	}
+//
+//	public void setNotPopulated(boolean isNotPopulated) {
+//		this.notPopulated = isNotPopulated;
+//	}
 
 	public boolean isPopulated() {
 		return populated;
