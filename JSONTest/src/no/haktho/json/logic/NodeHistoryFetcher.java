@@ -18,7 +18,7 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 public class NodeHistoryFetcher {
 	
-	int[] idArray = new int[6];
+	int[] idArray = new int[25];
 	Nodes nodes;
 	long start, end;
 	public NodeHistoryFetcher(Nodes nodes) { //
@@ -153,6 +153,25 @@ public class NodeHistoryFetcher {
 			idArray[3] = nid.getPv_kwh_id();
 			idArray[4] = nid.getPv_power_id();
 			idArray[5] = nid.getPv_kwhd_id();
+			idArray[6] = nid.getGrid2household_kwh_id();
+			idArray[7] = nid.getGrid2household_power_id();
+			idArray[8] = nid.getGrid2household_kwhd_id();
+			idArray[9] = nid.getGrid2storage_kwh_id();
+			idArray[10] = nid.getGrid2storage_power_id();
+			idArray[11] = nid.getGrid2storage_kwhd_id();
+			idArray[12] = nid.getGrid2storage_kwhd_id();
+			idArray[13] = nid.getPv2grid_kwh_id();
+			idArray[14] = nid.getPv2grid_power_id();
+			idArray[15] = nid.getPv2grid_kwhd_id();
+			idArray[16] = nid.getPv2household_kwh_id();
+			idArray[17] = nid.getPv2household_power_id();
+			idArray[18] = nid.getPv2household_kwhd_id();
+			idArray[19] = nid.getStorage2grid_kwh_id();
+			idArray[20] = nid.getStorage2grid_power_id();
+			idArray[21] = nid.getStorage2grid_kwhd_id();
+			idArray[22] = nid.getStorage2household_kwh_id();
+			idArray[23] = nid.getStorage2household_power_id();
+			idArray[24] = nid.getStorage2household_kwhd_id();
 			
 			System.out.println(nodes.get(i).getName());
 			System.out.println("----------------------------------------------------------------------");
@@ -164,7 +183,7 @@ public class NodeHistoryFetcher {
 						int dp = 400; //Number of datapoints
 						String APIKey = "apikey=f3e4a2cf68ffda12cacd7d1e5bc44c08";
 
-						System.out.println("End: "+end+". Start: "+start);
+						System.out.println("Feed: "+idArray[j]+" End: "+end+". Start: "+start);
 						//asking for specific feed based on the feed id.
 						json = jReader.readJsonFromUrl("http://cloud.cossmic.eu/emoncms/feed/data.json?id="+idArray[j]+"&start="+start+"&end="+end+"&dp="+dp+"&"+APIKey);
 						System.out.println("json size for feed: "+json.length());
@@ -178,6 +197,7 @@ public class NodeHistoryFetcher {
 						
 						System.out.println();
 					} catch (IOException e1) {
+						break;
 					}
 				}
 			}

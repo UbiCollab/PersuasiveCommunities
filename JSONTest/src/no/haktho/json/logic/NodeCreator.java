@@ -43,7 +43,7 @@ public class NodeCreator {
 			
 			if(name != "Power" && nodes.isUniqueNode(name)){
 				
-				if(!name.equals("Node:0") && !name.equals("Node:3") && !name.equals("Node:4")){
+				if(!name.equals("Node:0") && !name.equals("Node:3") && !name.equals("Node:4") && !name.equals("Node:Power")){
 					node = new Node(name);
 					nodes.add(node);
 					

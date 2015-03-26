@@ -31,7 +31,6 @@ public class Main {
 			
 			
 			
-			System.out.println("Size of the nodes after everything!! : "+nCreator.getNodes().size());
 			
 			//start fetching data from nodes every x seconds
 			RealtimeFetcher rf = new RealtimeFetcher(nCreator.getNodes());
