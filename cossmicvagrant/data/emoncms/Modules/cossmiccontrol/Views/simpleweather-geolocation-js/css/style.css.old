@@ -1,0 +1,120 @@
+/*
+  Docs at http://http://simpleweatherjs.com
+
+  Look inspired by http://www.degreees.com/
+  Used for demo purposes.
+
+  Weather icon font from http://fonts.artill.de/collection/artill-weather-icons
+
+  DO NOT hotlink the assets/font included in this demo. If you wish to use the same font icon then download it to your local assets at the link above. If you use the links below odds are at some point they will be removed and your version will break.
+*/
+
+@font-face {
+    font-family: 'weather';
+	src: url('font/artill_clean_icons-webfont.eot');
+	src: url('font/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('font/artill_clean_icons-webfont.woff') format('woff'),
+		 url('font/artill_clean_icons-webfont.ttf') format('truetype'),
+		 url('font/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
+    /*src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot');
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.ttf') format('truetype'),
+         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');*/
+    font-weight: normal;
+    font-style: normal;
+}
+
+#weather {
+  margin: 0px auto;
+  text-align: center;
+  text-transform: uppercase;
+  font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  background: #1192d3;
+  height: 300px;
+}
+
+#weather i {
+  color: #fff;
+  font-family: weather;
+  font-size: 150px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.0;
+  text-align: center;
+}
+
+.icn-0:before { content: ":"; }
+.icn-1:before { content: "p"; }
+.icn-2:before { content: "S"; }
+.icn-3:before { content: "Q"; }
+.icn-4:before { content: "S"; }
+.icn-5:before { content: "W"; }
+.icn-6:before { content: "W"; }
+.icn-7:before { content: "W"; }
+.icn-8:before { content: "W"; }
+.icn-9:before { content: "I"; }
+.icn-10:before { content: "W"; }
+.icn-11:before { content: "I"; }
+.icn-12:before { content: "I"; }
+.icn-13:before { content: "I"; }
+.icn-14:before { content: "I"; }
+.icn-15:before { content: "W"; }
+.icn-16:before { content: "I"; }
+.icn-17:before { content: "W"; }
+.icn-18:before { content: "U"; }
+.icn-19:before { content: "Z"; }
+.icn-20:before { content: "Z"; }
+.icn-21:before { content: "Z"; }
+.icn-22:before { content: "Z"; }
+.icn-23:before { content: "Z"; }
+.icn-24:before { content: "E"; }
+.icn-25:before { content: "E"; }
+.icn-26:before { content: "3"; }
+.icn-27:before { content: "a"; }
+.icn-28:before { content: "A"; }
+.icn-29:before { content: "a"; }
+.icn-30:before { content: "A"; }
+.icn-31:before { content: "6"; }
+.icn-32:before { content: "1"; }
+.icn-33:before { content: "6"; }
+.icn-34:before { content: "1"; }
+.icn-35:before { content: "W"; }
+.icn-36:before { content: "1"; }
+.icn-37:before { content: "S"; }
+.icn-38:before { content: "S"; }
+.icn-39:before { content: "S"; }
+.icn-40:before { content: "M"; }
+.icn-41:before { content: "W"; }
+.icn-42:before { content: "I"; }
+.icn-43:before { content: "W"; }
+.icn-44:before { content: "a"; }
+.icn-45:before { content: "S"; }
+.icn-46:before { content: "U"; }
+.icn-47:before { content: "S"; }
+
+#weather h2 {
+  margin: 0 0 4px;
+  color: #fff;
+  font-size: 66px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+#weather ul {
+  margin: 0;
+  padding: 0;
+}
+
+#weather li {
+  background: #fff;
+  background: rgba(255,255,255,0.90);
+  padding: 5px;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+#weather .currently {
+  margin: 0 5px;
+}
