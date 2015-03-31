@@ -10,34 +10,31 @@
 */
 
 @font-face {
-    font-family: 'weather';
-	src: url('artill_clean_icons-webfont.eot');
-	src: url('artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('artill_clean_icons-webfont.woff') format('woff'),
-		 url('artill_clean_icons-webfont.ttf') format('truetype'),
-		 url('artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
-    /*src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot');
-    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.woff') format('woff'),
-         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.ttf') format('truetype'),
-         url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');*/
+    font-family: 'weatherFont';
+    src: url('../../simpleweather-geolocation-js/css/font/artill_clean_icons-webfont.eot');
+    src: url('../../simpleweather-geolocation-js/css/font/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg'), 
+     url('../../simpleweather-geolocation-js/css/font/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+     url('../../simpleweather-geolocation-js/css/font/artill_clean_icons-webfont.woff') format('woff'),
+     url('../../simpleweather-geolocation-js/css/font/artill_clean_icons-webfont.ttf') format('truetype');
+     
     font-weight: normal;
     font-style: normal;
 }
 
 #weather {
-  margin: 0px auto;
+  margin: 0px 0px 3px 0px;
   text-align: center;
   text-transform: uppercase;
   font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   background: #1192d3;
-  height: 300px;
+  height: 100%;
+  width: 100%;
 }
 
 #weather i {
   color: #fff;
-  font-family: weather;
-  font-size: 150px;
+  font-family: weatherFont;
+  font-size: 120px;
   font-weight: normal;
   font-style: normal;
   line-height: 1.0;
@@ -104,15 +101,19 @@
 
 #weather ul {
   margin: 0;
-  padding: 0;
+  display: inline-block;
+  text-align: center;
+  
 }
 
 #weather li {
   background: #fff;
   background: rgba(255,255,255,0.90);
-  padding: 5px;
+  padding: 3px;
+  margin: 3px 0 10px 0;
   display: inline-block;
   border-radius: 5px;
+  text-align: center;
 }
 
 #weather .currently {

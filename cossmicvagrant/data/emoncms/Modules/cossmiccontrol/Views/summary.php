@@ -9,13 +9,14 @@ global $path;
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.axislabels.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.time.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/prefixfree.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/modernizr.js"></script>
 
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.0.2/jquery.simpleWeather.min.js'></script>
 
-<a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
+<a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>Modules/cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
 
 <div style="width: 1500px">
 
@@ -53,7 +54,7 @@ global $path;
     </div>
 </div>
 
-<div style="font-size: large; width: 100%; margin-top: 30px">Now</div>
+<div class="largeFont">Now</div>
 <div id="now">
 
     <div style="width: 33%">
@@ -72,18 +73,43 @@ global $path;
 
 </div>
 
-<div style="font-size: large; width: 100%; margin-top: 30px">Today</div>
+<div class="largeFont">Today</div>
 <div id="today">
+    <div class="row">
+            <div class="panel span2">
+                <div class="panel-heading">Weather</div>
+                <div class="panel-body">
+                    <div id="weather"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
+                </div>
+            </div>
+            
+            <div class="panel span2">
+                <div class="panel-heading">widget</div>
+                <div class="panel-body">
+                    <div></div>
+                </div>
+            </div>
 
-    <div style="width: 15%">
-        <div>Weather</div>
-        <div id="weather"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
+            <div class="panel span6">
+                <div class="panel-heading">Widget2</div>
+                <div class="panel-body">
+                    <div></div>
+                </div>
+            </div>
     </div>
-    
-    <div style="width: 50%">
-        <div>Neighborhood</div>
-        <div id="neighbGraphPlaceholder" style="width:100%;height:400px"></div>
+
+    <div class="row" style="margin-top: 30px">
+            
+
+            <div class="panel span12">
+                <div class="panel-heading">Neighborhood</div>
+                    
+                <div class="panel-neighborhoodGraph">
+                    <div id="neighbGraphPlaceholder"></div>
+                </div>
+            </div>
     </div>
+
 
     <div  id="scheduleDiv" style="width: 34%,visibility: hidden">
         <div>Schedule</div>
@@ -258,11 +284,33 @@ function  summarySetup(){
 				var options = {
 
 								xaxis: {
-                  transform: function (v) { return 1000*v; },
-                  inversetransform: function (v) { return v/1000; },
+                                        transform: function (v) { return 1000*v; },
+                                        inversetransform: function (v) { return v/1000; },
 									mode: "time",
-									timeformat: "%H:%M"
-								}, 
+									timeformat: "%H:%M",
+                                    font:{
+                                        color:"#fff"
+                                    }
+
+                                },
+
+                                yaxis: {
+                                    /*axisLabel:"kWh",
+                                    axisLabelUseCanvas: "true",
+                                    axisLabelFontSizePixels: "20",
+                                    axisLabelPadding: 5,*/
+                                    
+                                    font:{
+                                        color:"#fff",
+                                        size: 11,
+                                    }
+                                },
+                                grid: {
+                                    color:"#fff",
+                                    backgroundColor: "#1192d3",
+                                    tickColor:"#fff"
+                                },
+
                 legend:{position:"nw"}
 							}
 
