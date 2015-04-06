@@ -18,8 +18,6 @@ global $path;
 
 <a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>Modules/cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
 
-<div style="width: 1500px">
-
 <div id="usagebar" style="width: 100%">
     <div><table style="width: 100%"><tr><td style="width: 33.3%; text-align: left">- Using</td><td style="width: 33.3%; text-align: center">0</td><td style="width: 33.3%; text-align: right">+ Sharing</td></tr></table></div>
     <div id="usagebarcontainer">
@@ -54,7 +52,7 @@ global $path;
     </div>
 </div>
 
-<div class="largeFont">Now</div>
+<!--<div class="largeFont">Now</div>
 <div id="now">
 
     <div style="width: 33%">
@@ -62,18 +60,9 @@ global $path;
     </div>
 
     <div style="width: 33%" id="batterystatus"></div>
-    
-    <div style="width: 33%" id="cossmickwh">
-        <div>Total kWh exchanged within CoSSMic</div>
-        <div id="cossmickwhbar">
-            <div id="cossmickwhprogressbar"></div>
-        </div>
-        <div id="cossmickwhlegend" style="clear: left">[x] kWh since 3/1/2014</div>
-    </div>
 
 </div>
-
-<div class="largeFont">Today</div>
+-->
 <div id="today">
     <div class="row">
             <div class="panel span2">
@@ -84,14 +73,29 @@ global $path;
             </div>
             
             <div class="panel span2">
-                <div class="panel-heading">widget</div>
+                <div class="panel-heading">Now</div>
                 <div class="panel-body">
-                    <div></div>
+                    <div id="cossmickwh">
+						<div class="cossmickwhText">Total kWh exchanged within CoSSMic</div>
+						<div id="cossmickwhbar">
+						<div id="cossmickwhprogressbar"></div>
+						</div>
+						<div class="cossmickwhText">[x] kWh since 3/1/2014</div>
+					</div>
                 </div>
             </div>
-
-            <div class="panel span6">
+      		
+			<div class="panel span4">
                 <div class="panel-heading">Widget2</div>
+                <div class="panel-body">
+                    <div class="tree-panel">
+						<img src="../../../emoncms/images/tree_single_white.png"  id="tree">
+					</div>
+                </div>
+            </div>
+			
+			<div class="panel span4">
+                <div class="panel-heading">Widget3</div>
                 <div class="panel-body">
                     <div></div>
                 </div>
@@ -102,7 +106,7 @@ global $path;
             
 
             <div class="panel span12">
-                <div class="panel-heading">Neighborhood</div>
+                <div class="panel-heading">Neighborhood - today</div>
                     
                 <div class="panel-neighborhoodGraph">
                     <div id="neighbGraphPlaceholder"></div>
@@ -110,34 +114,29 @@ global $path;
             </div>
     </div>
 
-
-    <div  id="scheduleDiv" style="width: 34%,visibility: hidden">
-        <div>Schedule</div>
-            <table class="cossmictable">
-                <tr>
-                    <th>Task</th>
-                    <th>Earliest start</th>
-                    <th>Latest end</th>
-                    <th>Estimated consumption</th>
-                </tr>
-                <tr>
-                    <td>[Device 1]</td>
-                    <td>[xx:xx]</td>
-                    <td>[xx:xx]</td>
-                    <td>[x] kWh</td>
-                </tr>
-                <tr>
-                    <td>[Device 2]</td>
-                    <td>[xx:xx]</td>
-                    <td>[xx:xx]</td>
-                    <td>[x] kWh</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
+<div  id="scheduleDiv" style="width: 34%,visibility: hidden">
+	<div>Schedule</div>
+		<table class="cossmictable">
+			<tr>
+				<th>Task</th>
+				<th>Earliest start</th>
+				<th>Latest end</th>
+				<th>Estimated consumption</th>
+			</tr>
+			<tr>
+				<td>[Device 1]</td>
+				<td>[xx:xx]</td>
+				<td>[xx:xx]</td>
+				<td>[x] kWh</td>
+			</tr>
+			<tr>
+				<td>[Device 2]</td>
+				<td>[xx:xx]</td>
+				<td>[xx:xx]</td>
+				<td>[x] kWh</td>
+			</tr>
+		</table>
 </div>
-
 <?php
 global $mysqli, $session;
 $kwhlist = [];

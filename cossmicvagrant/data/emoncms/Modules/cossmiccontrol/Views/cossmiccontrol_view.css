@@ -18,6 +18,7 @@
 .panel{
     border: 1px solid #1192d3;
     border-radius: 5px 5px 5px 5px;
+	margin-left: 28px;
 }
 
 .panel .panel-heading{
@@ -38,6 +39,23 @@
     color: #1192d3;
     height: 270px;
 
+}
+.panel .panel-body .tree-panel{
+
+    background: #1192d3;
+    text-align: left;
+    border-radius: 0 0 0 0 ;
+    color: #1192d3;
+    height: 270px;
+
+}
+
+#tree{
+	
+	width: 90%;
+	height: 100%;
+	
+	
 }
 
 .panel .panel-neighborhoodGraph{
@@ -187,8 +205,9 @@ table.legend td {
         visibility: hidden;
 }
 #usagebar {
-        width: 1500px;
+        width: 100%;
         margin: 15px auto 30px auto;
+		margin-bottom: 20px;
 }
 #usagebarcontainer {
         border: 2px solid #000000;
@@ -209,13 +228,24 @@ table.legend td {
 #now > div, #today > div {
         display: inline-block;
         vertical-align: top;
+		padding-top: 20px;
 }
+
+#cossmickwh{
+	padding-top: 40%;
+}
+
 #cossmickwhbar {
-        width: 250px;
+        width: 80%;
+		text-align: center;
         height: 30px;
-        border: 2px solid #000000;
+        border: 2px solid #fff;
         margin: 20px auto 5px auto;
-        float: left;
+}
+
+.cossmickwhText {
+	color: #fff;
+	text-align: center;
 }
 #cossmicprogressbar {
         height: 100%;
