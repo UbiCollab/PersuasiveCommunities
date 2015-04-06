@@ -89,7 +89,10 @@ global $path;
                 <div class="panel-heading">Widget2</div>
                 <div class="panel-body">
                     <div class="tree-panel">
-						<img src="../../../emoncms/images/tree_single_white.png"  id="tree">
+						<script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
+						<!-- Setting a treeValue, this will later be changed to reflect the score for the user between 1 - 100 which represents effectivity. -->
+						<?php $treeValue = '75'; ?>
+						<div><center><img id="cossmictree" onload=selectTree(<?php echo $treeValue; ?>) src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></center></div>
 					</div>
                 </div>
             </div>
