@@ -225,8 +225,14 @@ table.legend td {
         display: inline-block;
         vertical-align: middle;
 }
-#now > div, #today > div {
+#now > div{
         display: inline-block;
+        vertical-align: top;
+		padding-top: 20px;
+}
+
+#today > div{
+		display: inline-block;
         vertical-align: top;
 		padding-top: 20px;
 }

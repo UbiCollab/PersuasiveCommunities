@@ -15,6 +15,7 @@ global $path;
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/modernizr.js"></script>
 
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.0.2/jquery.simpleWeather.min.js'></script>
+<script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
 
 <a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>Modules/cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
 
@@ -63,91 +64,88 @@ global $path;
 
 </div>
 -->
+
 <div id="today">
     <div class="row">
-            <div class="panel span2">
-                <div class="panel-heading">Weather</div>
-                <div class="panel-body">
-                    <div id="weather"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
-                </div>
-            </div>
-            
-            <div class="panel span2">
-                <div class="panel-heading">Now</div>
-                <div class="panel-body">
-                    <div id="cossmickwh">
-						<div class="cossmickwhText">Total kWh exchanged within CoSSMic</div>
-						<div id="cossmickwhbar">
-						<div id="cossmickwhprogressbar"></div>
-						</div>
-						<div class="cossmickwhText">[x] kWh since 3/1/2014</div>
+		<div class="panel span2">
+			<div class="panel-heading">Weather</div>
+			<div class="panel-body">
+				<div id="weather"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
+			</div>
+		</div>
+		
+		<div class="panel span2">
+			<div class="panel-heading">Now</div>
+			<div class="panel-body">
+				<div id="cossmickwh">
+					<div class="cossmickwhText">Total kWh exchanged within CoSSMic</div>
+					<div id="cossmickwhbar">
+					<div id="cossmickwhprogressbar"></div>
 					</div>
-                </div>
-            </div>
+					<div class="cossmickwhText">[x] kWh since 3/1/2014</div>
+				</div>
+			</div>
+		</div>
       		
-			<div class="panel span4">
-                <div class="panel-heading">Widget2</div>
-                <div class="panel-body">
-                    <div class="tree-panel">
-						<script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
-						<!-- Setting a treeValue, this will later be changed to reflect the score for the user between 1 - 100 which represents effectivity. -->
-						<?php $treeValue = '75'; ?>
-						<div><center><img id="cossmictree" onload=selectTree(<?php echo $treeValue; ?>) src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></center></div>
-					</div>
-                </div>
-            </div>
+		<div class="panel span4">
+			<div class="panel-heading">Widget2</div>
+			<div class="panel-body">
+				<div class="tree-panel">
+					<div><center><img id="cossmictree" src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></center></div>
+				</div>
+			</div>
+		</div>
 			
-			<div class="panel span4">
-                <div class="panel-heading">Widget3</div>
-                <div class="panel-body">
-                    <div></div>
-                </div>
-            </div>
+		<div class="panel span4">
+			<div class="panel-heading">Widget3</div>
+			<div class="panel-body">
+				<div></div>
+			</div>
+		</div>
     </div>
+</div>
 
-    <div class="row" style="margin-top: 30px">
-            
-
-            <div class="panel span12">
-                <div class="panel-heading">Neighborhood - today</div>
-                    
-                <div class="panel-neighborhoodGraph">
-                    <div id="neighbGraphPlaceholder"></div>
-                </div>
-            </div>
-    </div>
+<div class="row" style="margin-top: 30px">
+	<div class="panel span12">
+		<div class="panel-heading">Neighborhood - today</div>
+		<div class="panel-neighborhoodGraph">
+			<div id="neighbGraphPlaceholder"></div>
+		</div>
+	</div>
+</div>
 
 <div  id="scheduleDiv" style="width: 34%,visibility: hidden">
 	<div>Schedule</div>
-		<table class="cossmictable">
-			<tr>
-				<th>Task</th>
-				<th>Earliest start</th>
-				<th>Latest end</th>
-				<th>Estimated consumption</th>
-			</tr>
-			<tr>
-				<td>[Device 1]</td>
-				<td>[xx:xx]</td>
-				<td>[xx:xx]</td>
-				<td>[x] kWh</td>
-			</tr>
-			<tr>
-				<td>[Device 2]</td>
-				<td>[xx:xx]</td>
-				<td>[xx:xx]</td>
-				<td>[x] kWh</td>
-			</tr>
-		</table>
+	<table class="cossmictable">
+		<tr>
+			<th>Task</th>
+			<th>Earliest start</th>
+			<th>Latest end</th>
+			<th>Estimated consumption</th>
+		</tr>
+		<tr>
+			<td>[Device 1]</td>
+			<td>[xx:xx]</td>
+			<td>[xx:xx]</td>
+			<td>[x] kWh</td>
+		</tr>
+		<tr>
+			<td>[Device 2]</td>
+			<td>[xx:xx]</td>
+			<td>[xx:xx]</td>
+			<td>[x] kWh</td>
+		</tr>
+	</table>
 </div>
 
 <?php
 global $mysqli, $session;
 $kwhlist = [];
+$pv2householdlist = [];
 $kwhdlist = [];
 $userid = $session['userid'];
 
-/* TODO: uncomment when integrating Katharinas code
+// TODO: uncomment when integrating Katharinas code
 // get the ids of the user's grid use, CoSSMic use, Self-PV use, and own Battery use kWh/day feeds
 // code here...
 
@@ -166,27 +164,29 @@ while ($row = (array)$result->fetch_object()) {
     $kwhlist[$i] = $row['id'];
     $i++;
 }
-// get the id of the user's PV power feed 
-// code here...
+// get the id of the user's PV 2 household power feed 
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2household_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+	$pv2householdlist[$i] = $row['id'];
+	$i++;
+}
 
 // get the id of the user's battery kwh feed
 // code here...
 
-*/
 ?>
 
 <script>
 
-    
     totalconsumption = 0;
     pv2household = 0;
     grid2household = 0;
     ids = [1,10,13];
     values = [];
-    
+    var path = "<?php echo $path; ?>";
     
     function getData(){
-    
         end = new Date().getTime();
         start = end - 10;    
         
@@ -234,7 +234,6 @@ while ($row = (array)$result->fetch_object()) {
             })
             
         }
-    
 
     function setTotalconsumptionValue(value){
         totalconsumption = value;
@@ -246,7 +245,6 @@ while ($row = (array)$result->fetch_object()) {
         console.log(pv2household);
     }
 
-
     function setGrid2householdValue(value){
         grid2household = value;
         console.log(grid2household);
@@ -254,34 +252,59 @@ while ($row = (array)$result->fetch_object()) {
 
     function addDataValues(){
 
-            setInterval(function(){
-                setTimeout(function(){
-                    var pv2householdValue = totalconsumption/pv2household;
-                    var grid2householdValue = totalconsumption/grid2household;
+		setTimeout(function(){
+            var pv2householdValue = totalconsumption/pv2household;
+            var grid2householdValue = totalconsumption/grid2household;
+			
+			//Calculates a very simple score based on the percentage of PV power used compared to the total power used
+			//then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
+			var multiplier = 100/totalconsumption;
+			var score = Math.round(pv2household*multiplier);
+			selectTree(score);
+			//End of the simple score calculation
 
-                    var height = $("#usagebarcontainer").height()/2;
-                    var width = $("#usagebarcontainer").width()/2;
-                    
-                    $("#griduse").css({'width': width/grid2householdValue});
-                    $("#selfpvuse").css({'width': width/pv2householdValue});
-                    $("#griduse").css({'float': "left"});
-                    $("#selfpvuse").css({'float': "left"}); 
-                    
-                }, 1000)
-                getData();
-        }, 10000);
+            var height = $("#usagebarcontainer").height()/2;
+            var width = $("#usagebarcontainer").width()/2;
             
+            $("#griduse").css({'width': width/grid2householdValue});
+            $("#selfpvuse").css({'width': width/pv2householdValue});
+            $("#griduse").css({'float': "left"});
+            $("#selfpvuse").css({'float': "left"}); 
             
-        
+        }, 1000);
+        getData();
+	
+		setInterval(function(){
+			setTimeout(function(){
+				var pv2householdValue = totalconsumption/pv2household;
+				var grid2householdValue = totalconsumption/grid2household;
+				
+				//Calculates a very simple score based on the percentage of PV power used compared to the total power used
+				//then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
+				var multiplier = 100/totalconsumption;
+				var score = Math.round(pv2household*multiplier);
+				selectTree(score);
+				//End of the simple score calculation
+
+				var height = $("#usagebarcontainer").height()/2;
+				var width = $("#usagebarcontainer").width()/2;
+				
+				$("#griduse").css({'width': width/grid2householdValue});
+				$("#selfpvuse").css({'width': width/pv2householdValue});
+				$("#griduse").css({'float': "left"});
+				$("#selfpvuse").css({'float': "left"}); 
+				
+			}, 1000)
+			getData();
+        }, 60000);
     };
-
 </script>
 <script>
 
     
 
-
-/* TODO: uncomment when integrating Katharinas code
+/*
+// TODO: uncomment when integrating Katharinas code
 
 var path = "<?php echo $path; ?>";
 
@@ -358,7 +381,6 @@ function () {
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
   });
   summarySetup();
-
   addDataValues();
 });
 
@@ -380,91 +402,84 @@ function  summarySetup(){
       })
     ) 
     .then(function( resultProduction,resultConsumption) {
-       var prodSerie = { label: "Total Production", data: resultProduction[0][0],lines:{show:true}};
-       var consumSerie = { label: "Total Consumption", data: resultConsumption[0][0],lines:{show:true}};
-       plotNeighbGraph([prodSerie,consumSerie]);
+		var prodSerie = { label: "Total Production", data: resultProduction[0][0],lines:{show:true}};
+		var consumSerie = { label: "Total Consumption", data: resultConsumption[0][0],lines:{show:true}};
+		plotNeighbGraph([prodSerie,consumSerie]);
     });      
 
 }
+	function plotNeighbGraph(d) {
+		var options = {
+			xaxis: {
+				transform: function (v) { return 1000*v; },
+				inversetransform: function (v) { return v/1000; },
+				mode: "time",
+				timeformat: "%H:%M",
+				font:{
+					color:"#fff"
+				}
+			},
 
-			function plotNeighbGraph(d) {
+			yaxis: {
+				/*axisLabel:"kWh",
+				axisLabelUseCanvas: "true",
+				axisLabelFontSizePixels: "20",
+				axisLabelPadding: 5,*/
+				
+				font:{
+					color:"#fff",
+					size: 11,
+				}
+			},
+			
+			grid: {
+				color:"#fff",
+				backgroundColor: "#1192d3",
+				tickColor:"#fff"
+			},
 
-				var options = {
+            legend:{position:"nw"}
+		}
 
-								xaxis: {
-                                        transform: function (v) { return 1000*v; },
-                                        inversetransform: function (v) { return v/1000; },
-									mode: "time",
-									timeformat: "%H:%M",
-                                    font:{
-                                        color:"#fff"
-                                    }
+		$.plot("#neighbGraphPlaceholder", d, options);
+	}
 
-                                },
+	function createDummyGraph(){
+		var s1 = [[0, 0], [0, 0], [0, 0], [0, 77], [0, 3636], [0, 3575], [0, 2736], [0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
+		[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],  
+		[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
+		[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
+		[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327]];
+		
+		var s2 = [
+		[0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
+		 
+		[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327],
+		[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
+		[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],
+		[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
 
-                                yaxis: {
-                                    /*axisLabel:"kWh",
-                                    axisLabelUseCanvas: "true",
-                                    axisLabelFontSizePixels: "20",
-                                    axisLabelPadding: 5,*/
-                                    
-                                    font:{
-                                        color:"#fff",
-                                        size: 11,
-                                    }
-                                },
-                                grid: {
-                                    color:"#fff",
-                                    backgroundColor: "#1192d3",
-                                    tickColor:"#fff"
-                                },
-
-                legend:{position:"nw"}
-							}
-
-				$.plot("#neighbGraphPlaceholder", d, options);
-			}
-
-      function createDummyGraph(){
-        		var s1 = [[0, 0], [0, 0], [0, 0], [0, 77], [0, 3636], [0, 3575], [0, 2736], [0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
-            [0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],  
-            [0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
-            [0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
-            [0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327]];
-            
-            var s2 = [
-            [0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
-             
-            [0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327],
-            [0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
-            [0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],
-            [0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
-
-            [0, 0],   [0, 0],   [0, 0],   [0, 77],  [0, 3636], [0, 3575], [0, 2736],
-            ];
-        
-            var midnight = new Date();
-            midnight.setHours(0,0,0,0);
-            var initial =  Date.parse(midnight);
-        
-            var now = new Date();
-            var finalDate =  Date.parse(now);
-            
-            var increment = Math.round( (finalDate - initial)/(s1.length) );    
-            
-            
-        
-        		for (var i = 0; i < s1.length; ++i) {
-              initial = initial + increment;
-            s1[i][0] = initial;
-              s2[i][0] = initial;
-        		}
-            
-            var serie1 = { label: "Serie 1", data: s1,lines:{show:true}};
-            var serie2 = { label: "Serie 2", data: s2, lines:{show:true}};
-            
-            plotNeighbGraph([serie1,serie2]);
-      }
-
-
+		[0, 0],   [0, 0],   [0, 0],   [0, 77],  [0, 3636], [0, 3575], [0, 2736],
+		];
+	
+		var midnight = new Date();
+		midnight.setHours(0,0,0,0);
+		var initial =  Date.parse(midnight);
+	
+		var now = new Date();
+		var finalDate =  Date.parse(now);
+		
+		var increment = Math.round( (finalDate - initial)/(s1.length) );    
+		
+		for (var i = 0; i < s1.length; ++i) {
+			initial = initial + increment;
+			s1[i][0] = initial;
+			s2[i][0] = initial;
+		}
+		
+		var serie1 = { label: "Serie 1", data: s1,lines:{show:true}};
+		var serie2 = { label: "Serie 2", data: s2, lines:{show:true}};
+		
+		plotNeighbGraph([serie1,serie2]);
+    }
 </script>
