@@ -140,12 +140,12 @@ global $path;
 			</tr>
 		</table>
 </div>
+
 <?php
 global $mysqli, $session;
 $kwhlist = [];
 $kwhdlist = [];
 $userid = $session['userid'];
-
 
 /* TODO: uncomment when integrating Katharinas code
 // get the ids of the user's grid use, CoSSMic use, Self-PV use, and own Battery use kWh/day feeds
@@ -176,6 +176,110 @@ while ($row = (array)$result->fetch_object()) {
 ?>
 
 <script>
+
+    
+    totalconsumption = 0;
+    pv2household = 0;
+    grid2household = 0;
+    ids = [1,10,13];
+    values = [];
+    
+    
+    function getData(){
+    
+        end = new Date().getTime();
+        start = end - 10;    
+        
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=1&start='+start+'&end='+end+'&dp=1 ',
+                success: function(data){
+                    var json = data[0];
+                    
+                    if(json[0] <= start){
+                        setTotalconsumptionValue(json[1]);    
+                    }
+                    else{
+                        setTotalconsumptionValue(0);
+                    }
+                }
+            }),
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=10&start='+start+'&end='+end+'&dp=1 ',
+                success: function(data){
+                    var json = data[0];
+                    
+                    if(json[0] <= start){
+                        setPv2householdValue(json[1]);    
+                    }
+                    else{
+                        setPv2householdValue(0);
+                    }
+                }
+            }),
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=13&start='+start+'&end='+end+'&dp=1 ',
+                success: function(data){
+                    var json = data[0];
+                    
+                    if(json[0] <= start){
+                        setGrid2householdValue(json[1]);
+                    }
+                    else{
+                        setGrid2householdValue(0);   
+                    }
+                }
+            })
+            
+        }
+    
+
+    function setTotalconsumptionValue(value){
+        totalconsumption = value;
+        console.log(totalconsumption);
+    }
+
+    function setPv2householdValue(value){
+        pv2household = value;
+        console.log(pv2household);
+    }
+
+
+    function setGrid2householdValue(value){
+        grid2household = value;
+        console.log(grid2household);
+    }
+
+    function addDataValues(){
+
+            setInterval(function(){
+                setTimeout(function(){
+                    var pv2householdValue = totalconsumption/pv2household;
+                    var grid2householdValue = totalconsumption/grid2household;
+
+                    var height = $("#usagebarcontainer").height()/2;
+                    var width = $("#usagebarcontainer").width()/2;
+                    
+                    $("#griduse").css({'width': width/grid2householdValue});
+                    $("#selfpvuse").css({'width': width/pv2householdValue});
+                    $("#griduse").css({'float': "left"});
+                    $("#selfpvuse").css({'float': "left"}); 
+                    
+                }, 1000)
+                getData();
+        }, 10000);
+            
+            
+        
+    };
+
+</script>
+<script>
+
+    
+
 
 /* TODO: uncomment when integrating Katharinas code
 
@@ -254,6 +358,8 @@ function () {
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
   });
   summarySetup();
+
+  addDataValues();
 });
 
 function  summarySetup(){
