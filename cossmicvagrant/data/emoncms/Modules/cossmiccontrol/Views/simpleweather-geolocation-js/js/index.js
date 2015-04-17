@@ -17,8 +17,7 @@ function loadWeather(location, woeid) {
       html = '<i class="icn-'+weather.code+'"></i><br />';
 	  html += '<h2>'+weather.alt.temp+'&deg;C</h2><br />';
       html += '<ul><li>'+weather.city+'</li>';
-      html += '<li class="currently">'+weather.currently+'</li>';
-      html += '<li>'+weather.temp+'&deg;'+weather.units.temp+'</li></ul>';  
+      html += '<li class="currently">'+weather.currently+'</li></ul>';  
       
       $("#weather").html(html);
     },
