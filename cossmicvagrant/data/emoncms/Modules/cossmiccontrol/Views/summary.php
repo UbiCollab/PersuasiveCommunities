@@ -106,18 +106,24 @@ global $path;
                 </div>
                 <div id="elFlowTableAndIcons">
                     <div id="elFlowText">
-                        <table>
-                            <tr><td>Grid</td></tr>
-                            <tr><td>PV</td></tr>
-                            <tr><td>Battery</td></tr>
-                            <tr><td>CoSSMic</td></tr>
+                        <table style="table-layout: fixed">
+                            <tr>
+                                <td>Grid</td>
+                                <td id="gridN" class="elFlowStats">GridN</td></tr>
+                            <tr>
+                                <td>PV</td>
+                                <td id="pvN" class="elFlowStats">pvN</td> </tr>
+                            <tr>
+                                <td>Battery</td>
+                                <td id="batteryN" class ="elFlowStats">0 kWh</td></tr>
+                            <tr>
+                                <td>CoSSMic</td>
+                                <td id="cossmicN" class="elFlowStats">0 kWh</td></tr>
                         </table>
                     </div>
-
-    				<div id="houseStatsContainer">
-                        <div id="houseStats">lol</div>
-                        <img id="house-icon" src="<?php echo $path; ?>images/house_el_flow.png">
-                    </div>
+                    <div id="elTotalConsumptionHeader">Total:</div>
+                    <div id="elTotalConsumption"></div>
+                    <img id="house-icon" src="<?php echo $path; ?>images/house_el_flow.png"> 
                 </div>
 			</div>
 		</div>
@@ -238,7 +244,7 @@ while($row = (array)$result->fetch_object()) {
         
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=1&start='+start+'&end='+end+'&dp=1 ',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=2&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
                     var json = data[0];
                     
@@ -252,7 +258,7 @@ while($row = (array)$result->fetch_object()) {
             }),
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=10&start='+start+'&end='+end+'&dp=1 ',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=11&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
                     var json = data[0];
                     
@@ -266,7 +272,7 @@ while($row = (array)$result->fetch_object()) {
             }),
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=13&start='+start+'&end='+end+'&dp=1 ',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=14&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
                     var json = data[0];
                     
@@ -282,16 +288,26 @@ while($row = (array)$result->fetch_object()) {
         }
 
     function setTotalconsumptionValue(value){
-        totalconsumption = value;
+        console.log(value);
+        $(function(){
+               $("#elTotalConsumption").html(value.toFixed(2)+" kWh");  
+        });
+       totalconsumption = value;
         console.log(totalconsumption);
     }
 
     function setPv2householdValue(value){
+        $(function(){
+               $("#pvN").html(value.toFixed(2)+" kWh");  
+        });
         pv2household = value;
         console.log(pv2household);
     }
 
     function setGrid2householdValue(value){
+        $(function(){
+               $("#gridN").html(value.toFixed(2)+" kWh");  
+        });
         grid2household = value;
         console.log(grid2household);
     }

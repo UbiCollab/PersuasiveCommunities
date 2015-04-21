@@ -70,44 +70,62 @@
 
 #elFlowTableAndIcons{
     display: inline-block;
+    position: relative;
 }
 
 #elFlowText{
+    position: absolute;
     margin-top: 25px;
     margin-left: 20px;
-    width: 12%;
+    width: 50%;
     height: 150px;
     float:left;
+    position: absolute;
 }
 
 #elFlowText tr td{
     padding-top: 15px;
     color: #ffffff;
-}
+    
 
-#houseStats{
-    position: absolute;
-    color: #666;
 }
-
-#houseStatsContainer{
-    position: relative;
-    height:150px; 
-    width:80%;
-    margin-top: 5%;
-    margin-right: 20px;
+.elFlowStats{
+    padding-left: 45px;
+    width: 100px;
     float:right;
 }
+
+.elFlowRow{
+    width: 50%;
+}
+#houseInStats{
+    margin-top: 20px;
+    position: absolute;
+    color: #666;
+    height: 100%;
+}
+
+#elTotalConsumptionHeader{
+    position: absolute;
+    color: #1192d3;
+    margin: 17% 0 0 45%;
+}
+
+#elTotalConsumption{
+    position: absolute;
+    color: #1192d3;
+    margin: 21% 0 0 43%;
+}
 #house-icon{
+    margin-top: 8%;
+    float: right;
     height:150px; 
-    width:100%;
+    width:80%;
 }
 #tree{
 	
 	width: 90%;
-	height: 100%;
-	
-	
+	height: 100%;	
 }
 
 .panel .panel-neighborhoodGraph{

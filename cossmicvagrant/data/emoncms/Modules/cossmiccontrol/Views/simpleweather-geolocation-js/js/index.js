@@ -15,11 +15,12 @@ function loadWeather(location, woeid) {
     unit: 'f',
     success: function(weather) {
       html = '<i class="icn-'+weather.code+'"></i><br />';
-	  html += '<h2>'+weather.alt.temp+'&deg;C</h2><br />';
+	    html += '<h2>'+weather.alt.temp+'&deg;C</h2><br />';
       html += '<ul><li>'+weather.city+'</li>';
       html += '<li class="currently">'+weather.currently+'</li></ul>';  
-      
+      console.log(weather.today);
       $("#weather").html(html);
+
     },
     error: function(error) {
       $("#weather").html('<p>'+error+'</p>');
