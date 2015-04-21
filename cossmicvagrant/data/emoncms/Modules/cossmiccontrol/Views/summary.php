@@ -69,9 +69,14 @@ global $path;
 <div id="today">
     <div class="row">
 		<div id="weatherbox" class="panel span2">
-			<div class="panel-heading">Weather</div>
-			<div class="panel-body">
-				<div id="weather"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
+			<div id="weatherheading" class="panel-heading">Weather</div>
+			<div id="weathercont" class="panel-body">
+				<div id="weather" class="weatherclass"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
+				<div id="weather1" class="weathertable"></div>
+				<div id="weather2" class="weathertable"></div>
+				<div id="weather3" class="weathertable"></div>
+				<div id="weather4" class="weathertable"></div>
+				<div id="weather5" class="weathertable"></div>
 			</div>
 		</div>
 		<!--
@@ -89,7 +94,7 @@ global $path;
 		</div>-->
       		
 		<div id="treebox" class="panel span4">
-			<div class="panel-heading">Widget2</div>
+			<div class="panel-heading">Tree</div>
 			<div class="panel-body">
 				<div class="tree-panel">
 					<div><center><img id="cossmictree" src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></center></div>
@@ -221,10 +226,35 @@ while($row = (array)$result->fetch_object()) {
                 $("#cossmictree").animate({float:"center"});
             }
             
-            
         });
         
-
+		$("#weatherbox").on('click', function(){
+			var currentClass = $(this).attr("class");
+			
+			$("#treebox").toggle(500);
+			$("#housebox").toggle(500);
+			if(currentClass == "panel span2"){
+				console.log(currentClass)
+				$(this).switchClass("span2", "span12", 500, "easeInOutQuad");
+				$("#weatherheading").html("5-Day Forecast");
+				$("#weather").switchClass("weatherclass", "weathertable");
+				$("#weather1").switchClass("weathertable", "weatherclass2");
+				$("#weather2").switchClass("weathertable", "weatherclass2");
+				$("#weather3").switchClass("weathertable", "weatherclass2");
+				$("#weather4").switchClass("weathertable", "weatherclass2");
+				$("#weather5").switchClass("weathertable", "weatherclass2");
+			}
+			else{
+				$(this).switchClass("span12", "span2", 500, "easeInOutQuad");
+				$("#weatherheading").html("Weather");
+				$("#weather1").switchClass("weatherclass2","weathertable");
+				$("#weather2").switchClass("weatherclass2","weathertable");
+				$("#weather3").switchClass("weatherclass2","weathertable");
+				$("#weather4").switchClass("weatherclass2","weathertable");
+				$("#weather5").switchClass("weatherclass2","weathertable");
+				$("#weather").switchClass("weathertable", "weatherclass");
+			}
+		});
     });
 
 </script>

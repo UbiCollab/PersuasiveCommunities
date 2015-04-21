@@ -21,7 +21,7 @@
     font-style: normal;
 }
 
-#weather {
+.weatherclass {
   margin: 0px 0px 3px 0px;
   text-align: center;
   text-transform: uppercase;
@@ -29,12 +29,34 @@
   background: #1192d3;
   height: 100%;
   width: 100%;
+  display: inline-block;
 }
 
-#weather i {
+.weatherclass  i {
   color: #fff;
   font-family: weatherFont;
   font-size: 120px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.0;
+  text-align: center;
+}
+
+.weatherclass2 {
+  margin: 0px 0px 3px 0px;
+  text-align: center;
+  text-transform: uppercase;
+  font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  background: #1192d3;
+  height: 100%;
+  width: 19.5%;
+  display: inline-block;
+}
+
+.weatherclass2  i {
+  color: #fff;
+  font-family: weatherFont;
+  font-size: 100px;
   font-weight: normal;
   font-style: normal;
   line-height: 1.0;
@@ -90,22 +112,35 @@
 .icn-46:before { content: "U"; }
 .icn-47:before { content: "S"; }
 
-#weather h2 {
+.weathertable{
+	display: none;
+}
+
+.weatherclass  h2 {
   margin: 0 0 4px;
   color: #fff;
-  font-size: 66px;
+  font-size: 50px;
   font-weight: 300;
   text-align: center;
   text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
-#weather ul {
+.weatherclass h3 {
+	margin: 0 0 3px;
+	color: #fff;
+	font-size: 25px;
+	font-weight: 250;
+	text-align: center;
+	text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.weatherclass  ul {
   margin: 0;
   display: inline-block;
   text-align: center;
 }
 
-#weather li {
+.weatherclass  li {
   background: #fff;
   background: rgba(255,255,255,0.90);
   padding: 3px;
@@ -115,6 +150,40 @@
   text-align: center;
 }
 
-#weather .currently {
+.weatherclass2  h2 {
+  margin: 0 0 4px;
+  color: #fff;
+  font-size: 50px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.weatherclass2 h3 {
+	margin: 0 0 3px;
+	color: #fff;
+	font-size: 25px;
+	font-weight: 250;
+	text-align: center;
+	text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.weatherclass2  ul {
+  margin: 0;
+  display: inline-block;
+  text-align: center;
+}
+
+.weatherclass2  li {
+  background: #fff;
+  background: rgba(255,255,255,0.90);
+  padding: 3px;
+  margin: 3px 0 10px 0;
+  display: inline-block;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.currently {
   margin: 0 5px;
 }
