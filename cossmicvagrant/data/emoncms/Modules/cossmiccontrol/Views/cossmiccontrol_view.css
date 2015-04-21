@@ -116,6 +116,26 @@
     color: #1192d3;
     margin: 21% 0 0 43%;
 }
+
+#housebox{
+    background-color: #1192d3;
+    display: inline-block;
+}
+
+#houseIconBody{
+    float:left;
+    width: 550px;
+    height: 100%;
+    background-color: red;
+
+}
+
+#housebody{
+    height: 270px;
+    width: 570px;
+    float: right;
+}
+
 #house-icon{
     margin-top: 8%;
     float: right;

@@ -105,30 +105,35 @@ global $path;
 		<div id="housebox" class="panel span6">
 			<div class="panel-heading">El Flow</div>
 			<div class="panel-body">
-                <div class="elFlowHeaders">
-                    <div id="myHouseTag">My house</div>
-                    <div id="myCommunityTag">My community</div>
+                <div id="houseIconBody">
+
                 </div>
-                <div id="elFlowTableAndIcons">
-                    <div id="elFlowText">
-                        <table style="table-layout: fixed">
-                            <tr>
-                                <td>Grid</td>
-                                <td id="gridN" class="elFlowStats">GridN</td></tr>
-                            <tr>
-                                <td>PV</td>
-                                <td id="pvN" class="elFlowStats">pvN</td> </tr>
-                            <tr>
-                                <td>Battery</td>
-                                <td id="batteryN" class ="elFlowStats">0 kWh</td></tr>
-                            <tr>
-                                <td>CoSSMic</td>
-                                <td id="cossmicN" class="elFlowStats">0 kWh</td></tr>
-                        </table>
+                <div id="housebody">
+                    <div class="elFlowHeaders">
+                        <div id="myHouseTag">My house</div>
+                        <div id="myCommunityTag">My community</div>
                     </div>
-                    <div id="elTotalConsumptionHeader">Total:</div>
-                    <div id="elTotalConsumption"></div>
-                    <img id="house-icon" src="<?php echo $path; ?>images/house_el_flow.png"> 
+                    <div id="elFlowTableAndIcons">
+                        <div id="elFlowText">
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td>Grid</td>
+                                    <td id="gridN" class="elFlowStats">GridN</td></tr>
+                                <tr>
+                                    <td>PV</td>
+                                    <td id="pvN" class="elFlowStats">pvN</td> </tr>
+                                <tr>
+                                    <td>Battery</td>
+                                    <td id="batteryN" class ="elFlowStats">0 kWh</td></tr>
+                                <tr>
+                                    <td>CoSSMic</td>
+                                    <td id="cossmicN" class="elFlowStats">0 kWh</td></tr>
+                            </table>
+                        </div>
+                        <div id="elTotalConsumptionHeader">Total:</div>
+                        <div id="elTotalConsumption"></div>
+                        <img id="house-icon" src="<?php echo $path; ?>images/house_el_flow.png"> 
+                    </div>
                 </div>
 			</div>
 		</div>
@@ -228,6 +233,27 @@ while($row = (array)$result->fetch_object()) {
             
         });
         
+        $("#housebox").on('click', function(){
+            var currentClass = $(this).attr("class");
+
+            $("#weatherbox").toggle(500);
+            $("#treebox").toggle(500);
+            if(currentClass == "panel span6"){
+                console.log(currentClass)
+                $(this).switchClass("span6", "span12", 700, "easeInOutQuad");
+                setTimeout(function(){
+                    $("#houseIconBody").toggle();
+                }, 700);
+                
+                    
+            }
+            else{
+                $(this).switchClass("span12", "span6", 200, "easeInOutQuad");
+                $("#houseIconBody").toggle();
+            }
+
+        });
+
 		$("#weatherbox").on('click', function(){
 			var currentClass = $(this).attr("class");
 			
@@ -257,6 +283,13 @@ while($row = (array)$result->fetch_object()) {
 		});
     });
 
+    function setVisibles(){
+
+        $(function(){
+            $("#houseIconBody").hide();
+        });
+
+    }
 </script>
 
 <script>
@@ -476,6 +509,8 @@ function () {
     navigator.geolocation.getCurrentPosition(function(position) {
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
   });
+
+  setVisibles();  
   summarySetup();
   addDataValues();
 });
