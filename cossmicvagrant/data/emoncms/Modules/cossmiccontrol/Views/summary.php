@@ -7,6 +7,7 @@ global $path;
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/css/style.css">
 
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.axislabels.js"></script>
@@ -22,12 +23,12 @@ global $path;
 <div id="usagebar" style="width: 100%">
     <div><table style="width: 100%"><tr><td style="width: 33.3%; text-align: left">- Using</td><td style="width: 33.3%; text-align: center">0</td><td style="width: 33.3%; text-align: right">+ Sharing</td></tr></table></div>
     <div id="usagebarcontainer">
-        <div id="griduse" class="usagebar" style="background-color: red">
-        </div><div id="cossmicuse" class="usagebar" style="background-color: blue">
-        </div><div id="selfpvuse" class="usagebar" style="background-color: forestgreen">
-        </div><div id="ownbatteryuse" class="usagebar" style="background-color: yellow">
-        </div><div id="disttocossmic" class="usagebar" style="background-color: mediumseagreen">
-        </div><div id="selltogrid" class="usagebar" style="background-color: mediumpurple"></div>
+        <div id="griduse" class="usagebar" style="background-color: red"><div id="gridusePercentage"></div></div>
+        <div id="cossmicuse" class="usagebar" style="background-color: blue"><div id="cossmicusePercentage"></div></div>
+        <div id="selfpvuse" class="usagebar" style="background-color: forestgreen"><div id="selfpvusePercentage"></div></div>
+        <div id="ownbatteryuse" class="usagebar" style="background-color: yellow"></div>
+        <div id="disttocossmic" class="usagebar" style="background-color: mediumseagreen"></div>
+        <div id="selltogrid" class="usagebar" style="background-color: mediumpurple"></div>
     </div>
     <div id="usagebarlegend">
         <table style="width: 100%"><tr>
@@ -67,14 +68,14 @@ global $path;
 
 <div id="today">
     <div class="row">
-		<div class="panel span2">
+		<div id="weatherbox" class="panel span2">
 			<div class="panel-heading">Weather</div>
 			<div class="panel-body">
 				<div id="weather"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
 			</div>
 		</div>
-		
-		<div class="panel span2">
+		<!--
+		<div id="cossmickwhbox"class="panel span2">
 			<div class="panel-heading">Now</div>
 			<div class="panel-body">
 				<div id="cossmickwh">
@@ -85,9 +86,9 @@ global $path;
 					<div class="cossmickwhText">[x] kWh since 3/1/2014</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
       		
-		<div class="panel span4">
+		<div id="treebox" class="panel span4">
 			<div class="panel-heading">Widget2</div>
 			<div class="panel-body">
 				<div class="tree-panel">
@@ -96,10 +97,28 @@ global $path;
 			</div>
 		</div>
 			
-		<div class="panel span4">
-			<div class="panel-heading">Widget3</div>
+		<div id="housebox" class="panel span6">
+			<div class="panel-heading">El Flow</div>
 			<div class="panel-body">
-				<div></div>
+                <div class="elFlowHeaders">
+                    <div id="myHouseTag">My house</div>
+                    <div id="myCommunityTag">My community</div>
+                </div>
+                <div id="elFlowTableAndIcons">
+                    <div id="elFlowText">
+                        <table>
+                            <tr><td>Grid</td></tr>
+                            <tr><td>PV</td></tr>
+                            <tr><td>Battery</td></tr>
+                            <tr><td>CoSSMic</td></tr>
+                        </table>
+                    </div>
+
+    				<div id="houseStatsContainer">
+                        <div id="houseStats">lol</div>
+                        <img id="house-icon" src="<?php echo $path; ?>images/house_el_flow.png">
+                    </div>
+                </div>
 			</div>
 		</div>
     </div>
@@ -176,6 +195,33 @@ while($row = (array)$result->fetch_object()) {
 // code here...
 
 ?>
+
+<script>
+    
+    $(function(){
+        $("#treebox").on('click', function(){
+            var currentClass = $(this).attr("class");
+
+            $("#weatherbox").toggle(500);
+            $("#cossmickwhbox").toggle(500);
+            $("#housebox").toggle(500);
+            if(currentClass == "panel span4"){
+                console.log(currentClass)
+                $(this).switchClass("span4", "span12", 700, "easeInOutQuad");
+                $("#cossmictree").animate({float:"left"});    
+            }
+            else{
+                $(this).switchClass("span12", "span4", 200, "easeInOutQuad");
+                $("#cossmictree").animate({float:"center"});
+            }
+            
+            
+        });
+        
+
+    });
+
+</script>
 
 <script>
 
@@ -267,7 +313,9 @@ while($row = (array)$result->fetch_object()) {
             var width = $("#usagebarcontainer").width()/2;
             
             $("#griduse").css({'width': width/grid2householdValue});
+            $("#gridusePercentage").html(Math.round((grid2household/totalconsumption)*100)+"%");
             $("#selfpvuse").css({'width': width/pv2householdValue});
+            $("#selfpvusePercentage").html(Math.round((pv2household/totalconsumption)*100)+"%");
             $("#griduse").css({'float': "left"});
             $("#selfpvuse").css({'float': "left"}); 
             
@@ -290,9 +338,11 @@ while($row = (array)$result->fetch_object()) {
 				var width = $("#usagebarcontainer").width()/2;
 				
 				$("#griduse").css({'width': width/grid2householdValue});
-				$("#selfpvuse").css({'width': width/pv2householdValue});
-				$("#griduse").css({'float': "left"});
-				$("#selfpvuse").css({'float': "left"}); 
+                $("#gridusePercentage").html(Math.round((grid2household/totalconsumption)*100)+"%");
+                $("#selfpvuse").css({'width': width/pv2householdValue});
+                $("#selfpvusePercentage").html(Math.round((pv2household/totalconsumption)*100)+"%");
+                $("#griduse").css({'float': "left"});
+                $("#selfpvuse").css({'float': "left"}); 
 				
 			}, 1000)
 			getData();

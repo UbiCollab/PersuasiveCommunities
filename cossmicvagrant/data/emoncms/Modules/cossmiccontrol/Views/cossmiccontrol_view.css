@@ -50,6 +50,58 @@
 
 }
 
+.elFlowHeaders{
+    display: inline-block;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 36%;
+}
+
+#myHouseTag{
+    color: #fff;
+    float: left;
+}
+
+#myCommunityTag{
+    color: #fff;
+    margin-left: 160px;
+    float: right;
+}
+
+#elFlowTableAndIcons{
+    display: inline-block;
+}
+
+#elFlowText{
+    margin-top: 25px;
+    margin-left: 20px;
+    width: 12%;
+    height: 150px;
+    float:left;
+}
+
+#elFlowText tr td{
+    padding-top: 15px;
+    color: #ffffff;
+}
+
+#houseStats{
+    position: absolute;
+    color: #666;
+}
+
+#houseStatsContainer{
+    position: relative;
+    height:150px; 
+    width:80%;
+    margin-top: 5%;
+    margin-right: 20px;
+    float:right;
+}
+#house-icon{
+    height:150px; 
+    width:100%;
+}
 #tree{
 	
 	width: 90%;
