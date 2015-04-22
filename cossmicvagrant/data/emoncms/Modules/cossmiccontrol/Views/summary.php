@@ -19,7 +19,7 @@ global $path;
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
 
 <a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>Modules/cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
-
+<!--
 <div id="usagebar" style="width: 100%">
     <div><table style="width: 100%"><tr><td style="width: 33.3%; text-align: left">- Using</td><td style="width: 33.3%; text-align: center">0</td><td style="width: 33.3%; text-align: right">+ Sharing</td></tr></table></div>
     <div id="usagebarcontainer">
@@ -54,7 +54,7 @@ global $path;
     </div>
 </div>
 
-<!--<div class="largeFont">Now</div>
+<div class="largeFont">Now</div>
 <div id="now">
 
     <div style="width: 33%">
@@ -106,7 +106,16 @@ global $path;
 			<div class="panel-heading">El Flow</div>
 			<div class="panel-body">
                 <div id="houseIconBody">
-
+                    <table>
+                        <tr>
+                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_panel.png"></div></td>
+                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_grid.png"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_battery.png"></div></td>
+                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>
+                        </tr>
+                    </table>
                 </div>
                 <div id="housebody">
                     <div class="elFlowHeaders">
@@ -125,14 +134,11 @@ global $path;
                                 <tr>
                                     <td>Battery</td>
                                     <td id="batteryN" class ="elFlowStats">0 kWh</td></tr>
-                                <tr>
-                                    <td>CoSSMic</td>
-                                    <td id="cossmicN" class="elFlowStats">0 kWh</td></tr>
                             </table>
                         </div>
                         <div id="elTotalConsumptionHeader">Total:</div>
                         <div id="elTotalConsumption"></div>
-                        <img id="house-icon" src="<?php echo $path; ?>images/house_el_flow.png"> 
+                        <img id="house-icon" src="<?php echo $path; ?>images/housebox_content/house_el_flow.png"> 
                     </div>
                 </div>
 			</div>
@@ -248,8 +254,8 @@ while($row = (array)$result->fetch_object()) {
                     
             }
             else{
-                $(this).switchClass("span12", "span6", 200, "easeInOutQuad");
                 $("#houseIconBody").toggle();
+                $(this).switchClass("span12", "span6", 200, "easeInOutQuad");
             }
 
         });

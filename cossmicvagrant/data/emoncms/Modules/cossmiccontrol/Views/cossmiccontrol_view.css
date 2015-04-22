@@ -75,7 +75,7 @@
 
 #elFlowText{
     position: absolute;
-    margin-top: 25px;
+    margin-top: 50px;
     margin-left: 20px;
     width: 50%;
     height: 150px;
@@ -85,6 +85,7 @@
 
 #elFlowText tr td{
     padding-top: 15px;
+    padding-right: 15px;
     color: #ffffff;
     
 
@@ -124,10 +125,18 @@
 
 #houseIconBody{
     float:left;
-    width: 550px;
+    width: 50%;
     height: 100%;
-    background-color: red;
+    background-color: #1192d3;
+    display: none;
 
+}
+
+.housebox_content{
+    width: 110px;
+    height: auto;
+    margin: 15% 140px 5% 30px;
+    float: left;
 }
 
 #housebody{
