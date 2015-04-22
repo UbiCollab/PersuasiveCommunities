@@ -18,7 +18,6 @@ global $path;
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/jquery.simpleWeather.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
 
-<a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>Modules/cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
 <!--
 <div id="usagebar" style="width: 100%">
     <div><table style="width: 100%"><tr><td style="width: 33.3%; text-align: left">- Using</td><td style="width: 33.3%; text-align: center">0</td><td style="width: 33.3%; text-align: right">+ Sharing</td></tr></table></div>
@@ -229,11 +228,11 @@ while($row = (array)$result->fetch_object()) {
             $("#housebox").toggle(500);
             if(currentClass == "panel span4"){
                 console.log(currentClass)
-                $(this).switchClass("span4", "span12", 700, "easeInOutQuad");
+                $(this).switchClass("span4", "span12", 500, "easeInOutQuad");
                 $("#cossmictree").animate({float:"left"});    
             }
             else{
-                $(this).switchClass("span12", "span4", 200, "easeInOutQuad");
+                $(this).switchClass("span12", "span4", 500, "easeInOutQuad");
                 $("#cossmictree").animate({float:"center"});
             }
             
@@ -246,7 +245,7 @@ while($row = (array)$result->fetch_object()) {
             $("#treebox").toggle(500);
             if(currentClass == "panel span6"){
                 console.log(currentClass)
-                $(this).switchClass("span6", "span12", 700, "easeInOutQuad");
+                $(this).switchClass("span6", "span12", 500, "easeInOutQuad");
                 setTimeout(function(){
                     $("#houseIconBody").toggle();
                 }, 700);
@@ -255,7 +254,7 @@ while($row = (array)$result->fetch_object()) {
             }
             else{
                 $("#houseIconBody").toggle();
-                $(this).switchClass("span12", "span6", 200, "easeInOutQuad");
+                $(this).switchClass("span12", "span6", 500, "easeInOutQuad");
             }
 
         });

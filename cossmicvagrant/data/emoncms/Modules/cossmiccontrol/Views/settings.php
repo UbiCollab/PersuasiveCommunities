@@ -47,7 +47,6 @@ Pending
     }
 </style>
 
-<a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
 
 <div class="pure-g">
     <div class="pure-u-1-3 l-box">

@@ -23,8 +23,6 @@ var current_year = today.getFullYear();
 var current_month = today.getMonth();
 </script>
 
-<a href="<?php echo $path; ?>cossmiccontrol/view/summary">Summary</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/homecontrol">Home control</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/settings">Settings</a> | <a href="<?php echo $path; ?>cossmiccontrol/view/history">History</a>
-
 <div style="height: 1000px; width: 1850px">
 
 <!-- consumption/generation div -->

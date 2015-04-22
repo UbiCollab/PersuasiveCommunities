@@ -150,6 +150,7 @@ function load_menu()
     }
 
     usort($menu_left, "menu_sort");
+	usort($menu_dropdown, "menu_sort");
     return array('left'=>$menu_left, 'right'=>$menu_right, 'dropdown'=>$menu_dropdown);
 }
 
