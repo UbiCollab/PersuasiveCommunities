@@ -423,6 +423,14 @@ class User
         $row = $result->fetch_array();
         return $row['username'];
     }
+	
+	public function get_admin($userid)
+	{
+		$userid = intval($userid);
+		$result = $this->mysqli->query("SELECT admin FROM users WHERE id = '$userid';");
+		$row = $result->fetch_array();
+		return (int)$row['admin'];
+	}
 
     public function get_apikey_read($userid)
     {
