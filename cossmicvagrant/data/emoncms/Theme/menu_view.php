@@ -17,7 +17,7 @@
     $menu_right = $menu['right'];
     $menu_dropdown = $menu['dropdown'];
 
-    if ($session['write']) $menu_right[] = array('name'=>"<b>Docs</b>", 'path'=>"site/docs", 'order' => 0 );
+    //if ($session['write']) $menu_right[] = array('name'=>"<b>Docs</b>", 'path'=>"site/docs", 'order' => 0 );
     if (!$session['write']) $menu_right[] = array('name'=>"Log In", 'path'=>"user/login", 'order' => -1 );
 ?>
 
@@ -28,7 +28,12 @@
     {
         if (isset($item['session'])) {
             if (isset($session[$item['session']]) && $session[$item['session']]==1) {
-                echo "<li><a href=\"".$path.$item['path']."\">".$item['name']."</a></li>";
+                if($item['name'] == 'CoSSMic Control'){
+                    echo "<li><a href=\"".$path.$item['path']."\"><img src=\"".$path."Theme/home_icon.png\"/>".$item['name']."</a></li>";
+                }
+                else{
+                    echo "<li><a href=\"".$path.$item['path']."\">".$item['name']."</a></li>";
+                }
             }
         } else {
             echo "<li><a href=\"".$path.$item['path']."\">".$item['name']."</a></li>";
@@ -39,7 +44,7 @@
 
     <?php if (count($menu_dropdown) && $session['read']) { ?>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extras <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">CoSSMic Control<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <?php foreach ($menu_dropdown as $item) { ?>
                 <?php if (isset($session[$item['session']]) && $session[$item['session']]==1) { ?>

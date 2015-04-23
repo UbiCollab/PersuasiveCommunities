@@ -40,6 +40,8 @@ http://openenergymonitor.org
 #footer span {
     color:#999;
 }
+
+
 #submenu {
     width:100%;
     background-color:#ddd;
@@ -56,7 +58,11 @@ div#account {
 .account-item {
     margin-bottom:10px;
 }
-
+.navbar img{
+    vertical-align: top;
+    width: 15px;
+    height: 15px;
+}
 input[type=text][class=variable-name-edit] {
     margin-bottom:0px;
 }
