@@ -73,7 +73,7 @@
     position: relative;
 }
 
-#elFlowText{
+#elFlowText1{
     position: absolute;
     margin-top: 50px;
     margin-left: 20px;
@@ -83,16 +83,30 @@
     position: absolute;
 }
 
-#elFlowText tr td{
+#elFlowText1 tr td{
     padding-top: 15px;
     padding-right: 15px;
     color: #ffffff;
-    
-
 }
+
+#elFlowText2{
+    position: absolute;
+    margin-top: 58px;
+    margin-left: 63%;
+    width: 50%;
+    height: 150px;
+    float:right;
+}
+
+#elFlowText2 tr td{
+    padding-top: 20px;
+    padding-right: 15px;
+    color: #ffffff;
+}
+
 .elFlowStats{
-    padding-left: 45px;
-    width: 100px;
+    padding-right: 45px;
+    width: 90px;
     float:right;
 }
 
@@ -121,6 +135,7 @@
 #housebox{
     background-color: #1192d3;
     display: inline-block;
+    float: left;
 }
 
 #houseIconBody{
@@ -140,6 +155,7 @@
 }
 
 #housebody{
+
     height: 270px;
     width: 570px;
     float: right;

@@ -107,12 +107,12 @@ global $path;
                 <div id="houseIconBody">
                     <table>
                         <tr>
-                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_panel.png"></div></td>
-                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_grid.png"></div></td>
+                            <td><div><img id="housebox_panel" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_panel.png"></div></td>
+                            <td><div><img id="housebox_grid" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_grid.png"></div></td>
                         </tr>
                         <tr>
-                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_battery.png"></div></td>
-                            <td><div><img class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>
+                            <td><div><img id="housebox_battery" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_battery.png"></div></td>
+                            <td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>
                         </tr>
                     </table>
                 </div>
@@ -122,17 +122,27 @@ global $path;
                         <div id="myCommunityTag">My community</div>
                     </div>
                     <div id="elFlowTableAndIcons">
-                        <div id="elFlowText">
+                        <div id="elFlowText1">
                             <table style="table-layout: fixed">
                                 <tr>
                                     <td>Grid</td>
-                                    <td id="gridN" class="elFlowStats">GridN</td></tr>
+                                    <td id="gridN" class="elFlowStats">0 kWh</td></tr>
                                 <tr>
-                                    <td>PV</td>
-                                    <td id="pvN" class="elFlowStats">pvN</td> </tr>
-                                <tr>
-                                    <td>Battery</td>
+                                    <td class="elFlowStats">PV</td>
+                                    <td id="pvN">kWh</td> </tr>
+                                <tr id="batteryLabel">
+                                    <td id="batteryText">Battery</td>
                                     <td id="batteryN" class ="elFlowStats">0 kWh</td></tr>
+                            </table>
+                        </div>
+                        <div id="elFlowText2">
+                            <table>
+                                <tr>
+                                    <td id="houseToGridN">0 kWh</td>
+                                </tr>
+                                <tr>
+                                    <td id="gridToHouseN">0 kWh</td>
+                                </tr>
                             </table>
                         </div>
                         <div id="elTotalConsumptionHeader">Total:</div>
@@ -181,7 +191,13 @@ global $path;
 <?php
 global $mysqli, $session;
 $kwhlist = [];
-$pv2householdlist = [];
+$pv2householdId = [];
+$consumptionkwhId = [];
+$grid2storageId = [];
+$pv2storage = [];
+$pv2gridId = [];
+$storage2gridId = [];
+$storage2householdId = [];
 $kwhdlist = [];
 $userid = $session['userid'];
 
@@ -205,11 +221,60 @@ while ($row = (array)$result->fetch_object()) {
     $i++;
 }
 // get the id of the user's PV 2 household power feed 
-$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2household_power$' AND userid = '$userid'");
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2household_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-	$pv2householdlist[$i] = $row['id'];
+	$pv2householdId[$i] = $row['id'];
 	$i++;
+}
+// get the id of the user's grid2household power feed 
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2household_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $grid2householdId[$i] = $row['id'];
+    $i++;
+}
+//get the id for the user's total kwh consumption
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'consumption_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $consumptionkwhId[$i] = $row['id'];
+    $i++;
+}
+//get the id for the grid2storage feed
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2storage_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $grid2storageId[$i] = $row['id'];
+    $i++;
+}
+//get the id for the pv2storage feed
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2storage_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $pv2storageId[$i] = $row['id'];
+    $i++;
+}
+//get the id for the pv2grid feed
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2grid_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $pv2gridId[$i] = $row['id'];
+    $i++;
+}
+//get the id for the storage2grid feed
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2grid_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $storage2gridId[$i] = $row['id'];
+    $i++;
+}
+//get the id for the storage2house feed
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2household_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $storage2householdId[$i] = $row['id'];
+    $i++;
 }
 
 // get the id of the user's battery kwh feed
@@ -241,20 +306,25 @@ while($row = (array)$result->fetch_object()) {
         $("#housebox").on('click', function(){
             var currentClass = $(this).attr("class");
 
-            $("#weatherbox").toggle(500);
-            $("#treebox").toggle(500);
             if(currentClass == "panel span6"){
+                $("#weatherbox").toggle(400);
+                $("#treebox").toggle(400);  
                 console.log(currentClass)
                 $(this).switchClass("span6", "span12", 500, "easeInOutQuad");
                 setTimeout(function(){
                     $("#houseIconBody").toggle();
-                }, 700);
+                }, 500);
                 
                     
             }
             else{
                 $("#houseIconBody").toggle();
-                $(this).switchClass("span12", "span6", 500, "easeInOutQuad");
+                
+                $(this).switchClass("span12", "span6", 500,"easeInOutQuad");
+                $("#weatherbox").toggle(500);
+                $("#treebox").toggle(500);    
+                
+                
             }
 
         });
@@ -268,6 +338,7 @@ while($row = (array)$result->fetch_object()) {
 				console.log(currentClass)
 				$(this).switchClass("span2", "span12", 500, "easeInOutQuad");
 				$("#weatherheading").html("5-Day Forecast");
+                $("#weather").toggle();
 				$("#weather").switchClass("weatherclass", "weathertable");
 				$("#weather1").switchClass("weathertable", "weatherclass2");
 				$("#weather2").switchClass("weathertable", "weatherclass2");
@@ -283,6 +354,7 @@ while($row = (array)$result->fetch_object()) {
 				$("#weather3").switchClass("weatherclass2","weathertable");
 				$("#weather4").switchClass("weatherclass2","weathertable");
 				$("#weather5").switchClass("weatherclass2","weathertable");
+                $("#weather").toggle();
 				$("#weather").switchClass("weathertable", "weatherclass");
 			}
 		});
@@ -292,6 +364,8 @@ while($row = (array)$result->fetch_object()) {
 
         $(function(){
             $("#houseIconBody").hide();
+            $("#batteryLabel").hide();
+            $("#housebox_battery").hide();
         });
 
     }
@@ -309,10 +383,20 @@ while($row = (array)$result->fetch_object()) {
     function getData(){
         end = new Date().getTime();
         start = end - 10;    
-        
+            
+            var consumptionkwhId = <?php echo json_encode($consumptionkwhId); ?>; 
+            var pv2householdId = <?php echo json_encode($pv2householdId); ?>;
+            var grid2householdId = <?php echo json_encode($grid2householdId); ?>;
+            var grid2storageId = <?php echo json_encode($grid2storageId); ?>;
+            var pv2storageId = <?php echo json_encode($grid2storageId); ?>;
+            var pv2gridId = <?php echo json_encode($pv2gridId); ?>;
+            var storage2gridId = <?php echo json_encode($storage2gridId); ?>;
+            var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
+
+            //get data fro totalConsumption
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=2&start='+start+'&end='+end+'&dp=1 ',
+                url: path+'/feed/data.json?id='+consumptionkwhId+'&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
                     var json = data[0];
                     
@@ -323,10 +407,11 @@ while($row = (array)$result->fetch_object()) {
                         setTotalconsumptionValue(0);
                     }
                 }
-            }),
+             }),
+            //get and set the data from pv2householdValue
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=11&start='+start+'&end='+end+'&dp=1 ',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+pv2householdId+'&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
                     var json = data[0];
                     
@@ -338,10 +423,12 @@ while($row = (array)$result->fetch_object()) {
                     }
                 }
             }),
+            //get and set data from grid2household
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id=14&start='+start+'&end='+end+'&dp=1 ',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2householdId+'&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
+
                     var json = data[0];
                     
                     if(json[0] <= start){
@@ -351,12 +438,39 @@ while($row = (array)$result->fetch_object()) {
                         setGrid2householdValue(0);   
                     }
                 }
-            })
-            
+            }),
+            //get and set grid2storage if it exists a feed
+            // if(grid2storageId.length < 0)
+            // {
+                $.ajax({
+                    type: 'get',
+                    url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageId+'&start='+start+'&end='+end+'&dp=1 ',
+                    success: function(data){
+                        if(grid2storageId == 0){
+                            $("#batteryLabel").hide();
+                            $("#housebox_battery").hide();
+                            $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
+                            $("#elFlowText1").css({"margin-top":"65px"})                           
+                        }
+                        else{
+                            var json = data[0];
+                            console.log(data);
+                            if(json[0] <= start){
+                                setGrid2storageValue(json[1]);
+                            }
+                            else{
+                                setGrid2storageValue(0);   
+                            }
+                        }
+                    },
+                    error: function(data, message){
+                        console.log(message);
+                    }
+                })
+            // }
         }
 
     function setTotalconsumptionValue(value){
-        console.log(value);
         $(function(){
                $("#elTotalConsumption").html(value.toFixed(2)+" kWh");  
         });
@@ -379,6 +493,32 @@ while($row = (array)$result->fetch_object()) {
         grid2household = value;
         console.log(grid2household);
     }
+
+    function setGrid2storageValue(value){
+        grid2storage = value;
+        console.log(grid2storage);
+    }    
+
+    function setPv2storageValue(value){
+        pv2storage = value;
+        console.log(pv2storage);
+    }
+
+    function setPv2gridValue(value){
+        pv2grid = value;
+        console.log(pv2grid);
+    }
+
+    function setStorage2gridValue(value){
+        storage2grid = value;
+        console.log(storage2grid);
+    }
+        
+    function setStorage2householdValue(value){
+        storage2household = value;
+        console.log(storage2household);
+    }
+    
 
     function addDataValues(){
 
@@ -448,7 +588,7 @@ var yesterday = today.setHours(0,0,0,0) - 1;
 // get the current kWh/day values for grid use, CoSSMic use, Self-PV use, and own Battery use
 // code here...
 // Test with feed ids hard-coded:
-var grid_use = parseFloat(get_feedvalue(5));
+var grid_use = parseFloat(  (5));
 var cossmic_use = parseFloat(get_feedvalue(6));
 var pv_use = 0;
 var battery_use = 0;
