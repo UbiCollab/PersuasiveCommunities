@@ -101,18 +101,26 @@ global $path;
 			</div>
 		</div>
 			
-		<div id="housebox" class="panel span6">
+		<div id="housebox" class="panel houseboxsmall">
 			<div class="panel-heading">El Flow</div>
 			<div class="panel-body">
                 <div id="houseIconBody">
-                    <table>
-                        <tr>
+                    <table id="houseboxTable">
+                        <tr id="firstRowHousebox">
                             <td><div><img id="housebox_panel" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_panel.png"></div></td>
                             <td><div><img id="housebox_grid" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_grid.png"></div></td>
                         </tr>
-                        <tr>
+                        <tr id="firstRowHouseboxText">
+                            <td id="houseboxPanelTd"><div id="houseboxPanelText" class="houseboxIconText">Panel</div></td>
+                            <td id="houseboxGridTd"><div id="houseboxGridText" class="houseboxIconText">Grid</div></td>
+                        </tr>
+                        <tr id="secondRowHousebox">
                             <td><div><img id="housebox_battery" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_battery.png"></div></td>
                             <td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>
+                        </tr>
+                        <tr id="secondRowHouseboxText">
+                            <td id="houseboxBatteryTd"><div id="houseboxBatteryText" class="houseboxIconText">Battery</div></td>
+                            <td id="houseboxCommunityTd"><div id="houseboxCommunityText" class="houseboxIconText">Community</div></td>
                         </tr>
                     </table>
                 </div>
@@ -305,12 +313,15 @@ while($row = (array)$result->fetch_object()) {
         
         $("#housebox").on('click', function(){
             var currentClass = $(this).attr("class");
-
-            if(currentClass == "panel span6"){
-                $("#weatherbox").toggle(400);
-                $("#treebox").toggle(400);  
+            
+            var margin = 630;
+            
+            if(currentClass == "panel houseboxsmall"){
+               $("#weatherbox").toggle(400);
+               $("#treebox").toggle(400);  
                 console.log(currentClass)
-                $(this).switchClass("span6", "span12", 500, "easeInOutQuad");
+               $(this).switchClass("houseboxsmall", "houseboxbig", 500, "easeInOutQuad");
+
                 setTimeout(function(){
                     $("#houseIconBody").toggle();
                 }, 500);
@@ -319,10 +330,21 @@ while($row = (array)$result->fetch_object()) {
             }
             else{
                 $("#houseIconBody").toggle();
+                /*$(this).animate({
+                    marginLeft: '+='+margin
+                },500); */
+                $(this).switchClass("houseboxbig", "houseboxsmall", 500,"easeInOutQuad");
                 
-                $(this).switchClass("span12", "span6", 500,"easeInOutQuad");
-                $("#weatherbox").toggle(500);
-                $("#treebox").toggle(500);    
+
+                console.log(currentClass)
+                //$("#weatherbox").toggle(500);
+                //$("#treebox").toggle(500);
+                setTimeout(function(){
+                    
+                  $("#weatherbox").toggle(500);
+                  $("#treebox").toggle(500);    
+                    
+                }, 500);    
                 
                 
             }
@@ -372,10 +394,13 @@ while($row = (array)$result->fetch_object()) {
 </script>
 
 <script>
-
+    hidden= 0;
     totalconsumption = 0;
     pv2household = 0;
     grid2household = 0;
+    pv2grid = 0;
+    storage2grid = 0;
+    storage2household = 0;
     ids = [1,10,13];
     values = [];
     var path = "<?php echo $path; ?>";
@@ -421,6 +446,8 @@ while($row = (array)$result->fetch_object()) {
                     else{
                         setPv2householdValue(0);
                     }
+
+
                 }
             }),
             //get and set data from grid2household
@@ -447,10 +474,21 @@ while($row = (array)$result->fetch_object()) {
                     url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageId+'&start='+start+'&end='+end+'&dp=1 ',
                     success: function(data){
                         if(grid2storageId == 0){
+                            
                             $("#batteryLabel").hide();
                             $("#housebox_battery").hide();
                             $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
-                            $("#elFlowText1").css({"margin-top":"65px"})                           
+                            $("#elFlowText1").css({"margin-top":"65px"})
+                            
+                            if(hidden == 0){
+                                $("#secondRowHousebox").hide();
+                                $("#firstRowHousebox").append('<td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>');
+                                $("#secondRowHouseboxText").hide();
+                                $("#firstRowHouseboxText").append('<td><span class="whiteText">You are sharing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> of the power within the CoSSMic project!</span></td>');
+                                hidden = 1;
+                            }
+
+
                         }
                         else{
                             var json = data[0];
@@ -480,7 +518,8 @@ while($row = (array)$result->fetch_object()) {
 
     function setPv2householdValue(value){
         $(function(){
-               $("#pvN").html(value.toFixed(2)+" kWh");  
+               $("#pvN").html(value.toFixed(2)+" kWh");
+                
         });
         pv2household = value;
         console.log(pv2household);
@@ -518,9 +557,26 @@ while($row = (array)$result->fetch_object()) {
         storage2household = value;
         console.log(storage2household);
     }
-    
+    //display the percentages of the different power supplies. E.g x% grid
+    function setHouseboxIconText(){
+        
+        console.log("Hey again: "+pv2household+" "+totalconsumption+" "+pv2household/totalconsumption);
+        //set text for total consumption on house icon
+        $("#houseboxPanelText").html((pv2household/totalconsumption).toFixed(2)*100+"%");
+        //set text for the pvPanel icon
+        var houseBoxPanelValue = (pv2household/totalconsumption).toFixed(2)*100;
+        $("#houseboxPanelText").html((pv2household/totalconsumption).toFixed(2)*100+"%");
+        $("#houseboxPanelTd").html('<span class="whiteText">The PV is producing </span> <span class="houseboxIconText">'+houseBoxPanelValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
+        //set text for the grid icon
+        var houseBoxGridValue = (grid2household/totalconsumption).toFixed(2)*100;
+        $("#houseboxGridText").html((grid2household/totalconsumption).toFixed(2)*100+"%");
+        $("#houseboxGridTd").html('<span class="whiteText">The grid is supplying </span> <span class="houseboxIconText">'+houseBoxGridValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
+        //set % of shared el to the grid. 
+        $("#houseboxCommunityText").html(pv2grid+storage2grid+"%");
+        
+    }
 
-    function addDataValues(){
+    function addDataValues(){-
 
 		setTimeout(function(){
             var pv2householdValue = totalconsumption/pv2household;
@@ -542,9 +598,10 @@ while($row = (array)$result->fetch_object()) {
             $("#selfpvusePercentage").html(Math.round((pv2household/totalconsumption)*100)+"%");
             $("#griduse").css({'float': "left"});
             $("#selfpvuse").css({'float': "left"}); 
-            
+            setHouseboxIconText();
         }, 1000);
         getData();
+        
 	
 		setInterval(function(){
 			setTimeout(function(){
@@ -567,7 +624,7 @@ while($row = (array)$result->fetch_object()) {
                 $("#selfpvusePercentage").html(Math.round((pv2household/totalconsumption)*100)+"%");
                 $("#griduse").css({'float': "left"});
                 $("#selfpvuse").css({'float': "left"}); 
-				
+				setHouseboxIconText();
 			}, 1000)
 			getData();
         }, 60000);
@@ -652,6 +709,7 @@ function () {
 
   $(document).ready( function () {
     navigator.geolocation.getCurrentPosition(function(position) {
+        console.log("HEYT");
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
   });
 

@@ -50,6 +50,18 @@
 
 }
 
+
+.houseboxsmall{
+    
+    float:right;
+    width: 570px;
+}
+
+.houseboxbig{
+    
+    width: 1170px;
+}
+
 .elFlowHeaders{
     display: inline-block;
     text-align: center;
@@ -85,7 +97,7 @@
 
 #elFlowText1 tr td{
     padding-top: 15px;
-    padding-right: 15px;
+    padding-right: 5px;
     color: #ffffff;
 }
 
@@ -123,20 +135,21 @@
 #elTotalConsumptionHeader{
     position: absolute;
     color: #1192d3;
-    margin: 17% 0 0 45%;
+    margin: 17% 0 0 43%;
 }
 
 #elTotalConsumption{
     position: absolute;
     color: #1192d3;
-    margin: 21% 0 0 43%;
+    margin: 21% 0 0 41%;
 }
 
 #housebox{
     background-color: #1192d3;
     display: inline-block;
-    float: left;
+    float: right;
 }
+
 
 #houseIconBody{
     float:left;
@@ -148,7 +161,7 @@
 }
 
 .housebox_content{
-    width: 110px;
+    width: 95px;
     height: auto;
     margin: 15% 140px 5% 30px;
     float: left;
@@ -163,14 +176,35 @@
 
 #house-icon{
     margin-top: 8%;
+    margin-right: 10px;
     float: right;
     height:150px; 
     width:80%;
+}
+
+#houseboxTable{
+    margin-top: 13%;
+    margin-left: 10px;
+}
+.houseboxIconText{
+    color: #fff;
+    width: 40px; 
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.houseboxParagraph{
+    color: #fff;
+    display: inline-block;
 }
 #tree{
 	
 	width: 90%;
 	height: 100%;	
+}
+
+.whiteText{
+    color:#fff;
 }
 
 .panel .panel-neighborhoodGraph{
