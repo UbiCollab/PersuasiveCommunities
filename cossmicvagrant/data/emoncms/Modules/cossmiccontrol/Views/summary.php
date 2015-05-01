@@ -208,6 +208,7 @@ $storage2gridId = [];
 $storage2householdId = [];
 $kwhdlist = [];
 $userid = $session['userid'];
+$userlocation;
 
 // TODO: uncomment when integrating Katharinas code
 // get the ids of the user's grid use, CoSSMic use, Self-PV use, and own Battery use kWh/day feeds
@@ -284,6 +285,11 @@ while($row = (array)$result->fetch_object()) {
     $storage2householdId[$i] = $row['id'];
     $i++;
 }
+
+//get the users registered location
+$result = $mysqli->query("SELECT location FROM users WHERE id = '$userid'");
+$row = (array)$result->fetch_object();
+$userlocation = $row['location'];
 
 // get the id of the user's battery kwh feed
 // code here...
@@ -708,10 +714,14 @@ function () {
 */
 
   $(document).ready( function () {
+  
+	//Check first with geolocation to find users position. If that fails, second function is called to handle errors.
+	//If geolocation fails, use the location field in users profile on emoncms.
     navigator.geolocation.getCurrentPosition(function(position) {
-        console.log("HEYT");
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
-  });
+  }, function(position){
+	errorWeather("<?php echo $userlocation; ?>");
+  }, {timeout: 10000});
 
   setVisibles();  
   summarySetup();

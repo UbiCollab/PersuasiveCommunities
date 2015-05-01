@@ -66,3 +66,16 @@ function loadWeather(location, woeid) {
     }
   });
 }
+
+function errorWeather(location){
+	if(location == ""){
+		err = '<h3>Location unavailable</h3></ br>';
+		err += '<h4>Please set location</h4>';
+		err += '<h4>in your profile</h4>';
+		err += '<h4>(Account)</h4>';
+		$("#weather").html(err);
+	}
+	else{
+		loadWeather(location);
+	}
+}
