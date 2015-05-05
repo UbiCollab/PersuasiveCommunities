@@ -5,7 +5,9 @@ global $path;
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/cossmiccontrol_view.css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/css/style.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/barstyle.css">
 
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
@@ -95,8 +97,21 @@ global $path;
 		<div id="treebox" class="panel span4">
 			<div class="panel-heading">Tree</div>
 			<div class="panel-body">
-				<div class="tree-panel">
-					<div><center><img id="cossmictree" src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></center></div>
+				<div id="tree-panel">
+					<div id="cossmictreeContainer">
+                        <div id="treeImgContainer"><img id="cossmictree" src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></div>
+                    
+                        <div id="cossmictreebarchart" class="tree-barchart">
+                            <svg class="outerChart"></svg>
+                            <script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/chart.js"></script>
+                        </div>
+                    </div>
+                    
+                    <div id="cossmicforestContainer">
+                        <img id="cossmicforest" src="<?php echo $path; ?>images/tree/forest-0.png" alt="" style="height:270px; width:auto">
+                        <div id="cossmicforestbarchart" class="tree-barchart">
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -119,7 +134,7 @@ global $path;
                             <td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>
                         </tr>
                         <tr id="secondRowHouseboxText">
-                            <td id="houseboxBatteryTd"><div id="houseboxBatteryText" class="houseboxIconText">Battery</div></td>
+                            <td id="houseboxBatteryTd"><div id="houseboxBatteryText" class="houseboxIconText"></div></td>
                             <td id="houseboxCommunityTd"><div id="houseboxCommunityText" class="houseboxIconText">Community</div></td>
                         </tr>
                     </table>
@@ -305,14 +320,29 @@ $userlocation = $row['location'];
             $("#weatherbox").toggle(500);
             $("#cossmickwhbox").toggle(500);
             $("#housebox").toggle(500);
+            $("#treeb")
             if(currentClass == "panel span4"){
                 console.log(currentClass)
                 $(this).switchClass("span4", "span12", 500, "easeInOutQuad");
-                $("#cossmictree").animate({float:"left"});    
+                $("#cossmictreeContainer").css({"width":"50%"});
+
+                
+                setTimeout(function(){
+                    $("#cossmicforestContainer").toggle();
+                    $("#cossmictreeContainer").css({"border-right":"1px solid","border-right-color":"#fff"});
+                    $("#cossmictreebarchart").toggle();
+
+
+                }, 500);    
+                $("#cossmictree").animate({"margin-left":"10px"});
+                $("#cossmictree").animate({"float":"left"});    
             }
             else{
                 $(this).switchClass("span12", "span4", 500, "easeInOutQuad");
-                $("#cossmictree").animate({float:"center"});
+                $("#cossmictreebarchart").toggle();
+                $("#cossmictreeContainer").css({"width":"100%"});
+                $("#cossmictree").animate({"margin-left":"100px"});
+                $("#cossmicforestContainer").toggle();
             }
             
         });
@@ -392,8 +422,7 @@ $userlocation = $row['location'];
 
         $(function(){
             $("#houseIconBody").hide();
-            $("#batteryLabel").hide();
-            $("#housebox_battery").hide();
+            
         });
 
     }
@@ -480,23 +509,28 @@ $userlocation = $row['location'];
                     url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageId+'&start='+start+'&end='+end+'&dp=1 ',
                     success: function(data){
                         if(grid2storageId == 0){
-                            
-                            $("#batteryLabel").hide();
-                            $("#housebox_battery").hide();
-                            $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
-                            $("#elFlowText1").css({"margin-top":"65px"})
+                           
+                           $("#batteryLabel").hide();
+                           $("#housebox_battery").hide();
+                           $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
+                           $("#elFlowText1").css({"margin-top":"65px"})
                             
                             if(hidden == 0){
-                                $("#secondRowHousebox").hide();
-                                $("#firstRowHousebox").append('<td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>');
-                                $("#secondRowHouseboxText").hide();
-                                $("#firstRowHouseboxText").append('<td><span class="whiteText">You are sharing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> of the power within the CoSSMic project!</span></td>');
+                               $("#secondRowHousebox").hide();
+                               $("#firstRowHousebox").append('<td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>');
+                               $("#secondRowHouseboxText").hide();
+                               $("#firstRowHouseboxText").append('<td><span class="whiteText">You are sharing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> of the power within the CoSSMic project!</span></td>');
                                 hidden = 1;
                             }
 
 
                         }
                         else{
+                            $("#houseboxTable").css({"margin-top":"0px"});
+                            $(".housebox_content").css({"margin-top":"10px"});
+                            $("#houseboxBatteryTd").html('<span class="whiteText">Your battery is providing  </span> <span class="houseboxIconText">'+storage2household+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
+                            $("#houseboxCommunityTd").html('<span class="whiteText">You are sharing </span> <span id="houseboxCommunityText" class="houseboxIconText"></span><span class="whiteText"> of the power within CoSSMic project!</span>');
+
                             var json = data[0];
                             console.log(data);
                             if(json[0] <= start){
@@ -721,7 +755,7 @@ function () {
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
   }, function(position){
 	errorWeather("<?php echo $userlocation; ?>");
-  }, {timeout: 10000});
+  }, {timeout: 10000, enableHighAccuracy:true});
 
   setVisibles();  
   summarySetup();
