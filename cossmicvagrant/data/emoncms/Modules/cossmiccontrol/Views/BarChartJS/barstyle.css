@@ -4,21 +4,22 @@
 
 .bar:hover{
 	fill: brown;
+
 }
 
 .bar text {
-  fill: red;
+  fill: white;
 }
 
 .axis{
 	font: 9px sans-serif;
 }
 
-.axis path, line{
+/*.axis path, line{
 	fill: none;
 	stroke: #000;
 	shapeRendering: crispEdges;
-}
+}*/
 
 .x.axis path{
 	display: none;

@@ -439,20 +439,54 @@ $userlocation = $row['location'];
     ids = [1,10,13];
     values = [];
     var path = "<?php echo $path; ?>";
+
+    var consumptionkwhId = <?php echo json_encode($consumptionkwhId); ?>; 
+    var pv2householdId = <?php echo json_encode($pv2householdId); ?>;
+    var grid2householdId = <?php echo json_encode($grid2householdId); ?>;
+    var grid2storageId = <?php echo json_encode($grid2storageId); ?>;
+    var pv2storageId = <?php echo json_encode($grid2storageId); ?>;
+    var pv2gridId = <?php echo json_encode($pv2gridId); ?>;
+    var storage2gridId = <?php echo json_encode($storage2gridId); ?>;
+    var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
     
+    function createBarChart(){
+
+        var data=[["Something",80],["something 2","75"]];
+        //if battery and the household is using battery power
+        if(storage2householdId != 0){
+            data.push(["Battery usage", storage2household]);
+        }
+        //if battery and sharing to grid
+        if(storage2gridId != 0){
+            data.push(["Sharing", Math.round(storage2grid*10)]);
+        }
+
+
+        //Calculate score based on how much of the pv is used for example
+        var pv2householdValue =Math.round((pv2household/totalconsumption)*100);
+        data.push(["PV usage", pv2householdValue]);
+
+        console.log("Added")
+        //Calculate score based on a treshhold value over a whole day for example. High score = low actual usage
+        var gridUsageValue = 79;
+        data.push(["Grid usage",  gridUsageValue]);
+        //Calculate score based on the scheduling (actual schedules/number of schedulable devices for example)
+        var schedulingValue= (6/12)*100;
+        data.push(["Scheduling", schedulingValue]);
+        treechart(data);
+
+
+        //Calculates a very simple score based on the percentage of PV power used compared to the total power used
+        //then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
+        selectTree(Math.round((80+75+pv2householdValue+gridUsageValue+schedulingValue)/5));
+
+    }
+
+
     function getData(){
         end = new Date().getTime();
         start = end - 10;    
-            
-            var consumptionkwhId = <?php echo json_encode($consumptionkwhId); ?>; 
-            var pv2householdId = <?php echo json_encode($pv2householdId); ?>;
-            var grid2householdId = <?php echo json_encode($grid2householdId); ?>;
-            var grid2storageId = <?php echo json_encode($grid2storageId); ?>;
-            var pv2storageId = <?php echo json_encode($grid2storageId); ?>;
-            var pv2gridId = <?php echo json_encode($pv2gridId); ?>;
-            var storage2gridId = <?php echo json_encode($storage2gridId); ?>;
-            var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
-
+        
             //get data fro totalConsumption
             $.ajax({
                 type: 'get',
@@ -622,12 +656,6 @@ $userlocation = $row['location'];
             var pv2householdValue = totalconsumption/pv2household;
             var grid2householdValue = totalconsumption/grid2household;
 			
-			//Calculates a very simple score based on the percentage of PV power used compared to the total power used
-			//then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
-			var multiplier = 100/totalconsumption;
-			var score = Math.round(pv2household*multiplier);
-			selectTree(score);
-			//End of the simple score calculation
 
             var height = $("#usagebarcontainer").height()/2;
             var width = $("#usagebarcontainer").width()/2;
@@ -639,6 +667,7 @@ $userlocation = $row['location'];
             $("#griduse").css({'float': "left"});
             $("#selfpvuse").css({'float': "left"}); 
             setHouseboxIconText();
+            createBarChart();
         }, 1000);
         getData();
         
@@ -647,14 +676,7 @@ $userlocation = $row['location'];
 			setTimeout(function(){
 				var pv2householdValue = totalconsumption/pv2household;
 				var grid2householdValue = totalconsumption/grid2household;
-				
-				//Calculates a very simple score based on the percentage of PV power used compared to the total power used
-				//then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
-				var multiplier = 100/totalconsumption;
-				var score = Math.round(pv2household*multiplier);
-				selectTree(score);
-				//End of the simple score calculation
-
+			
 				var height = $("#usagebarcontainer").height()/2;
 				var width = $("#usagebarcontainer").width()/2;
 				
@@ -665,8 +687,10 @@ $userlocation = $row['location'];
                 $("#griduse").css({'float': "left"});
                 $("#selfpvuse").css({'float': "left"}); 
 				setHouseboxIconText();
+                createBarChart();
 			}, 1000)
 			getData();
+            
         }, 60000);
     };
 </script>
