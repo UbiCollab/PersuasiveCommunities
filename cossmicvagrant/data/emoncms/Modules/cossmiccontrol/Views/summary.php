@@ -2,77 +2,42 @@
 global $path;
 ?>
 
+<!-- Main stylesheet for the site -->
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/cossmiccontrol_view.css">
+<!-- Font stylesheet -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+<!-- Stylesheet for the weather widget -->
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/css/style.css">
+<!-- Stylesheet for the bar charts -->
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/barstyle.css">
 
+<!-- The D3 library used for the bar charts -->
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!-- Jquery libraries -->
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.axislabels.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.time.min.js"></script>
+<!-- The json parsing javascript -->
+<script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
+<!-- Libraries used for the weather widget -->
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/prefixfree.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/modernizr.js"></script>
-
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/jquery.simpleWeather.min.js"></script>
+<!-- Javascript for setting the CoSSMic tree -->
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
 
-<!--
-<div id="usagebar" style="width: 100%">
-    <div><table style="width: 100%"><tr><td style="width: 33.3%; text-align: left">- Using</td><td style="width: 33.3%; text-align: center">0</td><td style="width: 33.3%; text-align: right">+ Sharing</td></tr></table></div>
-    <div id="usagebarcontainer">
-        <div id="griduse" class="usagebar" style="background-color: red"><div id="gridusePercentage"></div></div>
-        <div id="cossmicuse" class="usagebar" style="background-color: blue"><div id="cossmicusePercentage"></div></div>
-        <div id="selfpvuse" class="usagebar" style="background-color: forestgreen"><div id="selfpvusePercentage"></div></div>
-        <div id="ownbatteryuse" class="usagebar" style="background-color: yellow"></div>
-        <div id="disttocossmic" class="usagebar" style="background-color: mediumseagreen"></div>
-        <div id="selltogrid" class="usagebar" style="background-color: mediumpurple"></div>
-    </div>
-    <div id="usagebarlegend">
-        <table style="width: 100%"><tr>
-            <td style="width: 16.67%">
-                <div class="usagebarlegend" style="background-color: red"></div><div>Grid use</div>
-            </td>
-            <td style="width: 16.67%">
-                <div class="usagebarlegend" style="background-color: blue"></div><div>CoSSMic use</div>
-            </td>
-            <td style="width: 16.67%">
-                <div class="usagebarlegend" style="background-color: forestgreen"></div><div>Self-PV use</div>
-            </td>
-            <td style="width: 16.67%">
-                <div class="usagebarlegend" style="background-color: yellow"></div><div>own Battery use</div>
-            </td>
-            <td style="width: 16.67%">
-                <div class="usagebarlegend" style="background-color: mediumseagreen"></div><div>Distribute to CoSSMic</div>
-            </td>
-            <td style="width: 16.67%">
-                <div class="usagebarlegend" style="background-color: mediumpurple"></div><div>Sell to grid</div>
-            </td>
-        </tr></table>
-    </div>
-</div>
-
-<div class="largeFont">Now</div>
-<div id="now">
-
-    <div style="width: 33%">
-        <table class="cossmictable" id="loadtable"></table>
-    </div>
-
-    <div style="width: 33%" id="batterystatus"></div>
-
-</div>
--->
-
+<!-- Enclosing div for the top main page content -->
 <div id="today">
     <div class="row">
+		<!-- Div containing the weather widget -->
 		<div id="weatherbox" class="panel span2">
 			<div id="weatherheading" class="panel-heading">Weather</div>
 			<div id="weathercont" class="panel-body">
+				<!-- The content for the small widget view -->
 				<div id="weather" class="weatherclass"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
+				<!-- The five content boxes for the extended forecast -->
 				<div id="weather1" class="weathertable"></div>
 				<div id="weather2" class="weathertable"></div>
 				<div id="weather3" class="weathertable"></div>
@@ -80,42 +45,33 @@ global $path;
 				<div id="weather5" class="weathertable"></div>
 			</div>
 		</div>
-		<!--
-		<div id="cossmickwhbox"class="panel span2">
-			<div class="panel-heading">Now</div>
-			<div class="panel-body">
-				<div id="cossmickwh">
-					<div class="cossmickwhText">Total kWh exchanged within CoSSMic</div>
-					<div id="cossmickwhbar">
-					<div id="cossmickwhprogressbar"></div>
-					</div>
-					<div class="cossmickwhText">[x] kWh since 3/1/2014</div>
-				</div>
-			</div>
-		</div>-->
-      		
+		
+		<!-- Div containing the CoSSMic tree / forest -->
 		<div id="treebox" class="panel span4">
 			<div class="panel-heading">Tree</div>
 			<div class="panel-body">
 				<div id="tree-panel">
 					<div id="cossmictreeContainer">
+						<!-- The CoSSMic tree itself -->
                         <div id="treeImgContainer"><img id="cossmictree" src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></div>
-                    
+						<!-- The bar chart linked to the tree for the extended view -->
                         <div id="cossmictreebarchart" class="tree-barchart">
                             <svg class="outerChart"></svg>
                             <script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/chart.js"></script>
                         </div>
                     </div>
-                    
                     <div id="cossmicforestContainer">
+						<!-- The CoSSMic forest -->
                         <img id="cossmicforest" src="<?php echo $path; ?>images/tree/forest-0.png" alt="" style="height:270px; width:auto">
+						<!-- The bar chart linked to the forest for the extended view -->
                         <div id="cossmicforestbarchart" class="tree-barchart">
                         </div>
                     </div>
 				</div>
 			</div>
 		</div>
-			
+		
+		<!-- Div containing the graphical representation of the household -->
 		<div id="housebox" class="panel houseboxsmall">
 			<div class="panel-heading">El Flow</div>
 			<div class="panel-body">
@@ -178,6 +134,7 @@ global $path;
     </div>
 </div>
 
+<!-- Div containing the full width graph for the neighborhood -->
 <div class="row" style="margin-top: 30px">
 	<div class="panel span12">
 		<div class="panel-heading">Neighborhood - today</div>
@@ -225,7 +182,6 @@ $kwhdlist = [];
 $userid = $session['userid'];
 $userlocation;
 
-// TODO: uncomment when integrating Katharinas code
 // get the ids of the user's grid use, CoSSMic use, Self-PV use, and own Battery use kWh/day feeds
 // code here...
 
@@ -244,6 +200,7 @@ while ($row = (array)$result->fetch_object()) {
     $kwhlist[$i] = $row['id'];
     $i++;
 }
+
 // get the id of the user's PV 2 household power feed 
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2household_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -251,6 +208,7 @@ while($row = (array)$result->fetch_object()) {
 	$pv2householdId[$i] = $row['id'];
 	$i++;
 }
+
 // get the id of the user's grid2household power feed 
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2household_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -258,6 +216,7 @@ while($row = (array)$result->fetch_object()) {
     $grid2householdId[$i] = $row['id'];
     $i++;
 }
+
 //get the id for the user's total kwh consumption
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'consumption_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -265,6 +224,7 @@ while($row = (array)$result->fetch_object()) {
     $consumptionkwhId[$i] = $row['id'];
     $i++;
 }
+
 //get the id for the grid2storage feed
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2storage_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -272,6 +232,7 @@ while($row = (array)$result->fetch_object()) {
     $grid2storageId[$i] = $row['id'];
     $i++;
 }
+
 //get the id for the pv2storage feed
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2storage_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -279,6 +240,7 @@ while($row = (array)$result->fetch_object()) {
     $pv2storageId[$i] = $row['id'];
     $i++;
 }
+
 //get the id for the pv2grid feed
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2grid_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -286,6 +248,7 @@ while($row = (array)$result->fetch_object()) {
     $pv2gridId[$i] = $row['id'];
     $i++;
 }
+
 //get the id for the storage2grid feed
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2grid_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -293,6 +256,7 @@ while($row = (array)$result->fetch_object()) {
     $storage2gridId[$i] = $row['id'];
     $i++;
 }
+
 //get the id for the storage2house feed
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2household_kwh$' AND userid = '$userid'");
 $i = 0;
@@ -306,13 +270,9 @@ $result = $mysqli->query("SELECT location FROM users WHERE id = '$userid'");
 $row = (array)$result->fetch_object();
 $userlocation = $row['location'];
 
-// get the id of the user's battery kwh feed
-// code here...
-
 ?>
 
 <script>
-    
     $(function(){
         $("#treebox").on('click', function(){
             var currentClass = $(this).attr("class");
@@ -326,13 +286,10 @@ $userlocation = $row['location'];
                 $(this).switchClass("span4", "span12", 500, "easeInOutQuad");
                 $("#cossmictreeContainer").css({"width":"50%"});
 
-                
                 setTimeout(function(){
                     $("#cossmicforestContainer").toggle();
                     $("#cossmictreeContainer").css({"border-right":"1px solid","border-right-color":"#fff"});
                     $("#cossmictreebarchart").toggle();
-
-
                 }, 500);    
                 $("#cossmictree").animate({"margin-left":"10px"});
                 $("#cossmictree").animate({"float":"left"});    
@@ -344,12 +301,10 @@ $userlocation = $row['location'];
                 $("#cossmictree").animate({"margin-left":"100px"});
                 $("#cossmicforestContainer").toggle();
             }
-            
         });
         
         $("#housebox").on('click', function(){
             var currentClass = $(this).attr("class");
-            
             var margin = 630;
             
             if(currentClass == "panel houseboxsmall"){
@@ -360,9 +315,7 @@ $userlocation = $row['location'];
 
                 setTimeout(function(){
                     $("#houseIconBody").toggle();
-                }, 500);
-                
-                    
+                }, 500);  
             }
             else{
                 $("#houseIconBody").toggle();
@@ -371,20 +324,14 @@ $userlocation = $row['location'];
                 },500); */
                 $(this).switchClass("houseboxbig", "houseboxsmall", 500,"easeInOutQuad");
                 
-
                 console.log(currentClass)
                 //$("#weatherbox").toggle(500);
                 //$("#treebox").toggle(500);
                 setTimeout(function(){
-                    
                   $("#weatherbox").toggle(500);
-                  $("#treebox").toggle(500);    
-                    
-                }, 500);    
-                
-                
+                  $("#treebox").toggle(500); 
+                }, 500);   
             }
-
         });
 
 		$("#weatherbox").on('click', function(){
@@ -419,12 +366,9 @@ $userlocation = $row['location'];
     });
 
     function setVisibles(){
-
         $(function(){
             $("#houseIconBody").hide();
-            
         });
-
     }
 </script>
 
@@ -449,9 +393,10 @@ $userlocation = $row['location'];
     var storage2gridId = <?php echo json_encode($storage2gridId); ?>;
     var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
     
+	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
     function createBarChart(){
-
-        var data=[["Something",80],["something 2","75"]];
+		var data=[["Something",80],["something 2","75"]];
+		
         //if battery and the household is using battery power
         if(storage2householdId != 0){
             data.push(["Battery usage", storage2household]);
@@ -461,33 +406,31 @@ $userlocation = $row['location'];
             data.push(["Sharing", Math.round(storage2grid*10)]);
         }
 
-
         //Calculate score based on how much of the pv is used for example
         var pv2householdValue =Math.round((pv2household/totalconsumption)*100);
         data.push(["PV usage", pv2householdValue]);
 
-        console.log("Added")
         //Calculate score based on a treshhold value over a whole day for example. High score = low actual usage
         var gridUsageValue = 79;
         data.push(["Grid usage",  gridUsageValue]);
+		
         //Calculate score based on the scheduling (actual schedules/number of schedulable devices for example)
         var schedulingValue= (6/12)*100;
         data.push(["Scheduling", schedulingValue]);
+		
+		//Call the javascript to populate the tree bar chart with the gathered data
         treechart(data);
-
 
         //Calculates a very simple score based on the percentage of PV power used compared to the total power used
         //then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
         selectTree(Math.round((80+75+pv2householdValue+gridUsageValue+schedulingValue)/5));
-
     }
-
-
+	
     function getData(){
         end = new Date().getTime();
         start = end - 10;    
         
-            //get data fro totalConsumption
+            //get data from totalConsumption
             $.ajax({
                 type: 'get',
                 url: path+'/feed/data.json?id='+consumptionkwhId+'&start='+start+'&end='+end+'&dp=1 ',
@@ -502,6 +445,7 @@ $userlocation = $row['location'];
                     }
                 }
              }),
+			 
             //get and set the data from pv2householdValue
             $.ajax({
                 type: 'get',
@@ -515,16 +459,14 @@ $userlocation = $row['location'];
                     else{
                         setPv2householdValue(0);
                     }
-
-
                 }
             }),
+			
             //get and set data from grid2household
             $.ajax({
                 type: 'get',
                 url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2householdId+'&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
-
                     var json = data[0];
                     
                     if(json[0] <= start){
@@ -535,51 +477,47 @@ $userlocation = $row['location'];
                     }
                 }
             }),
+			
             //get and set grid2storage if it exists a feed
-            // if(grid2storageId.length < 0)
-            // {
-                $.ajax({
-                    type: 'get',
-                    url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageId+'&start='+start+'&end='+end+'&dp=1 ',
-                    success: function(data){
-                        if(grid2storageId == 0){
-                           
-                           $("#batteryLabel").hide();
-                           $("#housebox_battery").hide();
-                           $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
-                           $("#elFlowText1").css({"margin-top":"65px"})
-                            
-                            if(hidden == 0){
-                               $("#secondRowHousebox").hide();
-                               $("#firstRowHousebox").append('<td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>');
-                               $("#secondRowHouseboxText").hide();
-                               $("#firstRowHouseboxText").append('<td><span class="whiteText">You are sharing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> of the power within the CoSSMic project!</span></td>');
-                                hidden = 1;
-                            }
+			$.ajax({
+				type: 'get',
+				url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageId+'&start='+start+'&end='+end+'&dp=1 ',
+				success: function(data){
+					if(grid2storageId == 0){
+					   
+					   $("#batteryLabel").hide();
+					   $("#housebox_battery").hide();
+					   $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
+					   $("#elFlowText1").css({"margin-top":"65px"})
+						
+						if(hidden == 0){
+						   $("#secondRowHousebox").hide();
+						   $("#firstRowHousebox").append('<td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>');
+						   $("#secondRowHouseboxText").hide();
+						   $("#firstRowHouseboxText").append('<td><span class="whiteText">You are sharing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> of the power within the CoSSMic project!</span></td>');
+							hidden = 1;
+						}
+					}
+					else{
+						$("#houseboxTable").css({"margin-top":"0px"});
+						$(".housebox_content").css({"margin-top":"10px"});
+						$("#houseboxBatteryTd").html('<span class="whiteText">Your battery is providing  </span> <span class="houseboxIconText">'+storage2household+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
+						$("#houseboxCommunityTd").html('<span class="whiteText">You are sharing </span> <span id="houseboxCommunityText" class="houseboxIconText"></span><span class="whiteText"> of the power within CoSSMic project!</span>');
 
-
-                        }
-                        else{
-                            $("#houseboxTable").css({"margin-top":"0px"});
-                            $(".housebox_content").css({"margin-top":"10px"});
-                            $("#houseboxBatteryTd").html('<span class="whiteText">Your battery is providing  </span> <span class="houseboxIconText">'+storage2household+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
-                            $("#houseboxCommunityTd").html('<span class="whiteText">You are sharing </span> <span id="houseboxCommunityText" class="houseboxIconText"></span><span class="whiteText"> of the power within CoSSMic project!</span>');
-
-                            var json = data[0];
-                            console.log(data);
-                            if(json[0] <= start){
-                                setGrid2storageValue(json[1]);
-                            }
-                            else{
-                                setGrid2storageValue(0);   
-                            }
-                        }
-                    },
-                    error: function(data, message){
-                        console.log(message);
-                    }
-                })
-            // }
+						var json = data[0];
+						console.log(data);
+						if(json[0] <= start){
+							setGrid2storageValue(json[1]);
+						}
+						else{
+							setGrid2storageValue(0);   
+						}
+					}
+				},
+				error: function(data, message){
+					console.log(message);
+				}
+			})
         }
 
     function setTotalconsumptionValue(value){
@@ -631,6 +569,7 @@ $userlocation = $row['location'];
         storage2household = value;
         console.log(storage2household);
     }
+	
     //display the percentages of the different power supplies. E.g x% grid
     function setHouseboxIconText(){
         
@@ -647,16 +586,12 @@ $userlocation = $row['location'];
         $("#houseboxGridTd").html('<span class="whiteText">The grid is supplying </span> <span class="houseboxIconText">'+houseBoxGridValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
         //set % of shared el to the grid. 
         $("#houseboxCommunityText").html(pv2grid+storage2grid+"%");
-        
     }
 
-    function addDataValues(){-
-
+    function addDataValues(){
 		setTimeout(function(){
             var pv2householdValue = totalconsumption/pv2household;
             var grid2householdValue = totalconsumption/grid2household;
-			
-
             var height = $("#usagebarcontainer").height()/2;
             var width = $("#usagebarcontainer").width()/2;
             
@@ -670,13 +605,11 @@ $userlocation = $row['location'];
             createBarChart();
         }, 1000);
         getData();
-        
 	
 		setInterval(function(){
 			setTimeout(function(){
 				var pv2householdValue = totalconsumption/pv2household;
 				var grid2householdValue = totalconsumption/grid2household;
-			
 				var height = $("#usagebarcontainer").height()/2;
 				var width = $("#usagebarcontainer").width()/2;
 				
@@ -690,14 +623,10 @@ $userlocation = $row['location'];
                 createBarChart();
 			}, 1000)
 			getData();
-            
         }, 60000);
     };
 </script>
 <script>
-
-    
-
 /*
 // TODO: uncomment when integrating Katharinas code
 
@@ -771,117 +700,110 @@ function () {
 });
 */
 
-  $(document).ready( function () {
-  
+//Waiting till the DOM is fully loaded before running this code
+$(document).ready( function () {
 	//Check first with geolocation to find users position. If that fails, second function is called to handle errors.
 	//If geolocation fails, use the location field in users profile on emoncms.
     navigator.geolocation.getCurrentPosition(function(position) {
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
-  }, function(position){
+}, function(position){
 	errorWeather("<?php echo $userlocation; ?>");
-  }, {timeout: 10000, enableHighAccuracy:true});
+}, {timeout: 10000});
 
-  setVisibles();  
-  summarySetup();
-  addDataValues();
+	setVisibles();  
+	summarySetup();
+	addDataValues();
 });
 
 function  summarySetup(){
-
-      $("#scheduleDiv").hide();
+    $("#scheduleDiv").hide();
 
     $.when(
-
-      $.ajax({
-          url: "http://cloud.cossmic.eu/cossmic/neighborhood/totalproduction.json",
-          type: "GET",
-          dataType: "json"
-      }),
-      $.ajax({
-          url: "http://cloud.cossmic.eu/cossmic/neighborhood/totalconsumption.json",
-          type: "GET",
-          dataType: "json"
+		$.ajax({
+			url: "http://cloud.cossmic.eu/cossmic/neighborhood/totalproduction.json",
+			type: "GET",
+			dataType: "json"
+		}),
+		$.ajax({
+			url: "http://cloud.cossmic.eu/cossmic/neighborhood/totalconsumption.json",
+			type: "GET",
+			dataType: "json"
       })
     ) 
     .then(function( resultProduction,resultConsumption) {
 		var prodSerie = { label: "Total Production", data: resultProduction[0][0],lines:{show:true}};
 		var consumSerie = { label: "Total Consumption", data: resultConsumption[0][0],lines:{show:true}};
 		plotNeighbGraph([prodSerie,consumSerie]);
-    });      
-
+    });
 }
-	function plotNeighbGraph(d) {
-		var options = {
-			xaxis: {
-				transform: function (v) { return 1000*v; },
-				inversetransform: function (v) { return v/1000; },
-				mode: "time",
-				timeformat: "%H:%M",
-				font:{
-					color:"#fff"
-				}
-			},
 
-			yaxis: {
-				/*axisLabel:"kWh",
-				axisLabelUseCanvas: "true",
-				axisLabelFontSizePixels: "20",
-				axisLabelPadding: 5,*/
-				
-				font:{
-					color:"#fff",
-					size: 11,
-				}
-			},
-			
-			grid: {
+function plotNeighbGraph(d) {
+	var options = {
+		xaxis: {
+			transform: function (v) { return 1000*v; },
+			inversetransform: function (v) { return v/1000; },
+			mode: "time",
+			timeformat: "%H:%M",
+			font:{
+				color:"#fff"
+			}
+		},
+		yaxis: {
+			/*axisLabel:"kWh",
+			axisLabelUseCanvas: "true",
+			axisLabelFontSizePixels: "20",
+			axisLabelPadding: 5,*/
+			font:{
 				color:"#fff",
-				backgroundColor: "#1192d3",
-				tickColor:"#fff"
-			},
-
-            legend:{position:"nw"}
-		}
-
-		$.plot("#neighbGraphPlaceholder", d, options);
+				size: 11,
+			}
+		},
+		grid: {
+			color:"#fff",
+			backgroundColor: "#1192d3",
+			tickColor:"#fff"
+		},
+		legend:{position:"nw"}
 	}
+	$.plot("#neighbGraphPlaceholder", d, options);
+}
 
-	function createDummyGraph(){
-		var s1 = [[0, 0], [0, 0], [0, 0], [0, 77], [0, 3636], [0, 3575], [0, 2736], [0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
-		[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],  
-		[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
-		[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
-		[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327]];
-		
-		var s2 = [
-		[0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
-		 
-		[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327],
-		[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
-		[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],
-		[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
+function createDummyGraph(){
+	var s1 = [[0, 0], [0, 0], [0, 0], [0, 77], [0, 3636], [0, 3575], [0, 2736], [0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
+	[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],  
+	[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
+	[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
+	[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327]];
+	
+	var s2 = [
+	[0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
+	 
+	[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327],
+	[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
+	[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],
+	[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
 
-		[0, 0],   [0, 0],   [0, 0],   [0, 77],  [0, 3636], [0, 3575], [0, 2736],
-		];
+	[0, 0],   [0, 0],   [0, 0],   [0, 77],  [0, 3636], [0, 3575], [0, 2736],
+	];
+
+	var midnight = new Date();
+	midnight.setHours(0,0,0,0);
+	var initial =  Date.parse(midnight);
+
+	var now = new Date();
+	var finalDate =  Date.parse(now);
 	
-		var midnight = new Date();
-		midnight.setHours(0,0,0,0);
-		var initial =  Date.parse(midnight);
+	var increment = Math.round( (finalDate - initial)/(s1.length) );    
 	
-		var now = new Date();
-		var finalDate =  Date.parse(now);
-		
-		var increment = Math.round( (finalDate - initial)/(s1.length) );    
-		
-		for (var i = 0; i < s1.length; ++i) {
-			initial = initial + increment;
-			s1[i][0] = initial;
-			s2[i][0] = initial;
-		}
-		
-		var serie1 = { label: "Serie 1", data: s1,lines:{show:true}};
-		var serie2 = { label: "Serie 2", data: s2, lines:{show:true}};
-		
-		plotNeighbGraph([serie1,serie2]);
-    }
+	for (var i = 0; i < s1.length; ++i) {
+		initial = initial + increment;
+		s1[i][0] = initial;
+		s2[i][0] = initial;
+	}
+	
+	var serie1 = { label: "Serie 1", data: s1,lines:{show:true}};
+	var serie2 = { label: "Serie 2", data: s2, lines:{show:true}};
+	
+	plotNeighbGraph([serie1,serie2]);
+}
 </script>
