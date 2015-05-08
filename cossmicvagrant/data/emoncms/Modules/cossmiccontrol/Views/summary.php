@@ -14,7 +14,7 @@ global $path;
 
 
 <!-- The D3 library used for the bar charts -->
-<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Lib/d3.v3.min.js"></script>
 <!-- Jquery libraries -->
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquerypowertip/jquery.powertip.min.js"></script>
@@ -30,6 +30,8 @@ global $path;
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/jquery.simpleWeather.min.js"></script>
 <!-- Javascript for setting the CoSSMic tree -->
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
+<!-- Javasctipt to create the Bar Charts -->
+<script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/chart.js"></script>
 <!-- Javascript for setting the score of the tooltips in treebox -->
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/scoretexts.js"></script>
 
@@ -61,8 +63,7 @@ global $path;
                         <div id="treeImgContainer"><img id="cossmictree" src="<?php echo $path; ?>images/tree/pine-tree.png" alt="" style="height:270px; width:auto"></div>
 						<!-- The bar chart linked to the tree for the extended view -->
                         <div id="cossmictreebarchart" class="tree-barchart">
-                            <svg class="outerChart"></svg>
-                            <script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/chart.js"></script>
+                            <svg class="outerChart" id="outerTreeChart"></svg>
                         </div>
                     </div>
                     <div id="cossmicforestContainer">
@@ -70,6 +71,7 @@ global $path;
                         <img id="cossmicforest" src="<?php echo $path; ?>images/tree/forest-0.png" alt="" style="height:270px; width:auto">
 						<!-- The bar chart linked to the forest for the extended view -->
                         <div id="cossmicforestbarchart" class="tree-barchart">
+							<svg class="outerChart" id="outerForestChart"></svg>
                         </div>
                     </div>
 				</div>
@@ -632,8 +634,10 @@ $userlocation = $row['location'];
             setHouseboxIconText();
             //Call the javascript to populate the tree bar chart with the gathered data
             
-            treechart(createBarChart());
-            addTooltips();
+            barChart("#outerTreeChart", "tree", createBarChart());
+			barChart("#outerForestChart", "forest", createBarChart());
+			addTooltips("tree");
+			addTooltips("forest");
         }, 1000);
         getData();
 	
@@ -652,8 +656,8 @@ $userlocation = $row['location'];
                 $("#selfpvuse").css({'float': "left"}); 
 				setHouseboxIconText();
                
-                updateTreeChart(createBarChart());
-                addTooltips();
+                updateBarChart("#outerTreeChart", "tree", createBarChart());
+				updateBarChart("#outerForestChart", "forest", createBarChart());
 			}, 1000)
 			getData();
         }, 5000);
