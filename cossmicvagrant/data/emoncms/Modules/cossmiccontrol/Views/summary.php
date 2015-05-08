@@ -10,11 +10,14 @@ global $path;
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/css/style.css">
 <!-- Stylesheet for the bar charts -->
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/barstyle.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/jquerypowertip/css/jquery.powertip.css">
+
 
 <!-- The D3 library used for the bar charts -->
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <!-- Jquery libraries -->
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Lib/jquerypowertip/jquery.powertip.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.axislabels.js"></script>
@@ -27,6 +30,8 @@ global $path;
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/jquery.simpleWeather.min.js"></script>
 <!-- Javascript for setting the CoSSMic tree -->
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/imageSelect.js"></script>
+<!-- Javascript for setting the score of the tooltips in treebox -->
+<script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/BarChartJS/scoretexts.js"></script>
 
 <!-- Enclosing div for the top main page content -->
 <div id="today">
@@ -273,17 +278,21 @@ $userlocation = $row['location'];
 ?>
 
 <script>
-    $(function(){
-        $("#treebox").on('click', function(){
-            var currentClass = $(this).attr("class");
+    
+    
 
+    //$("#treebox").data("powertipjq", $(["lol"]).join("\n"));
+
+    $(function(){
+        $("#cossmictree").on('click', function(){
+            
             $("#weatherbox").toggle(500);
             $("#cossmickwhbox").toggle(500);
             $("#housebox").toggle(500);
-            $("#treeb")
-            if(currentClass == "panel span4"){
-                console.log(currentClass)
-                $(this).switchClass("span4", "span12", 500, "easeInOutQuad");
+            
+            if($("#treebox").hasClass("panel span4")){
+                
+                $("#treebox").switchClass("span4", "span12", 500, "easeInOutQuad");
                 $("#cossmictreeContainer").css({"width":"50%"});
 
                 setTimeout(function(){
@@ -295,7 +304,7 @@ $userlocation = $row['location'];
                 $("#cossmictree").animate({"float":"left"});    
             }
             else{
-                $(this).switchClass("span12", "span4", 500, "easeInOutQuad");
+                $("#treebox").switchClass("span12", "span4", 500, "easeInOutQuad");
                 $("#cossmictreebarchart").toggle();
                 $("#cossmictreeContainer").css({"width":"100%"});
                 $("#cossmictree").animate({"margin-left":"100px"});
@@ -334,6 +343,10 @@ $userlocation = $row['location'];
             }
         });
 
+        $("rect#bar1").mouseover(function(){
+            console.log("HEY!");
+        });
+
 		$("#weatherbox").on('click', function(){
 			var currentClass = $(this).attr("class");
 			
@@ -370,10 +383,14 @@ $userlocation = $row['location'];
             $("#houseIconBody").hide();
         });
     }
+
+
 </script>
 
 <script>
+    var m = 0;
     hidden= 0;
+    var count = 0;
     totalconsumption = 0;
     pv2household = 0;
     grid2household = 0;
@@ -395,8 +412,7 @@ $userlocation = $row['location'];
     
 	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
     function createBarChart(){
-		var data=[["Something",80],["something 2","75"]];
-		
+		var data=[];
         //if battery and the household is using battery power
         if(storage2householdId != 0){
             data.push(["Battery usage", storage2household]);
@@ -406,26 +422,39 @@ $userlocation = $row['location'];
             data.push(["Sharing", Math.round(storage2grid*10)]);
         }
 
+        //Calculate share score based on pv-grid and storage-grid
+        var coefs = 1.50;
+        var sharingValue = (pv2grid+storage2grid);
+        //if(sharingValue > 10 )
+        data.push(["Sharing", sharingValue, getSharingScoreText(sharingValue)]);
         //Calculate score based on how much of the pv is used for example
-        var pv2householdValue =Math.round((pv2household/totalconsumption)*100);
-        data.push(["PV usage", pv2householdValue]);
+        
+        var pv2householdValue = (Math.round(((pv2household/totalconsumption)+(pv2household/grid2household))*100));
+        console.log((pv2household/totalconsumption)+(pv2household/grid2household));
+        data.push(["PV usage", pv2householdValue, getPvUsageScoreText(pv2householdValue)]);
 
         //Calculate score based on a treshhold value over a whole day for example. High score = low actual usage
-        var gridUsageValue = 79;
-        data.push(["Grid usage",  gridUsageValue]);
+
+        var gridUsageValue = 100-(Math.round((grid2household/totalconsumption)*100));
+        data.push(["Grid usage",  gridUsageValue, getGridUsageScoreText(gridUsageValue)]);
 		
         //Calculate score based on the scheduling (actual schedules/number of schedulable devices for example)
         var schedulingValue= (6/12)*100;
-        data.push(["Scheduling", schedulingValue]);
-		
-		//Call the javascript to populate the tree bar chart with the gathered data
-        treechart(data);
+        data.push(["Scheduling", schedulingValue, getSchedulingScoreText(schedulingValue)]);
 
         //Calculates a very simple score based on the percentage of PV power used compared to the total power used
         //then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
-        selectTree(Math.round((80+75+pv2householdValue+gridUsageValue+schedulingValue)/5));
+        selectTree(Math.round((sharingValue+pv2householdValue+gridUsageValue+schedulingValue)/5));     
+        var array1 = [["Sharing",10, getSharingScoreText(10)],["PV usage",20,getPvUsageScoreText(20)],["Grid usage",45, getGridUsageScoreText(45)],["Scheduling",78, getSchedulingScoreText(78)]];
+        var array2 = [["Sharing",20, getSharingScoreText(20)],["PV usage",36, getPvUsageScoreText(36)],["Grid usage",87, getGridUsageScoreText(87)],["Scheduling",21, getSchedulingScoreText(21)]];
+        var arrays = [array1,data,array2];
+        //return data;
+        //console.log(data);
+        //console.log(Math.floor(Math.random()*3));
+        //return data;
+        return arrays[Math.floor(Math.random()*3)];
     }
-	
+
     function getData(){
         end = new Date().getTime();
         start = end - 10;    
@@ -525,7 +554,7 @@ $userlocation = $row['location'];
                $("#elTotalConsumption").html(value.toFixed(2)+" kWh");  
         });
        totalconsumption = value;
-        console.log(totalconsumption);
+        console.log("total: "+totalconsumption);
     }
 
     function setPv2householdValue(value){
@@ -534,7 +563,7 @@ $userlocation = $row['location'];
                 
         });
         pv2household = value;
-        console.log(pv2household);
+        console.log("pv2house: "+pv2household);
     }
 
     function setGrid2householdValue(value){
@@ -542,12 +571,12 @@ $userlocation = $row['location'];
                $("#gridN").html(value.toFixed(2)+" kWh");  
         });
         grid2household = value;
-        console.log(grid2household);
+        console.log("grid2house: "+grid2household);
     }
 
     function setGrid2storageValue(value){
         grid2storage = value;
-        console.log(grid2storage);
+        console.log("grid2storage: "+grid2storage);
     }    
 
     function setPv2storageValue(value){
@@ -573,7 +602,6 @@ $userlocation = $row['location'];
     //display the percentages of the different power supplies. E.g x% grid
     function setHouseboxIconText(){
         
-        console.log("Hey again: "+pv2household+" "+totalconsumption+" "+pv2household/totalconsumption);
         //set text for total consumption on house icon
         $("#houseboxPanelText").html((pv2household/totalconsumption).toFixed(2)*100+"%");
         //set text for the pvPanel icon
@@ -602,7 +630,10 @@ $userlocation = $row['location'];
             $("#griduse").css({'float': "left"});
             $("#selfpvuse").css({'float': "left"}); 
             setHouseboxIconText();
-            createBarChart();
+            //Call the javascript to populate the tree bar chart with the gathered data
+            
+            treechart(createBarChart());
+            addTooltips();
         }, 1000);
         getData();
 	
@@ -620,10 +651,12 @@ $userlocation = $row['location'];
                 $("#griduse").css({'float': "left"});
                 $("#selfpvuse").css({'float': "left"}); 
 				setHouseboxIconText();
-                createBarChart();
+               
+                updateTreeChart(createBarChart());
+                addTooltips();
 			}, 1000)
 			getData();
-        }, 60000);
+        }, 5000);
     };
 </script>
 <script>
@@ -713,6 +746,7 @@ $(document).ready( function () {
 	setVisibles();  
 	summarySetup();
 	addDataValues();
+
 });
 
 function  summarySetup(){
