@@ -48,6 +48,16 @@
     height: 270px;
 }
 
+.expand{
+	float: right;
+	width: 20px;
+	height: 20px;
+}
+
+#weatherhead div{
+	display: inline-block;
+}
+
 .houseboxsmall{
     float:right;
     width: 570px;
@@ -120,6 +130,7 @@
 .elFlowRow{
     width: 50%;
 }
+
 #houseInStats{
     margin-top: 20px;
     position: absolute;

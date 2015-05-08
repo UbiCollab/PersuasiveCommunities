@@ -40,7 +40,7 @@ global $path;
     <div class="row">
 		<!-- Div containing the weather widget -->
 		<div id="weatherbox" class="panel span2">
-			<div id="weatherheading" class="panel-heading">Weather</div>
+			<div id="weatherhead" class="panel-heading"><div id="weatherheading">Weather </div><img class="expand" id="weatherexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
 			<div id="weathercont" class="panel-body">
 				<!-- The content for the small widget view -->
 				<div id="weather" class="weatherclass"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
@@ -55,7 +55,7 @@ global $path;
 		
 		<!-- Div containing the CoSSMic tree / forest -->
 		<div id="treebox" class="panel span4">
-			<div class="panel-heading">Tree</div>
+			<div class="panel-heading">Tree <img class="expand" id="treeexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
 			<div class="panel-body">
 				<div id="tree-panel">
 					<div id="cossmictreeContainer">
@@ -80,7 +80,7 @@ global $path;
 		
 		<!-- Div containing the graphical representation of the household -->
 		<div id="housebox" class="panel houseboxsmall">
-			<div class="panel-heading">El Flow</div>
+			<div class="panel-heading">El Flow <img class="expand" id="houseexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
 			<div class="panel-body">
                 <div id="houseIconBody">
                     <table id="houseboxTable">
@@ -286,7 +286,7 @@ $userlocation = $row['location'];
     //$("#treebox").data("powertipjq", $(["lol"]).join("\n"));
 
     $(function(){
-        $("#cossmictree").on('click', function(){
+        $("#treeexpand").on('click', function(){
             
             $("#weatherbox").toggle(500);
             $("#cossmickwhbox").toggle(500);
@@ -296,6 +296,7 @@ $userlocation = $row['location'];
                 
                 $("#treebox").switchClass("span4", "span12", 500, "easeInOutQuad");
                 $("#cossmictreeContainer").css({"width":"50%"});
+				$("#treeexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
 
                 setTimeout(function(){
                     $("#cossmicforestContainer").toggle();
@@ -307,6 +308,7 @@ $userlocation = $row['location'];
             }
             else{
                 $("#treebox").switchClass("span12", "span4", 500, "easeInOutQuad");
+				$("#treeexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
                 $("#cossmictreebarchart").toggle();
                 $("#cossmictreeContainer").css({"width":"100%"});
                 $("#cossmictree").animate({"margin-left":"100px"});
@@ -314,28 +316,27 @@ $userlocation = $row['location'];
             }
         });
         
-        $("#housebox").on('click', function(){
-            var currentClass = $(this).attr("class");
+        $("#houseexpand").on('click', function(){
             var margin = 630;
             
-            if(currentClass == "panel houseboxsmall"){
-               $("#weatherbox").toggle(400);
-               $("#treebox").toggle(400);  
-                console.log(currentClass)
-               $(this).switchClass("houseboxsmall", "houseboxbig", 500, "easeInOutQuad");
+            if($("#housebox").hasClass("panel houseboxsmall")){
+				$("#houseexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
+				$("#weatherbox").toggle(400);
+				$("#treebox").toggle(400);  
+				$("#housebox").switchClass("houseboxsmall", "houseboxbig", 500, "easeInOutQuad");
 
                 setTimeout(function(){
                     $("#houseIconBody").toggle();
                 }, 500);  
             }
             else{
+				$("#houseexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
                 $("#houseIconBody").toggle();
                 /*$(this).animate({
                     marginLeft: '+='+margin
                 },500); */
-                $(this).switchClass("houseboxbig", "houseboxsmall", 500,"easeInOutQuad");
+                $("#housebox").switchClass("houseboxbig", "houseboxsmall", 500,"easeInOutQuad");
                 
-                console.log(currentClass)
                 //$("#weatherbox").toggle(500);
                 //$("#treebox").toggle(500);
                 setTimeout(function(){
@@ -345,18 +346,12 @@ $userlocation = $row['location'];
             }
         });
 
-        $("rect#bar1").mouseover(function(){
-            console.log("HEY!");
-        });
-
-		$("#weatherbox").on('click', function(){
-			var currentClass = $(this).attr("class");
-			
+		$("#weatherexpand").on('click', function(){
 			$("#treebox").toggle(500);
 			$("#housebox").toggle(500);
-			if(currentClass == "panel span2"){
-				console.log(currentClass)
-				$(this).switchClass("span2", "span12", 500, "easeInOutQuad");
+			if($("#weatherbox").hasClass("panel span2")){
+				$("#weatherexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
+				$("#weatherbox").switchClass("span2", "span12", 500, "easeInOutQuad");
 				$("#weatherheading").html("5-Day Forecast");
                 $("#weather").toggle();
 				$("#weather").switchClass("weatherclass", "weathertable");
@@ -367,7 +362,8 @@ $userlocation = $row['location'];
 				$("#weather5").switchClass("weathertable", "weatherclass2");
 			}
 			else{
-				$(this).switchClass("span12", "span2", 500, "easeInOutQuad");
+				$("#weatherexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
+				$("#weatherbox").switchClass("span12", "span2", 500, "easeInOutQuad");
 				$("#weatherheading").html("Weather");
 				$("#weather1").switchClass("weatherclass2","weathertable");
 				$("#weather2").switchClass("weatherclass2","weathertable");
