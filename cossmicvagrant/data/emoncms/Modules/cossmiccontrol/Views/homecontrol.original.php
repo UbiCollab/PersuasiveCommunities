@@ -24,25 +24,22 @@ foreach ($decomposedPath as &$value) {
 <p>
 <p>
 
-<div id="taskTablePanel" class="panel span12">
-	<div class="panel-heading">Your tasks</div>
-	<table class="table table-condensed" id="taskTable">
-		<thead>
-			<tr>
-				<th>Device Name</th>
-				<th>Status</th>
-				<th>Program</th>
-				<th>Earliest Start Time</th>
-				<th>Latest Start Time</th>
-				<th>Actual Start Time</th>
-				<th>Actual Finishing Time</th>
-				<th></th>
-			</tr>
-	  </thead>
-	  <tbody>
-	  </tbody>
-	</table>
-</div>
+<table class="table table-condensed table-hover" id="taskTable">
+	<thead>
+		<tr>
+			<th>Device Name</th>
+			<th>Status</th>
+			<th>Program</th>
+			<th>Earliest Start Time</th>
+			<th>Latest Start Time</th>
+			<th>Actual Start Time</th>
+			<th>Actual Finishing Time</th>
+			<th></th>
+		</tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
 
 <div style="margin: 15px auto 30px auto">
 	<table class="cossmictable" style="width:60%;visibility: hidden" id="controltable">

@@ -453,3 +453,15 @@ table.legend td {
 	background-color: #555555;
 	visibility: hidden;
 }
+
+/*
+css for the homecontrol table
+*/
+#taskTable{
+	background: #1192d3;
+	color: #fff;
+}
+#taskTable tr:hover{
+	background: #fff;
+	color: #1192d3;
+}
