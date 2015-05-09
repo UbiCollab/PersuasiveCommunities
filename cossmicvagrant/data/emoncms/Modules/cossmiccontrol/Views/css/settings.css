@@ -1,0 +1,45 @@
+.selected_device {
+	border: 1px solid #aaaaaa;
+	font-weight: normal;
+	color: #212121;
+}
+
+.pure-u > div {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+.l-box {
+	padding: 0 0.5em;
+}
+
+#ncdpanel{
+	background: #1192d3;
+	color: #fff;
+}
+#cdpanel{
+	background: #1192d3;
+	color: #fff;
+}
+a{
+	color: #fff;
+}
+#myDeviceList{
+	list-style-type: none;
+}
+#myConfigDeviceList{
+	list-style-type: none;
+}
+#configDeviceForm{
+	background: #1192d3;
+	color: #fff;
+}
+#configureForm{
+	padding: 5px 5px 5px 5px;
+}
+#addTaskeButton{
+	float: center;
+}
+#settingMidPane{
+	display: none;
+}

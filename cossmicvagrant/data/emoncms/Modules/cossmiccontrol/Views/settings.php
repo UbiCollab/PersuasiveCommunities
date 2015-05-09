@@ -23,57 +23,11 @@ Pending
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/cossmiccontrol_view.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/pure-0.5.0/pure-min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/css/settings.css">
 
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.min.js"></script>
-
-
-<style>
-.selected_device {
-        border: 1px solid #aaaaaa;
-        background: #ffffff url("<?php echo $path; ?>Lib/jqueryui/images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
-        font-weight: normal;
-        color: #212121;
-}
-
-    .pure-u > div {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-    .l-box {
-        padding: 0 0.5em;
-    }
-	
-	#ncdpanel{
-		background: #1192d3;
-		color: #fff;
-	}
-	#cdpanel{
-		background: #1192d3;
-		color: #fff;
-	}
-	a{
-		color: #fff;
-	}
-	#myDeviceList{
-		list-style-type: none;
-	}
-	#myConfigDeviceList{
-		list-style-type: none;
-	}
-	#configDeviceForm{
-		background: #1192d3;
-		color: #fff;
-	}
-	#configureForm{
-		padding: 5px 5px 5px 5px;
-	}
-	#addTaskeButton{
-		float: center;
-	}
-</style>
 
 <div id="settings">
 	<div class="row">
@@ -179,7 +133,6 @@ $nr_inputs = count($inputlist);*/
 
   $("#addDeviceDiv").hide();
   $("#addDeviceForm").hide();
-  $("#settingMidPane").hide();
   $("#configDeviceForm").hide();
 
  $(document).ready( function () {
