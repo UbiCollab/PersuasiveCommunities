@@ -45,119 +45,92 @@ Pending
     .l-box {
         padding: 0 0.5em;
     }
-	
-	#ncdpanel{
-		background: #1192d3;
-		color: #fff;
-	}
-	#cdpanel{
-		background: #1192d3;
-		color: #fff;
-	}
-	a{
-		color: #fff;
-	}
-	#myDeviceList{
-		list-style-type: none;
-	}
-	#myConfigDeviceList{
-		list-style-type: none;
-	}
-	#configDeviceForm{
-		background: #1192d3;
-		color: #fff;
-	}
-	#configureForm{
-		padding: 5px 5px 5px 5px;
-	}
-	#addTaskeButton{
-		float: center;
-	}
 </style>
 
-<div id="settings">
-	<div class="row">
-		<p>
-		<div id="addDeviceDiv" class="pure-menu pure-menu-open">
-			<a class="pure-menu-heading">Add Device</a>
-			<ul id="addDeviceList">
-			</ul>
-		</div>
-		<p>
 
-		<div id="ncdpanel" class="panel span4">
-			<div class="panel-heading">Non-configurable Devices</div>
-			<ul id="myDeviceList">
-			</ul>
-		</div>
-		
-		<div id="cdpanel" class="panel span4">
-			<div class="panel-heading">Configurable Devices</div>
-			<ul id="myConfigDeviceList">
-			</ul>
-		</div>
-		
-		<div id="settingMidPane" class="panel span4">
-			<div id="addDeviceForm">
-				<legend>Specify your device</legend>
-				<form class="form-inline">
-					<label>Device Name  </label>  <input id="deviceNameInput" type="text" class="input"><p>
-					<div class="input-prepend input-append">
-						<div class="btn-group">
-							<button class="btn dropdown-toggle" data-toggle="dropdown">
-								Current Modes
-								<span class="caret"></span>
-							</button>
-							<ul id="dropDownModeList" class="dropdown-menu">
-							</ul>
-						</div>
-						<input class="span2" id="inputModeText" type="text" placeholder="Operational Mode">
-						<button class="btn" id="addModeButton"  onclick="clickAddMode(event)" type="button">Add Mode</button>
-					</div>
-					<p>
-					<label id="templateSelectLabel">Template:</label> <select id="selectTemplate">
-					</select>
-					<p>
-					<button class="btn" id="addDeviceButton"  onclick="clickAddDevice(event)" type="button">Add Device</button>
-				</form>
-			</div>
-		 
-			<div id="configDeviceForm">
-				<div class="panel-heading">Configure your device</div>
-				<form id="configureForm" class="form-inline">
-					<label>Device Name: </label>  <span id="deviceNameOnConfigPane"></span><br> 
-					<label>Earliest Start Time: </label> 
-					<div id="estConfigDatetimepicker" class="input-append">
-						<input data-format="hh:mm" type="text" id="estInput">
-						<span class="add-on">
-							<i data-time-icon="icon-time" data-date-icon="icon-calendar">
-							</i>
-						</span>
-					</div> 
-					<br> 
-					<label>Latest Start Time: </label>
-					<div id="lstConfigDatetimepicker" class="input-append">
-						<input data-format="hh:mm" type="text" id="lstInput">
-						<span class="add-on">
-							<i data-time-icon="icon-time" data-date-icon="icon-calendar">
-							</i>
-						</span>
-					</div>
-					<br> 
-					<label id="configModeLabel">Program: </label> 
-					<select id="selectModeConfigList">
-						<option>1</option>
-						<option>2</option>
-					</select>
-					<br> 
-					<button class="btn" id="addTaskeButton"  onclick="clickAddTask(event)" type="button">Add Task</button>   
-				</form>
-			</div>
-		</div>
+<div class="pure-g">
+    <div class="pure-u-1-3 l-box">
+      <p>
+      
+      <div id="addDeviceDiv" class="pure-menu pure-menu-open">
+          <a class="pure-menu-heading">Add Device</a>
+          <ul id="addDeviceList">
+          </ul>
+      </div>
+    
+      <p>
+
+      <div class="pure-menu pure-menu-open">
+          <a class="pure-menu-heading">My Devices</a>
+          <ul id="myDeviceList">
+          <li class="pure-menu-heading">Configurable Devices</li>
+          </ul>
+      </div>
+
+    
+    </div>
+    <div id="settingMidPane" class="pure-u-1-3 l-box">
+    
+        <div id="addDeviceForm">
+          <legend>Specify your device</legend>
+          <form class="form-inline">
+            <label>Device Name  </label>  <input id="deviceNameInput" type="text" class="input"><p>
+            <div class="input-prepend input-append">
+              <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                  Current Modes
+                  <span class="caret"></span>
+                </button>
+                <ul id="dropDownModeList" class="dropdown-menu">
+                </ul>
+              </div>
+              <input class="span2" id="inputModeText" type="text" placeholder="Operational Mode">
+              <button class="btn" id="addModeButton"  onclick="clickAddMode(event)" type="button">Add Mode</button>
+            </div><p>
+            <label id="templateSelectLabel">Template:</label> <select id="selectTemplate">
+              </select> <p>
+            <button class="btn" id="addDeviceButton"  onclick="clickAddDevice(event)" type="button">Add Device</button>
+          </form>
+        </div>
+     
+        <div id="configDeviceForm">
+          <legend>Configure your device</legend>
+          <form class="form-inline">
+            <label>Device Name: </label>  <span id="deviceNameOnConfigPane"></span><br> 
+            <label>Earliest Start Time: </label> 
+            <div id="estConfigDatetimepicker" class="input-append">
+              <input data-format="hh:mm" type="text" id="estInput">
+              <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                </i>
+              </span>
+            </div> <br> 
+            <label>Latest Start Time: </label>
+            <div id="lstConfigDatetimepicker" class="input-append">
+              <input data-format="hh:mm" type="text" id="lstInput">
+              <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                </i>
+              </span>
+            </div>  <br> 
+            <label id="configModeLabel">Program: </label> <select id="selectModeConfigList">
+                <option>1</option>
+                <option>2</option>
+              </select><br> 
+            <button class="btn" id="addTaskeButton"  onclick="clickAddTask(event)" type="button">Add Task</button>   
+          </form>
+        </div>
+
+
+
+    </div>
+    
+    
+    
     <div class="pure-u-1-3 l-box"></div>
-		
-	</div>
 </div>
+
+
 
 <?php
 global $mysqli, $session;  
@@ -179,8 +152,8 @@ $nr_inputs = count($inputlist);*/
 
   $("#addDeviceDiv").hide();
   $("#addDeviceForm").hide();
-  $("#settingMidPane").hide();
   $("#configDeviceForm").hide();
+
 
  $(document).ready( function () {
     initSettings()
@@ -188,8 +161,9 @@ $nr_inputs = count($inputlist);*/
 
 function initSettings(){
 
-	//Ajax call to populate the add device list
-	$.ajax({
+
+
+  $.ajax({
         url: '<?php echo $vdPath; ?>virtualDevices/device.php',
         type: 'get',
         dataType: "json",
@@ -210,12 +184,8 @@ function initSettings(){
           console.log(xhr);
           console.log("Details: " + desc + "\nError:" + err);
         }
-	}); // end ajax call
+  }); // end ajax call
 
-	//Ajax call to populate the device lists
-	
-	//Modified for now to fit into the design with panel spans. The var listItem was moved into the if/else clause
-	//to make it easier to remove the a href link from those going into the nonconfigurable device list.
     $.ajax({
         url: '<?php echo $vdPath; ?>virtualDevices/device.php',
         type: 'get',
@@ -230,20 +200,20 @@ function initSettings(){
                     var type = item.type;
                     var template = item.template;
                     var devClass = item.class;
+                    var listItem = $('<li  dev-id="' + id + '" dev-name="' + name + '" dev-type="' + type 
+                    + '"  dev-category="' + devClass +  '"  dev-template="' + template                   
+                    + '"><a href="#">'  + name +'</a></li>');
                     if(devClass == "single run devices")  {
-						var listItem = $('<li  dev-id="' + id + '" dev-name="' + name + '" dev-type="' + type 
-						+ '"  dev-category="' + devClass +  '"  dev-template="' + template                   
-						+ '"><a href="#">'  + name +'</a></li>');
-						var link = listItem.find( "a" );
-						link.attr( "onclick", "clickMyDeviceListItem(event,"+ id +")" ); 
-						$("#myConfigDeviceList").append(listItem);
+                      var link = listItem.find( "a" );
+                      link.attr( "onclick", "clickMyDeviceListItem(event,"+ id +")" ); 
+                      $("#myDeviceList").append(listItem);
                     }else{
-						var listItem = $('<li  dev-id="' + id + '" dev-name="' + name + '" dev-type="' + type 
-						+ '"  dev-category="' + devClass +  '"  dev-template="' + template                   
-						+ '">'+ name +'</li>');
-						$("#myDeviceList").prepend(listItem);
+                      listItem.addClass("pure-menu-disabled");
+                      $("#myDeviceList").prepend(listItem);
                     }
                });
+
+
         },
         error: function(xhr, desc, err) {
           console.log(xhr);
@@ -303,6 +273,7 @@ function cleanUpModes(){
 }
 
 function clickAddDevice(event){
+  
   var templateId = $("#selectTemplate").val();; 
   var deviceName = $('#deviceNameInput').val();
   // TODO: template is currently hard coded for the dishwasher 43
@@ -332,8 +303,10 @@ function clickAddDevice(event){
   
 }
 
+
 function clickMyDeviceListItem(event,deviceId){
      $("#addDeviceForm").hide();
+     
      var target = $( event.target );
      $("#myDeviceList").children().removeClass("pure-menu-selected");
      target.parent().addClass("pure-menu-selected");
@@ -357,15 +330,14 @@ function clickMyDeviceListItem(event,deviceId){
             console.log('Details: ' + desc + '\nError:' + err);
           }
     }); // end ajax call
-	$("#settingMidPane").show();
-    $("#configDeviceForm").show();
+
+      
+     $("#configDeviceForm").show();
 }
 
 function clickAddTask(event){
+
       // get selected device
-	  
-	  //TODO: This has to be modified now to get rid of the pure-menu-selected option. Need a new way to get which item was selected
-	  
       var selectedListItem = $("#myDeviceList").children(".pure-menu-selected");
       var deviceId = selectedListItem.attr("dev-id");
       var estString = $('#estInput').val();
@@ -394,6 +366,7 @@ function clickAddTask(event){
         }
       }
       // end of validity check
+
       
       //TODO: mode and execution type are currently hard coded
       var addTaskJson = '?json={"EST":"' + estString+ '","LST":"' + lstString + '","deviceID":"'+ deviceId+'","execution_type": "single_run","mode":"' +mode+'"}';
@@ -410,11 +383,16 @@ function clickAddTask(event){
                   }
                 }
                 window.location.href="<?php echo $path; ?>cossmiccontrol/view/homecontrol";
+
         },
         error: function(xhr, desc, err) {
           console.log(xhr);
           console.log('Details: ' + desc + '\nError:' + err);
         }
   }); // end ajax call 
+
+
 }
+
+
 </script>
