@@ -280,42 +280,75 @@ $userlocation = $row['location'];
 ?>
 
 <script>
-    
-    
-
-    //$("#treebox").data("powertipjq", $(["lol"]).join("\n"));
-
+//This script section contains the code to gracefully expand and retract the three main information boxes on the summary page
     $(function(){
+		//The expand / retract of the weatherbox
+		$("#weatherexpand").on('click', function(){
+			if($("#weatherbox").hasClass("panel span2")){
+				$("#weatherexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
+				$("#housebox").toggle(400);
+				$("#treebox").toggle(400);  
+				$("#weatherbox").switchClass("span2", "span12", 500, "easeInOutQuad");
+				$("#weatherheading").html("5-Day Forecast");
+				$("#weather").toggle();
+				$("#weather1").switchClass("weathertable", "weatherclass2");
+				$("#weather2").switchClass("weathertable", "weatherclass2");
+				$("#weather3").switchClass("weathertable", "weatherclass2");
+				$("#weather4").switchClass("weathertable", "weatherclass2");
+				$("#weather5").switchClass("weathertable", "weatherclass2");
+            }
+            else{
+				$("#weatherexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
+				$("#weatherbox").switchClass("span12", "span2", 500, "easeInOutQuad");
+                $("#weatherheading").html("Weather");
+				$("#weather1").switchClass("weatherclass2","weathertable");
+				$("#weather2").switchClass("weatherclass2","weathertable");
+				$("#weather3").switchClass("weatherclass2","weathertable");
+				$("#weather4").switchClass("weatherclass2","weathertable");
+				$("#weather5").switchClass("weatherclass2","weathertable");
+                $("#weather").toggle();
+				
+                setTimeout(function(){
+                  $("#housebox").toggle(400);
+                  $("#treebox").toggle(400); 
+                }, 200);   
+            }
+		});
+	
+		//The expand / retract of the treebox
         $("#treeexpand").on('click', function(){
-            
-            $("#weatherbox").toggle(500);
-            $("#cossmickwhbox").toggle(500);
-            $("#housebox").toggle(500);
-            
             if($("#treebox").hasClass("panel span4")){
-                
-                $("#treebox").switchClass("span4", "span12", 500, "easeInOutQuad");
-                $("#cossmictreeContainer").css({"width":"50%"});
 				$("#treeexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
+				$("#weatherbox").toggle(400);
+				$("#housebox").toggle(400);  
+				$("#treebox").switchClass("span4", "span12", 500, "easeInOutQuad");
+				$("#cossmictreeContainer").css({"width":"50%"});
 
                 setTimeout(function(){
                     $("#cossmicforestContainer").toggle();
                     $("#cossmictreeContainer").css({"border-right":"1px solid","border-right-color":"#fff"});
                     $("#cossmictreebarchart").toggle();
-                }, 500);    
-                $("#cossmictree").animate({"margin-left":"10px"});
-                $("#cossmictree").animate({"float":"left"});    
+                }, 500);
+				
+				$("#cossmictree").animate({"margin-left":"10px"});
+                $("#cossmictree").animate({"float":"left"}); 
             }
             else{
-                $("#treebox").switchClass("span12", "span4", 500, "easeInOutQuad");
 				$("#treeexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
                 $("#cossmictreebarchart").toggle();
-                $("#cossmictreeContainer").css({"width":"100%"});
-                $("#cossmictree").animate({"margin-left":"100px"});
-                $("#cossmicforestContainer").toggle();
+				$("#cossmicforestContainer").toggle();
+                $("#treebox").switchClass("span12", "span4", 500, "easeInOutQuad");
+				$("#cossmictreeContainer").css({"width":"100%"});
+				$("#cossmictree").animate({"margin-left":"100px"});
+                
+                setTimeout(function(){
+					$("#weatherbox").toggle(500);
+					$("#housebox").toggle(500); 
+                }, 200);   
             }
         });
         
+		//The expand / retract of the housebox
         $("#houseexpand").on('click', function(){
             var margin = 630;
             
@@ -332,48 +365,14 @@ $userlocation = $row['location'];
             else{
 				$("#houseexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
                 $("#houseIconBody").toggle();
-                /*$(this).animate({
-                    marginLeft: '+='+margin
-                },500); */
                 $("#housebox").switchClass("houseboxbig", "houseboxsmall", 500,"easeInOutQuad");
                 
-                //$("#weatherbox").toggle(500);
-                //$("#treebox").toggle(500);
                 setTimeout(function(){
                   $("#weatherbox").toggle(500);
                   $("#treebox").toggle(500); 
-                }, 500);   
+                }, 200);   
             }
         });
-
-		$("#weatherexpand").on('click', function(){
-			$("#treebox").toggle(500);
-			$("#housebox").toggle(500);
-			if($("#weatherbox").hasClass("panel span2")){
-				$("#weatherexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
-				$("#weatherbox").switchClass("span2", "span12", 500, "easeInOutQuad");
-				$("#weatherheading").html("5-Day Forecast");
-                $("#weather").toggle();
-				$("#weather").switchClass("weatherclass", "weathertable");
-				$("#weather1").switchClass("weathertable", "weatherclass2");
-				$("#weather2").switchClass("weathertable", "weatherclass2");
-				$("#weather3").switchClass("weathertable", "weatherclass2");
-				$("#weather4").switchClass("weathertable", "weatherclass2");
-				$("#weather5").switchClass("weathertable", "weatherclass2");
-			}
-			else{
-				$("#weatherexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
-				$("#weatherbox").switchClass("span12", "span2", 500, "easeInOutQuad");
-				$("#weatherheading").html("Weather");
-				$("#weather1").switchClass("weatherclass2","weathertable");
-				$("#weather2").switchClass("weatherclass2","weathertable");
-				$("#weather3").switchClass("weatherclass2","weathertable");
-				$("#weather4").switchClass("weatherclass2","weathertable");
-				$("#weather5").switchClass("weatherclass2","weathertable");
-                $("#weather").toggle();
-				$("#weather").switchClass("weathertable", "weatherclass");
-			}
-		});
     });
 
     function setVisibles(){
@@ -381,8 +380,6 @@ $userlocation = $row['location'];
             $("#houseIconBody").hide();
         });
     }
-
-
 </script>
 
 <script>
