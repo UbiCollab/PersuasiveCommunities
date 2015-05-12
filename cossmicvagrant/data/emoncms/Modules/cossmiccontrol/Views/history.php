@@ -26,9 +26,9 @@ var current_month = today.getMonth();
 <div style="height: 1000px; width: 1850px">
 
 <!-- consumption/generation div -->
-<div style="height: 900px; width: 800px; float: left">
+<div style="height: 900px; width: 1150px; float: left">
 
-<table width="750px">
+<table width="100%">
     <tr>
         <td>
             <div id="tabs_cg">
@@ -51,7 +51,7 @@ var current_month = today.getMonth();
                         <table>
                             <tr>
                                 <td>
-                                    <div class="demo-container" style="height: 770px; width: 750px">
+                                    <div class="demo-container" style="height: 770px; width: 95%">
 					<div style="height:700px; width:100%">
         				    <div class="y-axis-label">Power [W]</div>
         				    <div class="placeholders">
@@ -122,7 +122,7 @@ var current_month = today.getMonth();
                         <table>
                             <tr>
                                 <td>
-                                    <div class="demo-container" style="height: 770px; width: 750px">
+                                    <div class="demo-container" style="height: 770px; width: 95%">
                                         <div style="height:700px; width:100%">
         				    <div class="y-axis-label">Energy [kWh]</div>
         				    <div class="placeholders">
@@ -210,7 +210,7 @@ var current_month = today.getMonth();
                         <table>
                             <tr>
                                 <td>
-                                    <div class="demo-container" style="height: 770px; width: 750px">
+                                    <div class="demo-container" style="height: 770px; width: 95%">
                                         <div style="height:700px; width:100%">
         				    <div class="y-axis-label">Energy [kWh]</div>
         				    <div class="placeholders">
@@ -282,7 +282,7 @@ var current_month = today.getMonth();
                         <table>
                             <tr>
                                 <td>
-                                    <div class="demo-container" style="height: 770px; width: 750px">
+                                    <div class="demo-container" style="height: 770px; width: 95%">
                                         <div style="height:700px; width:100%">
         				    <div class="y-axis-label">Energy [kWh]</div>
         				    <div class="placeholders">
@@ -334,7 +334,7 @@ var current_month = today.getMonth();
 </div>
 
 <!-- devices div -->
-<div style="height: 1000px; width: 1000px; float: right">
+<div style="height: 1000px; width: 1000px; float: right; display: none">
 
 <table width="975px">
     <tr>

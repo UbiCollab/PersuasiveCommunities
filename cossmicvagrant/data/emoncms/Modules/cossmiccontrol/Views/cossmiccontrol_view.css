@@ -455,7 +455,7 @@ table.legend td {
 }
 
 /*
-css for the homecontrol table
+css for the scheduled tasks table
 */
 #taskTable{
 	background: #1192d3;
@@ -464,4 +464,18 @@ css for the homecontrol table
 #taskTable tr:hover{
 	background: #fff;
 	color: #1192d3;
+}
+
+/*
+css for the appliances page
+*/
+#deviceListPanel{
+	background: #1192d3;
+	color: #fff;
+}
+#deviceList{
+	list-style-type: none;
+}
+#deviceGraph{
+	background: #1192d3;
 }

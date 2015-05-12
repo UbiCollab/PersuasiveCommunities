@@ -1,5 +1,5 @@
 <?php
-global $path;
+global $path, $mysqli, $session;
 $decomposedPath = explode("/", "$path");
 $vdPath = "";
 foreach ($decomposedPath as &$value) {
@@ -20,180 +20,229 @@ foreach ($decomposedPath as &$value) {
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
+<script type="application/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
+<script type="application/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.time.min.js"></script>
+<script type="application/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.stack.min.js"></script>
+<script type="application/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.axislabels.js"></script>
+<script type="application/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.orderBars.js"></script>
+<script type="application/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/history.js"></script>
 
-<p>
-<p>
-
-<div id="taskTablePanel" class="panel span12">
-	<div class="panel-heading">Your tasks</div>
-	<table class="table table-condensed" id="taskTable">
-		<thead>
-			<tr>
-				<th>Device Name</th>
-				<th>Status</th>
-				<th>Program</th>
-				<th>Earliest Start Time</th>
-				<th>Latest Start Time</th>
-				<th>Actual Start Time</th>
-				<th>Actual Finishing Time</th>
-				<th></th>
-			</tr>
-	  </thead>
-	  <tbody>
-	  </tbody>
-	</table>
-</div>
-
-<div style="margin: 15px auto 30px auto">
-	<table class="cossmictable" style="width:60%;visibility: hidden" id="controltable">
-		<tr>
-			<th>Device</th>
-			<th>Status</th>
-			<th>Current load</th>
-			<th>Start time</th>
-		</tr>
-	</table>
-</div>
-
-<?php
-global $mysqli, $session;
-$feedlist_power = [];
-$userid = $session['userid'];
-
-/* TODO uncomment when integrating Katharinas code
-
-// get list of ids and names of all the user's device power feeds
-$result = $mysqli->query("SELECT id,name FROM feeds WHERE name REGEXP '_power$' AND userid = '$userid'");
-$i = 0;
-while ($row = (array)$result->fetch_object()) {
-    $feedlist_power[$i]['feedid'] = $row['id'];
-    $feedlist_power[$i]['devicename'] = str_replace("_power","",$row['name']);
-    $i++;
-}
-
-$nr_powerfeeds = count($feedlist_power);
-
-*/
-?>
-
-<script type="application/javascript">
+<script>
 var path = "<?php echo $path; ?>";
+var first_year = 2010;
+var today = new Date();
+var current_year = today.getFullYear();
+var current_month = today.getMonth();
+</script>
 
-//var feedlist_power = <?php /*echo json_encode($feedlist_power);*/ ?>;
-//var nr_powerfeeds = <?php /*echo $nr_powerfeeds;*/ ?>;
-/* TODO uncomment when integrating Katharinas code
+<div id="appliances">
+	<div class="row">
+		<div id="deviceListPanel" class="panel span2">
+			<div class="panel-heading">Appliances</div>
+			<ul id="deviceList"></ul>
+		</div>
+		
+		<div id="deviceGraph" class="panel span10">
+			<div class="panel-heading">Appliance power consumption</div>
+			<!-- graph goes here -->
+			<table width="100%">
+				<tr>
+					<td>
+						<div id="tabs_d" class="tabs">
+							<ul>
+								<li id="tab1_d"><a href="#tabs-1-d">Day</a>
+								</li>
+								<li id="tab2_d"><a href="#tabs-2-d">Month</a>
+								</li>
+								<li id="tab3_d"><a href="#tabs-3-d">Year</a>
+								</li>
+								<li id="tab4_d"><a href="#tabs-4-d">Total</a>
+								</li>
+							</ul>
+						<div id="tabs-1-d">
+							<div class="content">
+								<table>
+									<tr>
+										<td>
+											<div class="demo-container">
+											   <div id="placeholder_day" class="demo-placeholder"></div>
+											</div>
+										</td>
+						<td align="center" style="padding-left: 20px">
+							<div id = "choices_day_d"></div>
+						</td>
+									</tr>
+									<tr>
+										<td>
+											<table style="width:100%">
+												<tr>
+													<td align="center">
+														<span>
+															<input id="prevbtn_day_d" type="image" style="height:16px; width:20px" src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/prevbtn.gif"></input>
+															<input id="date_from_calendar_d" type="text" readonly="readonly" style="cursor:text; text-align:center"></input>
+															<script type="text/javascript">
+																var today = new Date();
+																document.getElementById('date_from_calendar_d').value = ds_format_date(today.getDate(),today.getMonth()+1,today.getFullYear());
+															</script>
+															<input id="nextbtn_day_d" type="image" style="height:16px; width:20px"; src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/nextbtn.gif"></input>
+														</span>
 
-// CoSSMic control table
-$('#controltable').ready(
+													</td>
+												</tr>
+											</table>
+										</td>
+						<td></td>
+									</tr>
+								</table>
+							</div>
+					</div>
 
-function () {
-        
-    var theTable = "";
-    for (var i = 0; i < nr_powerfeeds; i++) {
-        theTable += '<tr>';
-        theTable += '<td>' + feedlist_power[i].devicename + '</td>';
-        theTable += '<td>on/off</td>';
-        theTable += '<td>' + Math.round(get_feedvalue(feedlist_power[i].feedid)) + ' W</td>';
-	theTable += '<td></td>';
-        theTable += '</tr>';
-    }
-    $('#controltable').append(theTable);
-});
+							<div id="tabs-2-d">
+								<div class="content">
+									<table>
+										<tr>
+											<td>
+												<div class="demo-container">
+													<div id="placeholder_month" class="demo-placeholder"></div>
+												</div>
+											</td>
+							<td align="center" style="padding-left: 20px">
+												<div id = "choices_month_d"></div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<table style="width:100%">
+													<tr>
+														<td align="center">
+															<span>
+																<input id="prevbtn_month_d" type="image" style="height:16px; width:20px" src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/prevbtn.gif"></input>
+																<select id="select_month_month_d">
+										<option value="0">January</option>
+										<option value="1">February</option>
+										<option value="2">March</option>
+										<option value="3">April</option>
+										<option value="4">May</option>
+										<option value="5">June</option>
+										<option value="6">July</option>
+										<option value="7">August</option>
+										<option value="8">September</option>
+										<option value="9">October</option>
+										<option value="10">November</option>
+										<option value="11">December</option>
+										</select>
+										<select id="select_month_year_d">
+										</select>
+																<script type="text/javascript">
+										create_year_dropdown("#select_month_year_d", first_year, current_year);
+																	// preselect current month
+										(document.getElementById('select_month_month_d')).value = current_month;
+										// preselect current year
+										(document.getElementById('select_month_year_d')).value = current_year;
+																</script>
+																<input id="nextbtn_month_d" type="image" style="height:16px; width:20px"; src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/nextbtn.gif"></input>
+															</span>
 
-*/
+														</td>
+													</tr>
+												</table>
+											</td>
+										<td></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div id="tabs-3-d">
+								<div class="content">
+									<table>
+										<tr>
+											<td>
+												<div class="demo-container">
+													<div id="placeholder_year" class="demo-placeholder"></div>
+												</div>
+											</td>
+							<td align="center" style="padding-left: 20px">
+												<div id = "choices_year_d"></div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<table style="width:100%">
+													<tr>
+														<td align="center">
+															<span>
+																<input id="prevbtn_year_d" type="image" style="height:16px; width:20px" src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/prevbtn.gif"></input>
+																<select id="select_year_year_d"></select>
+																<script type="text/javascript">
+																	create_year_dropdown("#select_year_year_d", first_year, current_year);
+																	// preselect current year
+										(document.getElementById('select_year_year_d')).value = current_year;
+																</script>
+																<input id="nextbtn_year_d" type="image" style="height:16px; width:20px"; src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/nextbtn.gif"></input>
+															</span>
+
+														</td>
+													</tr>
+												</table>
+											</td>
+							<td></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div id="tabs-4-d">
+								<div class="content">
+									<table>
+										<tr>
+											<td>
+												<div class="demo-container">
+													<div id="placeholder_total" class="demo-placeholder"></div>
+												</div>
+											</td>
+							<td align="center" style="padding-left: 20px">
+												<div id = "choices_total_d"></div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
 $(document).ready( function () {
-	homeControlSettings()
+	initList();
 });
 
-function homeControlSettings(){
-    var listTaskJson = '?json={"status":10,"info":true}';
-    
-    $.when(
-        $.ajax({
-			url: '<?php echo $path; ?>mas/list.json' + listTaskJson,
-			type: 'get',
-			dataType: 'json'
-		})
-       ,
-		$.ajax({
-            url: '<?php echo $vdPath; ?>virtualDevices/device.php',
-            type: 'get',
-            dataType: "json",
-            data: {'json':'{"cmd":"list","user":"1"}'}
-        })
-    )
-    .then(function( resultListTask,resultListDevices) {
-        console.log(JSON.stringify(resultListTask[0]));
-        console.log(JSON.stringify(resultListDevices[0]));
-        var deviceHash = new Object();
-        $.each(resultListDevices[0].devicelist, function(idx, item){
-            deviceHash[item.id] = item.name;
-        });
-        $.each(resultListTask[0].tasks, function(idx, item){
-            var id = item.id;
-			var devId = item.deviceID;
-			var status;
-			switch(item.status) {
-				case "0":
-					status = "Not yet scheduled"
-					break;
-				case "1":
-					status = "Scheduled"
-					break;
-				case "4":
-					status = "Running"
-					break;
-				case "5":
-					status = "Completed"
-					break;
-				default:
-					status = "Undetermined"
-			}
-		   
-			var mode = item.mode;
-			var est = item.EST;
-			var lst = item.LST;
-			var aet = item.AET;
-			var ast = item.AST;
-			var name = '';
-			if (deviceHash.hasOwnProperty(devId)) {
-				name = deviceHash[devId];
-			}
-			var htmlRow= '<tr task-id="' +id+ '" device-id="' + devId + '"><td>' + name + ' </td><td> ' + status + ' </td><td> ' + mode +  ' </td><td> ' + est + ' </td><td> ' + lst +
-			' </td><td> ' + ast + ' </td><td>' + aet + '</td><td><a href="#" onclick="deleteTask('+id+',\''+aet+'\')"><i class="icon-trash"></i></a></td></tr>';
-			$("#taskTable > tbody").prepend(htmlRow);        
-        });
-   });
-}
+function initList(){
 
-function deleteTask(id,aet){
-	if (aet != "UNDEFINED"){
-		window.alert("It is not possible to delete scheduled tasks ");
-		return;
-	}
-    
+	//Ajax call to get all the devices and stuff them in the deviceList. Only need the name since no computing is to be done on them
 	$.ajax({
-        url: '<?php echo $path; ?>mas/delete.json?id=' + id,
+        url: '<?php echo $vdPath; ?>virtualDevices/device.php',
         type: 'get',
-        dataType: 'json',
+        dataType: "json",
+        data: {'json':'{"cmd":"list","user":"1"}'},
         success: function(output) {
-            console.log(output);
-            if(null != output) {
-                if (output.result != "success"){
-                    if(!output.result){ // task deleted
-                        window.alert("It was not possible to delete the task, it probably has already been scheduled");
-                    }
-                    location.reload();
-                }
-            }
-             location.reload();
+			$.each(output.devicelist, function(idx, item){
+				var listItem = $('<li>' + item.name +'</li>');
+				$("#deviceList").append(listItem);
+		   });
         },
         error: function(xhr, desc, err) {
 			console.log(xhr);
-			console.log('Details: ' + desc + '\nError:' + err);
-			window.alert("error when trying to delete the task");
+			console.log("Details: " + desc + "\nError:" + err);
         }
 	}); // end ajax call
 }
-
 </script>
+
+<?php
+require "Modules/cossmiccontrol/Views/history_d.php";
+?>

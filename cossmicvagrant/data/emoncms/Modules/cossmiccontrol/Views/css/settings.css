@@ -12,8 +12,15 @@ box-sizing: border-box;
 .l-box {
 	padding: 0 0.5em;
 }
+.double{
+	display: inline-block;
+}
+.inputs{
+	padding-bottom: 2px;
+}
 
 #ncdpanel{
+	display: none;
 	background: #1192d3;
 	color: #fff;
 }
@@ -38,8 +45,8 @@ a{
 	padding: 5px 5px 5px 5px;
 }
 #addTaskeButton{
-	float: center;
 }
 #settingMidPane{
 	display: none;
+	float: none;
 }
