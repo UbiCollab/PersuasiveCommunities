@@ -201,7 +201,11 @@
     color: #fff;
     display: inline-block;
 }
-
+#treeHelp{
+    width: 20px;
+    height: 20px;
+    display: none;
+}
 #tree-panel{
     width: 100%;
     height: 100%;
@@ -452,6 +456,10 @@ table.legend td {
 	height: 100%;
 	background-color: #555555;
 	visibility: hidden;
+}
+
+#summarySchedule{
+	display: none;
 }
 
 /*
