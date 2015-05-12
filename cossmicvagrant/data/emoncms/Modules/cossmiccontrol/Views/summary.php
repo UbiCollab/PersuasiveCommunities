@@ -55,7 +55,9 @@ global $path;
 		
 		<!-- Div containing the CoSSMic tree / forest -->
 		<div id="treebox" class="panel span4">
-			<div class="panel-heading">Tree <img class="expand" id="treeexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
+			<div class="panel-heading">CoSSMic Score 
+                <img class = "helpIcon" id = "treeHelp" src = "<?php echo $path; ?>images/help-icon.png"/>
+                <img class="expand" id="treeexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
 			<div class="panel-body">
 				<div id="tree-panel">
 					<div id="cossmictreeContainer">
@@ -80,7 +82,7 @@ global $path;
 		
 		<!-- Div containing the graphical representation of the household -->
 		<div id="housebox" class="panel houseboxsmall">
-			<div class="panel-heading">El Flow <img class="expand" id="houseexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
+			<div class="panel-heading">My household <img class="expand" id="houseexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
 			<div class="panel-body">
                 <div id="houseIconBody">
                     <table id="houseboxTable">
@@ -105,7 +107,7 @@ global $path;
                 <div id="housebody">
                     <div class="elFlowHeaders">
                         <div id="myHouseTag">My house</div>
-                        <div id="myCommunityTag">My community</div>
+                        <div id="myCommunityTag">Community</div>
                     </div>
                     <div id="elFlowTableAndIcons">
                         <div id="elFlowText1">
@@ -326,6 +328,7 @@ $userlocation = $row['location'];
 
                 setTimeout(function(){
                     $("#cossmicforestContainer").toggle();
+                    $("#treeHelp").toggle();
                     $("#cossmictreeContainer").css({"border-right":"1px solid","border-right-color":"#fff"});
                     $("#cossmictreebarchart").toggle();
                 }, 500);
@@ -340,9 +343,10 @@ $userlocation = $row['location'];
                 $("#treebox").switchClass("span12", "span4", 500, "easeInOutQuad");
 				$("#cossmictreeContainer").css({"width":"100%"});
 				$("#cossmictree").animate({"margin-left":"100px"});
-                
-                setTimeout(function(){
-					$("#weatherbox").toggle(500);
+                $("#treeHelp").toggle();
+
+                setTimeout(function(){	
+                    $("#weatherbox").toggle(500);
 					$("#housebox").toggle(500); 
                 }, 200);   
             }
@@ -375,11 +379,6 @@ $userlocation = $row['location'];
         });
     });
 
-    function setVisibles(){
-        $(function(){
-            $("#houseIconBody").hide();
-        });
-    }
 </script>
 
 <script>
@@ -405,6 +404,7 @@ $userlocation = $row['location'];
     var storage2gridId = <?php echo json_encode($storage2gridId); ?>;
     var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
     
+
 	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
     function createBarChart(){
 		var data=[];
@@ -421,17 +421,17 @@ $userlocation = $row['location'];
         var coefs = 1.50;
         var sharingValue = (pv2grid+storage2grid);
         //if(sharingValue > 10 )
-        data.push(["Sharing", sharingValue, getSharingScoreText(sharingValue)]);
+        data.push(["Sharing score", sharingValue, getSharingScoreText(sharingValue)]);
         //Calculate score based on how much of the pv is used for example
         
         var pv2householdValue = (Math.round(((pv2household/totalconsumption)+(pv2household/grid2household))*100));
         console.log((pv2household/totalconsumption)+(pv2household/grid2household));
-        data.push(["PV usage", pv2householdValue, getPvUsageScoreText(pv2householdValue)]);
+        data.push(["PV score", pv2householdValue, getPvUsageScoreText(pv2householdValue)]);
 
         //Calculate score based on a treshhold value over a whole day for example. High score = low actual usage
 
         var gridUsageValue = 100-(Math.round((grid2household/totalconsumption)*100));
-        data.push(["Grid usage",  gridUsageValue, getGridUsageScoreText(gridUsageValue)]);
+        data.push(["Grid score",  gridUsageValue, getGridUsageScoreText(gridUsageValue)]);
 		
         //Calculate score based on the scheduling (actual schedules/number of schedulable devices for example)
         var schedulingValue= (6/12)*100;
@@ -440,8 +440,8 @@ $userlocation = $row['location'];
         //Calculates a very simple score based on the percentage of PV power used compared to the total power used
         //then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
         selectTree(Math.round((sharingValue+pv2householdValue+gridUsageValue+schedulingValue)/5));     
-        var array1 = [["Sharing",10, getSharingScoreText(10)],["PV usage",20,getPvUsageScoreText(20)],["Grid usage",45, getGridUsageScoreText(45)],["Scheduling",78, getSchedulingScoreText(78)]];
-        var array2 = [["Sharing",20, getSharingScoreText(20)],["PV usage",36, getPvUsageScoreText(36)],["Grid usage",87, getGridUsageScoreText(87)],["Scheduling",21, getSchedulingScoreText(21)]];
+        var array1 = [["Sharing score",10, getSharingScoreText(10)],["PV score",20,getPvUsageScoreText(20)],["Grid score",45, getGridUsageScoreText(45)],["Scheduling",78, getSchedulingScoreText(78)]];
+        var array2 = [["Sharing score",20, getSharingScoreText(20)],["PV score",36, getPvUsageScoreText(36)],["Grid score",87, getGridUsageScoreText(87)],["Scheduling",21, getSchedulingScoreText(21)]];
         var arrays = [array1,data,array2];
         //return data;
         //console.log(data);
@@ -457,7 +457,7 @@ $userlocation = $row['location'];
             //get data from totalConsumption
             $.ajax({
                 type: 'get',
-                url: path+'/feed/data.json?id='+consumptionkwhId+'&start='+start+'&end='+end+'&dp=1 ',
+                url: path+'/feed/data.json?id='+consumptionkwhId+'&start='+start+'&end='+end+'&dp=1',
                 success: function(data){
                     var json = data[0];
                     
@@ -473,7 +473,7 @@ $userlocation = $row['location'];
             //get and set the data from pv2householdValue
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+pv2householdId+'&start='+start+'&end='+end+'&dp=1 ',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+pv2householdId+'&start='+start+'&end='+end+'&dp=1',
                 success: function(data){
                     var json = data[0];
                     
@@ -653,8 +653,44 @@ $userlocation = $row['location'];
 				updateBarChart("#outerForestChart", "forest", createBarChart());
 			}, 1000)
 			getData();
-        }, 5000);
+        }, 10000);
     };
+
+    //tooltips for the different elements in Summary.php
+    function setTooltips(){
+
+        $("#treeHelp").data("powertip", function(){
+
+                var tooltip =   "The <b>Tree</b> on the left represents your household's envorinmental profile and score. While the <b>Forest</b> represents how your community's environmental profile."+
+                                "<br> Your score influce directly how the community is doing. The main goal is to get both the <b>tree</b> and the <b>forest</b> to 100%."+
+                                "<br> If you succeed in doing so, it means that you are using the electricity in your household in an efficient matter."+
+                                "<br> This ultimately benefits the CoSSMic project and of course the environment."+
+                                "<br>"+
+                                "<br>The score is based on these parameters:"+
+                                "<br><b>Sharing score:</b> This score is based on how much you are able to share/sell to the community/grid."+
+                                "<br>It is calculated by total kWh shared divided by an avarage daily kWh throughout you community."+
+                                "<br>"+
+                                "<br><b>PV score</b> score is based on the PV production divided by the total consumption, and if the scheduled tasks are run when the PV is producing."+
+                                "<br>So if the tasks are run when the PV is producing a lot, you will get high score."+
+                                "<br>"+
+                                "<br><b>Grid score</b> is based on how much electricity you are using from the grid divided by the total consumption."+
+                                "<br>Smaller amounts of kWh used from the grid results in a high score."+
+                                "<br>"+
+                                "<br><b>Scheduling score</b> is based on how frequently you are scheduling your devices in the household."+
+                                "<br>"+
+                                "<br>The different scores for the <b>Forest</b> is based on the avarage household's score in the respective parameters."+
+                                "<br>"+
+                                "<br><b>Hover over the different bars to see how you can improve the score!</b>";
+
+                    return tooltip;
+                });
+
+
+        $("#treeHelp").powerTip({
+                placement: "se",
+                mouseOnToPopup:true
+            });
+    }
 </script>
 <script>
 /*
@@ -740,10 +776,9 @@ $(document).ready( function () {
 	errorWeather("<?php echo $userlocation; ?>");
 }, {timeout: 10000});
 
-	setVisibles();  
 	summarySetup();
 	addDataValues();
-
+    setTooltips();
 });
 
 function  summarySetup(){
