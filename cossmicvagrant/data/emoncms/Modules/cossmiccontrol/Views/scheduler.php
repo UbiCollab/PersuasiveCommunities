@@ -23,7 +23,7 @@ Pending
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/cossmiccontrol_view.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/pure-0.5.0/pure-min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/css/settings.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/css/scheduler.css">
 
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
@@ -40,12 +40,6 @@ Pending
 		</div>
 		<p>
 
-		<div id="ncdpanel" class="panel span4">
-			<div class="panel-heading">Non-configurable Devices</div>
-			<ul id="myDeviceList">
-			</ul>
-		</div>
-		
 		<div id="cdpanel" class="panel span6 double">
 			<div class="panel-heading">Configurable Devices</div>
 			<ul id="myConfigDeviceList">
@@ -214,11 +208,6 @@ function initSettings(){
 					var link = listItem.find( "a" );
 					link.attr( "onclick", "clickMyDeviceListItem(event,"+ id +")" ); 
 					$("#myConfigDeviceList").append(listItem);
-				}else{
-					var listItem = $('<li  dev-id="' + id + '" dev-name="' + name + '" dev-type="' + type 
-					+ '"  dev-category="' + devClass +  '"  dev-template="' + template                   
-					+ '">'+ name +'</li>');
-					$("#myDeviceList").prepend(listItem);
 				}
 		   });
         },

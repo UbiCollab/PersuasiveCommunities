@@ -25,10 +25,11 @@ function cossmiccontrol_controller()
     {
         if ($route->action == 'view' && $session['write'])
 	    {
-	    	if ($route->subaction == 'summary') $result = view("Modules/cossmiccontrol/Views/summary.php", array());
-		if ($route->subaction == 'homecontrol') $result = view("Modules/cossmiccontrol/Views/homecontrol.php", array());
-		if ($route->subaction == 'settings') $result = view("Modules/cossmiccontrol/Views/settings.php", array());
+	    	if ($route->subaction == 'dashboard') $result = view("Modules/cossmiccontrol/Views/summary.php", array());
+		if ($route->subaction == 'appliances') $result = view("Modules/cossmiccontrol/Views/appliances.php", array());
+		if ($route->subaction == 'scheduler') $result = view("Modules/cossmiccontrol/Views/scheduler.php", array());
 		if ($route->subaction == 'history') $result = view("Modules/cossmiccontrol/Views/history.php", array());
+		if ($route->subaction == 'ranking') $result = view("Modules/cossmiccontrol/Views/ranking.php", array());
 	    }
     }
 

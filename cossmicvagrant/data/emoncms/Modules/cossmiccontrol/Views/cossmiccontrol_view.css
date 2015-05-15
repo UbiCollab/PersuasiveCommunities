@@ -487,3 +487,21 @@ css for the appliances page
 #deviceGraph{
 	background: #1192d3;
 }
+
+/*
+css for the rankings page
+*/
+.ulClass{
+	list-style-type: none;
+	text-align: center;
+}
+#overall, #scheduling, #pvproduction, #sharing{
+	background: #1192d3;
+	color: #fff;
+}
+#overall h3, #scheduling h3, #pvproduction h3, #sharing h3{
+	font-size: 15px;
+	padding: 2px 2px 2px 2px;
+	color: #fff;
+	margin: auto;
+}

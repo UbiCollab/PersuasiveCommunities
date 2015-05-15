@@ -7,5 +7,5 @@
 
 	//All users should have quick menu access to the Scheduler page.
 	
-	$menu_left[] = array('name'=> dgettext($domain, "Scheduler"), 'path'=>"cossmiccontrol/view/settings" , 'session'=>"write", 'order' => 10 );
+	$menu_left[] = array('name'=> dgettext($domain, "Scheduler"), 'path'=>"cossmiccontrol/view/scheduler" , 'session'=>"write", 'order' => 10 );
 ?>

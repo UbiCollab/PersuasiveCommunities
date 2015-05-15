@@ -7,5 +7,5 @@
 
 	//All users should have quick menu access to the CoSSMic control page
 	
-	$menu_left[] = array('name'=> dgettext($domain, "CoSSMic"), 'path'=>"cossmiccontrol/view/summary" , 'session'=>"write", 'order' => 9 );
+	$menu_left[] = array('name'=> dgettext($domain, "CoSSMic Dashboard"), 'path'=>"cossmiccontrol/view/dashboard" , 'session'=>"write", 'order' => 9 );
 ?>

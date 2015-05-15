@@ -9,34 +9,32 @@
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 }
+
 .l-box {
 	padding: 0 0.5em;
 }
+
 .double{
 	display: inline-block;
 }
+
 .inputs{
 	padding-bottom: 2px;
 }
 
-#ncdpanel{
-	display: none;
-	background: #1192d3;
-	color: #fff;
-}
 #cdpanel{
 	background: #1192d3;
 	color: #fff;
 }
+
 a{
 	color: #fff;
 }
-#myDeviceList{
-	list-style-type: none;
-}
+
 #myConfigDeviceList{
 	list-style-type: none;
 }
+
 #configDeviceForm{
 	background: #1192d3;
 	color: #fff;
@@ -44,8 +42,7 @@ a{
 #configureForm{
 	padding: 5px 5px 5px 5px;
 }
-#addTaskeButton{
-}
+
 #settingMidPane{
 	display: none;
 	float: none;

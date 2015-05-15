@@ -28,7 +28,7 @@
     {
         if (isset($item['session'])) {
             if (isset($session[$item['session']]) && $session[$item['session']]==1) {
-                if($item['name'] == 'CoSSMic Control'){
+                if($item['name'] == 'CoSSMic Dashboard'){
                     echo "<li><a href=\"".$path.$item['path']."\"><img src=\"".$path."Theme/home_icon.png\"/>".$item['name']."</a></li>";
                 }
                 else{
