@@ -327,7 +327,7 @@ $userlocation = $row['location'];
             }
 		});
 	
-		//The expand / retract of the treebox
+		//The expand / retract of the cossmic score box
         $("#treeexpand").on('click', function(){
             if($("#treebox").hasClass("panel span4")){
 				$("#treeexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
@@ -362,7 +362,7 @@ $userlocation = $row['location'];
             }
         });
         
-		//The expand / retract of the housebox
+		//The expand / retract of the  my household box
         $("#houseexpand").on('click', function(){
             var margin = 630;
             
@@ -414,7 +414,6 @@ $userlocation = $row['location'];
     var storage2gridId = <?php echo json_encode($storage2gridId); ?>;
     var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
     
-
 	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
     function createBarChart(){
 		var data=[];
@@ -432,14 +431,13 @@ $userlocation = $row['location'];
         var sharingValue = (pv2grid+storage2grid);
         //if(sharingValue > 10 )
         data.push(["Sharing score", sharingValue, getSharingScoreText(sharingValue)]);
-        //Calculate score based on how much of the pv is used for example
         
+		//Calculate score based on how much of the pv is used for example
         var pv2householdValue = (Math.round(((pv2household/totalconsumption)+(pv2household/grid2household))*100));
         //console.log((pv2household/totalconsumption)+(pv2household/grid2household));
         data.push(["PV score", pv2householdValue, getPvUsageScoreText(pv2householdValue)]);
 
         //Calculate score based on a treshhold value over a whole day for example. High score = low actual usage
-
         var gridUsageValue = 100-(Math.round((grid2household/totalconsumption)*100));
         data.push(["Grid score",  gridUsageValue, getGridUsageScoreText(gridUsageValue)]);
 		
@@ -453,10 +451,6 @@ $userlocation = $row['location'];
         var array1 = [["Sharing score",10, getSharingScoreText(10)],["PV score",20,getPvUsageScoreText(20)],["Grid score",45, getGridUsageScoreText(45)],["Scheduling",78, getSchedulingScoreText(78)]];
         var array2 = [["Sharing score",20, getSharingScoreText(20)],["PV score",36, getPvUsageScoreText(36)],["Grid score",87, getGridUsageScoreText(87)],["Scheduling",21, getSchedulingScoreText(21)]];
         var arrays = [array1,data,array2];
-        //return data;
-        //console.log(data);
-        //console.log(Math.floor(Math.random()*3));
-        //return data;
         return arrays[Math.floor(Math.random()*3)];
     }
 
@@ -889,7 +883,6 @@ $(document).ready( function () {
 });
 
 function  summarySetup(){
-    $("#scheduleDiv").hide();
 
     $.when(
 		$.ajax({
