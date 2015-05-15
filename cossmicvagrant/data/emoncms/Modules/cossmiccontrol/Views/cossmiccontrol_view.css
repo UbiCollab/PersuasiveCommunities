@@ -5,10 +5,6 @@
     margin-top: 10px;
 }
 
-#neighbGraphPlaceholder{
-    width:100%;height:400px;
-}
-
 .largeFont{
     font-size: large; 
     width: 100%;
@@ -48,159 +44,20 @@
     height: 270px;
 }
 
-.expand{
-	float: right;
-	width: 20px;
-	height: 20px;
+#neighbGraphPlaceholder{
+    width:100%;height:400px;
 }
 
+/*
+css for the weather box
+*/
 #weatherhead div{
 	display: inline-block;
 }
 
-.houseboxsmall{
-    float:right;
-    width: 570px;
-}
-
-.houseboxbig{
-    width: 1170px;
-}
-
-.elFlowHeaders{
-    display: inline-block;
-    text-align: center;
-    margin-top: 15px;
-    margin-left: 36%;
-}
-
-#myHouseTag{
-    color: #fff;
-    float: left;
-}
-
-#myCommunityTag{
-    color: #fff;
-    margin-left: 160px;
-    float: right;
-}
-
-#elFlowTableAndIcons{
-    display: inline-block;
-    position: relative;
-}
-
-#elFlowText1{
-    position: absolute;
-    margin-top: 50px;
-    margin-left: 20px;
-    width: 50%;
-    height: 150px;
-    float:left;
-    position: absolute;
-}
-
-#elFlowText1 tr td{
-    padding-top: 15px;
-    padding-right: 5px;
-    color: #ffffff;
-}
-
-#elFlowText2{
-    position: absolute;
-    margin-top: 58px;
-    margin-left: 63%;
-    width: 50%;
-    height: 150px;
-    float:right;
-}
-
-#elFlowText2 tr td{
-    padding-top: 20px;
-    padding-right: 15px;
-    color: #ffffff;
-}
-
-.elFlowStats{
-    padding-right: 45px;
-    width: 90px;
-    float:right;
-}
-
-.elFlowRow{
-    width: 50%;
-}
-
-#houseInStats{
-    margin-top: 20px;
-    position: absolute;
-    color: #666;
-    height: 100%;
-}
-
-#elTotalConsumptionHeader{
-    position: absolute;
-    color: #1192d3;
-    margin: 17% 0 0 43%;
-}
-
-#elTotalConsumption{
-    position: absolute;
-    color: #1192d3;
-    margin: 21% 0 0 41%;
-}
-
-#housebox{
-    background-color: #1192d3;
-    display: inline-block;
-    float: right;
-}
-
-#houseIconBody{
-    float:left;
-    width: 50%;
-    height: 100%;
-    background-color: #1192d3;
-    display: none;
-}
-
-.housebox_content{
-    width: 95px;
-    height: auto;
-    margin: 15% 140px 5% 30px;
-    float: left;
-}
-
-#housebody{
-    height: 270px;
-    width: 570px;
-    float: right;
-}
-
-#house-icon{
-    margin-top: 8%;
-    margin-right: 10px;
-    float: right;
-    height:150px; 
-    width:80%;
-}
-
-#houseboxTable{
-    margin-top: 13%;
-    margin-left: 10px;
-    color: #fff;
-}
-.houseboxIconText{
-    color: #fff;
-    width: 40px; 
-    font-weight: 700;
-    font-size: 16px;
-}
-
-.houseboxParagraph{
-    color: #fff;
-    display: inline-block;
-}
+/*
+css for the cossmic score box
+*/
 #treeHelp{
     width: 20px;
     height: 20px;
@@ -254,43 +111,221 @@
     float:left;
 }
 
-.whiteText{
-    color:#fff;
+/*
+css for the my household box
+*/
+.houseboxsmall{
+    float:right;
+    width: 570px;
 }
 
+.houseboxbig{
+    width: 1170px;
+}
+
+.elFlowHeaders{
+    display: inline-block;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 36%;
+}
+
+.houseboxIconText{
+    color: #fff;
+    width: 40px; 
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.houseboxParagraph{
+    color: #fff;
+    display: inline-block;
+}
+
+.housebox_content{
+    width: 95px;
+    height: auto;
+    margin: 15% 140px 5% 30px;
+    float: left;
+}
+
+.elFlowStats{
+    padding-right: 45px;
+    width: 90px;
+    float:right;
+}
+
+.elFlowRow{
+    width: 50%;
+}
+
+#myHouseTag{
+    color: #fff;
+    float: left;
+}
+
+#myCommunityTag{
+    color: #fff;
+    margin-left: 160px;
+    float: right;
+}
+
+#elFlowTableAndIcons{
+    display: inline-block;
+    position: relative;
+}
+
+#elFlowText1{
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 20px;
+    width: 50%;
+    height: 150px;
+    float:left;
+    position: absolute;
+}
+
+#elFlowText1 tr td{
+    padding-top: 15px;
+    padding-right: 5px;
+    color: #ffffff;
+}
+
+#elFlowText2{
+    position: absolute;
+    margin-top: 58px;
+    margin-left: 63%;
+    width: 50%;
+    height: 150px;
+    float:right;
+}
+
+#elFlowText2 tr td{
+    padding-top: 20px;
+    padding-right: 15px;
+    color: #ffffff;
+}
+
+#houseInStats{
+    margin-top: 20px;
+    position: absolute;
+    color: #666;
+    height: 100%;
+}
+
+#elTotalConsumptionHeader{
+    position: absolute;
+    color: #1192d3;
+    margin: 17% 0 0 43%;
+}
+
+#elTotalConsumption{
+    position: absolute;
+    color: #1192d3;
+    margin: 21% 0 0 41%;
+}
+
+#housebox{
+    background-color: #1192d3;
+    display: inline-block;
+    float: right;
+}
+
+#houseIconBody{
+    float:left;
+    width: 50%;
+    height: 100%;
+    background-color: #1192d3;
+    display: none;
+}
+
+#housebody{
+    height: 270px;
+    width: 570px;
+    float: right;
+}
+
+#house-icon{
+    margin-top: 8%;
+    margin-right: 10px;
+    float: right;
+    height:150px; 
+    width:80%;
+}
+
+#houseboxTable{
+    margin-top: 13%;
+    margin-left: 10px;
+    color: #fff;
+}
+
+/*
+css for the scheduled tasks list box
+*/
+#summarySchedule{
+	display: none;
+}
+#taskTable{
+	background: #1192d3;
+	color: #fff;
+}
+#taskTable tr:hover{
+	background: #fff;
+	color: #1192d3;
+}
+
+/*
+css for the community graph
+*/
 .panel .panel-neighborhoodGraph{
     border-radius: 0 0 0 0 ;
     color: #1192d3;
     background: #1192d3;
 }
 
-table.cossmictable {
-    border-collapse:collapse;
-    width:100%;
+/*
+css for the appliances page
+*/
+#deviceListPanel{
+	background: #1192d3;
+	color: #fff;
 }
-table.cossmictable tr:nth-child(odd) {
-    background-color:#f1f1f1;
+#deviceList{
+	list-style-type: none;
 }
-table.cossmictable tr:nth-child(even) {
-    background-color:#ffffff;
+#deviceGraph{
+	background: #1192d3;
 }
-table.cossmictable {
-    background-color:#f1f1f1;
+
+/*
+css for the rankings page
+*/
+.ulClass{
+	list-style-type: none;
+	text-align: center;
 }
-table.cossmictable th {
-    color:#ffffff;
-    background-color:#555555;
-    border:1px solid #555555;
-    padding:3px;
-    vertical-align:top;
-    text-align:left;
+#overall, #scheduling, #pvproduction, #sharing{
+	background: #1192d3;
+	color: #fff;
 }
-table.cossmictable td {
-    border:1px solid #d4d4d4;
-    padding:5px;
-    padding-top:7px;
-    padding-bottom:7px;
-    vertical-align:top;
+#overall h3, #scheduling h3, #pvproduction h3, #sharing h3{
+	font-size: 15px;
+	padding: 2px 2px 2px 2px;
+	color: #fff;
+	margin: auto;
+}
+
+/*
+css without any particular belongings, general to the site
+*/
+.expand{
+	float: right;
+	width: 20px;
+	height: 20px;
+}
+
+.whiteText{
+    color:#fff;
 }
 
 input[type=checkbox] {
@@ -395,35 +430,7 @@ table.legend td {
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
-.usagebar {
-	display: inline-block;
-	//border-style: solid;
-	//border-color: #000000;
-	border-width: 0px 2px 0px 0px;
-	height: 100%;
-}
-#usagebar {
-	width: 100%;
-	margin: 15px auto 30px auto;
-	margin-bottom: 20px;
-}
-#usagebarcontainer {
-	display: inline-block;
-	border: 2px solid #000000;
-	width: 100%;
-	height: 30px;
-	margin-bottom: 5px; 
-}
-.usagebarlegend {
-	width:20px;
-	height:20px;
-	border:1px solid #000000;
-	margin-right: 5px;
-}
-#usagebarlegend div {
-	display: inline-block;
-	vertical-align: middle;
-}
+
 #now > div{
 	display: inline-block;
 	vertical-align: top;
@@ -434,74 +441,4 @@ table.legend td {
 	display: inline-block;
 	vertical-align: top;
 	padding-top: 20px;
-}
-
-#cossmickwh{
-	padding-top: 40%;
-}
-
-#cossmickwhbar {
-	width: 80%;
-	text-align: center;
-	height: 30px;
-	border: 2px solid #fff;
-	margin: 20px auto 5px auto;
-}
-
-.cossmickwhText {
-	color: #fff;
-	text-align: center;
-}
-#cossmicprogressbar {
-	height: 100%;
-	background-color: #555555;
-	visibility: hidden;
-}
-
-#summarySchedule{
-	display: none;
-}
-
-/*
-css for the scheduled tasks table
-*/
-#taskTable{
-	background: #1192d3;
-	color: #fff;
-}
-#taskTable tr:hover{
-	background: #fff;
-	color: #1192d3;
-}
-
-/*
-css for the appliances page
-*/
-#deviceListPanel{
-	background: #1192d3;
-	color: #fff;
-}
-#deviceList{
-	list-style-type: none;
-}
-#deviceGraph{
-	background: #1192d3;
-}
-
-/*
-css for the rankings page
-*/
-.ulClass{
-	list-style-type: none;
-	text-align: center;
-}
-#overall, #scheduling, #pvproduction, #sharing{
-	background: #1192d3;
-	color: #fff;
-}
-#overall h3, #scheduling h3, #pvproduction h3, #sharing h3{
-	font-size: 15px;
-	padding: 2px 2px 2px 2px;
-	color: #fff;
-	margin: auto;
 }

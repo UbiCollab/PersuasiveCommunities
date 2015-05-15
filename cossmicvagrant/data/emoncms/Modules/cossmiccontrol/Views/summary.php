@@ -176,39 +176,16 @@ foreach($decomposedPath as &$value) {
     </div>
 </div>
 
-<!-- Div containing the full width graph for the neighborhood -->
+<!-- Div containing the full width graph for the neighborhood / community -->
 <div class="row" style="margin-top: 30px">
 	<div class="panel span12">
-		<div class="panel-heading">Neighborhood - today</div>
+		<div class="panel-heading">Community - today</div>
 		<div class="panel-neighborhoodGraph">
 			<div id="neighbGraphPlaceholder"></div>
 		</div>
 	</div>
 </div>
 
-<div  id="scheduleDiv" style="width: 34%,visibility: hidden">
-	<div>Schedule</div>
-	<table class="cossmictable">
-		<tr>
-			<th>Task</th>
-			<th>Earliest start</th>
-			<th>Latest end</th>
-			<th>Estimated consumption</th>
-		</tr>
-		<tr>
-			<td>[Device 1]</td>
-			<td>[xx:xx]</td>
-			<td>[xx:xx]</td>
-			<td>[x] kWh</td>
-		</tr>
-		<tr>
-			<td>[Device 2]</td>
-			<td>[xx:xx]</td>
-			<td>[xx:xx]</td>
-			<td>[x] kWh</td>
-		</tr>
-	</table>
-</div>
 
 <?php
 global $mysqli, $session;
@@ -458,7 +435,7 @@ $userlocation = $row['location'];
         //Calculate score based on how much of the pv is used for example
         
         var pv2householdValue = (Math.round(((pv2household/totalconsumption)+(pv2household/grid2household))*100));
-        console.log((pv2household/totalconsumption)+(pv2household/grid2household));
+        //console.log((pv2household/totalconsumption)+(pv2household/grid2household));
         data.push(["PV score", pv2householdValue, getPvUsageScoreText(pv2householdValue)]);
 
         //Calculate score based on a treshhold value over a whole day for example. High score = low actual usage
@@ -562,7 +539,7 @@ $userlocation = $row['location'];
 						$("#houseboxCommunityTd").html('<span class="whiteText">You are sharing </span> <span id="houseboxCommunityText" class="houseboxIconText"></span><span class="whiteText"> of the power within CoSSMic project!</span>');
 
 						var json = data[0];
-						console.log(data);
+						//console.log(data);
 						if(json[0] <= start){
 							setGrid2storageValue(json[1]);
 						}
@@ -582,7 +559,7 @@ $userlocation = $row['location'];
                $("#elTotalConsumption").html(value.toFixed(2)+" kWh");  
         });
        totalconsumption = value;
-        console.log("total: "+totalconsumption);
+        //console.log("total: "+totalconsumption);
     }
 
     function setPv2householdValue(value){
@@ -591,7 +568,7 @@ $userlocation = $row['location'];
                 
         });
         pv2household = value;
-        console.log("pv2house: "+pv2household);
+        //console.log("pv2house: "+pv2household);
     }
 
     function setGrid2householdValue(value){
@@ -599,32 +576,32 @@ $userlocation = $row['location'];
                $("#gridN").html(value.toFixed(2)+" kWh");  
         });
         grid2household = value;
-        console.log("grid2house: "+grid2household);
+        //console.log("grid2house: "+grid2household);
     }
 
     function setGrid2storageValue(value){
         grid2storage = value;
-        console.log("grid2storage: "+grid2storage);
+        //console.log("grid2storage: "+grid2storage);
     }    
 
     function setPv2storageValue(value){
         pv2storage = value;
-        console.log(pv2storage);
+        //console.log(pv2storage);
     }
 
     function setPv2gridValue(value){
         pv2grid = value;
-        console.log(pv2grid);
+        //console.log(pv2grid);
     }
 
     function setStorage2gridValue(value){
         storage2grid = value;
-        console.log(storage2grid);
+        //console.log(storage2grid);
     }
         
     function setStorage2householdValue(value){
         storage2household = value;
-        console.log(storage2household);
+        //console.log(storage2household);
     }
 	
     //display the percentages of the different power supplies. E.g x% grid
@@ -744,8 +721,8 @@ $userlocation = $row['location'];
             })
         )
         .then(function( resultListTask,resultListDevices) {
-            console.log(JSON.stringify(resultListTask[0]));
-            console.log(JSON.stringify(resultListDevices[0]));
+            //console.log(JSON.stringify(resultListTask[0]));
+            //console.log(JSON.stringify(resultListDevices[0]));
             var deviceHash = new Object();
             $.each(resultListDevices[0].devicelist, function(idx, item){
                 $("#summarySchedule").show();
@@ -779,7 +756,6 @@ $userlocation = $row['location'];
                 var ast = item.AST;
                 var name = '';
                 if (deviceHash.hasOwnProperty(devId)) {
-                    console.log("has own property");
                     name = deviceHash[devId];
                 }
                 var htmlRow= '<tr task-id="' +id+ '" device-id="' + devId + '"><td>' + name + ' </td><td> ' + status + ' </td><td> ' + mode +  ' </td><td> ' + est + ' </td><td> ' + lst +
@@ -899,8 +875,10 @@ $(document).ready( function () {
 	//Check first with geolocation to find users position. If that fails, second function is called to handle errors.
 	//If geolocation fails, use the location field in users profile on emoncms.
     navigator.geolocation.getCurrentPosition(function(position) {
+	console.log("Found users position with geolocation. Fetching weather data");
     loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
 }, function(position){
+	console.log("Geolocation failed, attempting to use location from the user data in emoncms");
 	errorWeather("<?php echo $userlocation; ?>");
 }, {timeout: 10000});
 

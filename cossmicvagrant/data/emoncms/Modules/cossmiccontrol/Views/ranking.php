@@ -34,20 +34,21 @@ global $path;
 
 <script type="text/javascript">
 
+//When document is ready, populate the lists
 $(document).ready( function() {
 	populateLists();
 });
 
+//Creating dummy data for the various scoreboards
 function populateLists(){
-	console.log("helloooo?");
 	makeUL("overallList", 5);
 	makeUL("SchedulingList", 2);
 	makeUL("pvprodList", 8);
 	makeUL("sharingList", 6);
 }
 
+//Adding the data to the various ul id's
 function makeUL(target, rank){
-	console.log("making the "+target);
 	var count = 1;
 	var item;
 	while(count < 11){
