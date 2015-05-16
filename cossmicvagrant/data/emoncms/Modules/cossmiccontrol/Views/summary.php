@@ -82,7 +82,7 @@ foreach($decomposedPath as &$value) {
                     </div>
                     <div id="cossmicforestContainer">
 						<!-- The CoSSMic forest -->
-                        <img id="cossmicforest" src="<?php echo $path; ?>images/tree/forest-0.png" alt="" style="height:270px; width:auto">
+                        <img id="cossmicforest" src="<?php echo $path; ?>images/tree/forest-test2.png" alt="" style="height:270px; width:auto">
 						<!-- The bar chart linked to the forest for the extended view -->
                         <div id="cossmicforestbarchart" class="tree-barchart">
 							<svg class="outerChart" id="outerForestChart"></svg>
@@ -415,7 +415,7 @@ $userlocation = $row['location'];
     var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
     
 	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
-    function createBarChart(){
+    function createBarChart(type){
 		var data=[];
         //if battery and the household is using battery power
         if(storage2householdId != 0){
@@ -447,11 +447,34 @@ $userlocation = $row['location'];
 
         //Calculates a very simple score based on the percentage of PV power used compared to the total power used
         //then passes this score (from 1 to 100) to the selectTree javascript that sets the tree image
-        selectTree(Math.round((sharingValue+pv2householdValue+gridUsageValue+schedulingValue)/5));     
+        
         var array1 = [["Sharing score",10, getSharingScoreText(10)],["PV score",20,getPvUsageScoreText(20)],["Grid score",45, getGridUsageScoreText(45)],["Scheduling",78, getSchedulingScoreText(78)]];
         var array2 = [["Sharing score",20, getSharingScoreText(20)],["PV score",36, getPvUsageScoreText(36)],["Grid score",87, getGridUsageScoreText(87)],["Scheduling",21, getSchedulingScoreText(21)]];
         var arrays = [array1,data,array2];
-        return arrays[Math.floor(Math.random()*3)];
+            
+        var res = Math.floor(Math.random()*3);
+        console.log(type+" "+res);
+
+        if(type == "tree"){
+
+            if(res == 0){
+                selectTree(Math.round((10+20+45+78)/4));
+                    return arrays[res];
+            }
+            if(res == 1){
+                selectTree(Math.round((sharingValue+pv2householdValue+gridUsageValue+schedulingValue)/4));
+                    return arrays[res];
+            }
+            if(res == 2){
+                selectTree(Math.round((20+36+87+21)/4));
+                return arrays[res];
+            }
+        }
+        if(type=="forest"){
+            var forestArray = [["Sharing score",57, getSharingScoreText(57)],["PV score",61, getPvUsageScoreText(61)],["Grid score",87, getGridUsageScoreText(87)],["Scheduling",49, getSchedulingScoreText(49)]];
+            return forestArray;    
+        }
+        
     }
 
     function getData(){
@@ -631,8 +654,8 @@ $userlocation = $row['location'];
             setHouseboxIconText();
             //Call the javascript to populate the tree bar chart with the gathered data
             
-            barChart("#outerTreeChart", "tree", createBarChart());
-			barChart("#outerForestChart", "forest", createBarChart());
+            barChart("#outerTreeChart", "tree", createBarChart("tree"));
+			barChart("#outerForestChart", "forest", createBarChart("forest"));
 			addTooltips("tree");
 			addTooltips("forest");
         }, 1000);
@@ -653,11 +676,11 @@ $userlocation = $row['location'];
                 $("#selfpvuse").css({'float': "left"}); 
 				setHouseboxIconText();
                
-                updateBarChart("#outerTreeChart", "tree", createBarChart());
-				updateBarChart("#outerForestChart", "forest", createBarChart());
+                updateBarChart("#outerTreeChart", "tree", createBarChart("tree"));
+				updateBarChart("#outerForestChart", "forest", createBarChart("forest"));
 			}, 1000)
 			getData();
-        }, 10000);
+        }, 60000);
     };
 
     //tooltips for the different elements in Summary.php
