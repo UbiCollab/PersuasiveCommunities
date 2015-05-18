@@ -67,7 +67,7 @@ foreach($decomposedPath as &$value) {
 		
 		<!-- Div containing the CoSSMic tree / forest -->
 		<div id="treebox" class="panel span4">
-			<div class="panel-heading">CoSSMic Score 
+			<div class="panel-heading">CoSSMunity Score
                 <img class = "helpIcon" id = "treeHelp" src = "<?php echo $path; ?>images/help-icon.png"/>
                 <img class="expand" id="treeexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
 			<div class="panel-body">
@@ -957,10 +957,9 @@ function plotNeighbGraph(d) {
 			}
 		},
 		yaxis: {
-			/*axisLabel:"kWh",
-			axisLabelUseCanvas: "true",
+			axisLabel:"kWh",
+			
 			axisLabelFontSizePixels: "20",
-			axisLabelPadding: 5,*/
 			font:{
 				color:"#fff",
 				size: 11,
@@ -973,6 +972,7 @@ function plotNeighbGraph(d) {
 		},
 		legend:{position:"nw"}
 	}
+    $('#today .yaxisLabel').css('color', "#fff");
 	$.plot("#neighbGraphPlaceholder", d, options);
 }
 
