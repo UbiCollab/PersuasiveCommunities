@@ -35,6 +35,7 @@
     color: #1192d3;
     height: 270px;
 }
+
 .panel .panel-body{
 
     background: #1192d3;
@@ -42,6 +43,16 @@
     border-radius: 0 0 0 0 ;
     color: #1192d3;
     height: 270px;
+}
+
+.bcolor{
+	background-color: #1192d3;
+	color: #fff;
+}
+
+#currentLink{
+	text-decoration: underline;
+	font-weight: 900;
 }
 
 #neighbGraphPlaceholder{
@@ -265,10 +276,7 @@ css for the scheduled tasks list box
 #summarySchedule{
 	display: none;
 }
-#taskTable{
-	background: #1192d3;
-	color: #fff;
-}
+
 #taskTable tr:hover{
 	background: #fff;
 	color: #1192d3;
@@ -286,15 +294,9 @@ css for the community graph
 /*
 css for the appliances page
 */
-#deviceListPanel{
-	background: #1192d3;
-	color: #fff;
-}
+
 #deviceList{
 	list-style-type: none;
-}
-#deviceGraph{
-	background: #1192d3;
 }
 
 /*

@@ -37,7 +37,18 @@ global $path;
 //When document is ready, populate the lists
 $(document).ready( function() {
 	populateLists();
+	highlightPageLink();
 });
+
+//function to find and add style to the link for the current page
+function highlightPageLink(){
+	var a = document.getElementsByTagName("a");
+    for(var i=0;i<a.length;i++){
+        if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
+            a[i].id = "currentLink";
+        }
+    }
+}
 
 //Creating dummy data for the various scoreboards
 function populateLists(){

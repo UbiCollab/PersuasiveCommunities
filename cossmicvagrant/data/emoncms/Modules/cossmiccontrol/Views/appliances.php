@@ -37,12 +37,12 @@ var current_month = today.getMonth();
 
 <div id="appliances">
 	<div class="row">
-		<div id="deviceListPanel" class="panel span2">
+		<div id="deviceListPanel" class="panel span2 bcolor">
 			<div class="panel-heading">Appliances</div>
 			<ul id="deviceList"></ul>
 		</div>
 		
-		<div id="deviceGraph" class="panel span10">
+		<div id="deviceGraph" class="panel span10 bcolor">
 			<div class="panel-heading">Appliance power consumption</div>
 			<!-- graph goes here -->
 			<table width="100%">
@@ -219,7 +219,18 @@ var current_month = today.getMonth();
 
 $(document).ready( function () {
 	initList();
+	highlightPageLink();
 });
+
+//function to find and add style to the link for the current page
+function highlightPageLink(){
+	var a = document.getElementsByTagName("a");
+    for(var i=0;i<a.length;i++){
+        if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
+            a[i].id = "currentLink";
+        }
+    }
+}
 
 function initList(){
 

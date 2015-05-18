@@ -912,7 +912,17 @@ $(document).ready( function () {
 	addDataValues();
     setTooltips();
     scheduledTaskLoad();
+	highlightPageLink();
 });
+
+function highlightPageLink(){
+	var a = document.getElementsByTagName("a");
+    for(var i=0;i<a.length;i++){
+        if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
+            a[i].id = "currentLink";
+        }
+    }
+}
 
 function  summarySetup(){
 

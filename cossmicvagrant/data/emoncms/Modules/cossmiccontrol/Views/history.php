@@ -510,6 +510,23 @@ var current_month = today.getMonth();
 </div>
 </div>
 
+<script type="text/javascript">
+
+$(document).ready( function(){
+	highlightPageLink();
+});
+
+//function to find and add style to the link for the current page
+function highlightPageLink(){
+	var a = document.getElementsByTagName("a");
+    for(var i=0;i<a.length;i++){
+        if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
+            a[i].id = "currentLink";
+        }
+    }
+}
+</script>
+
 <?php
 require "Modules/cossmiccontrol/Views/history_cg.php";
 require "Modules/cossmiccontrol/Views/history_d.php";

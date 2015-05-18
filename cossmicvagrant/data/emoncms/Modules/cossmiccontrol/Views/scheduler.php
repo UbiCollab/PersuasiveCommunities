@@ -155,7 +155,18 @@ $nr_inputs = count($inputlist);*/
  $(document).ready( function () {
     initSettings()
 	scheduledTaskSetup();
+	highlightPageLink();
 } );
+
+//function to find and add style to the link for the current page
+function highlightPageLink(){
+	var a = document.getElementsByTagName("a");
+    for(var i=0;i<a.length;i++){
+        if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
+            a[i].id = "currentLink";
+        }
+    }
+}
 
 function initSettings(){
 
