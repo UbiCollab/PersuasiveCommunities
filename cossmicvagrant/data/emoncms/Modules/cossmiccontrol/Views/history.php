@@ -53,7 +53,7 @@ var current_month = today.getMonth();
                                 <td>
                                     <div class="demo-container" style="height: 770px; width: 95%">
 					<div style="height:700px; width:100%">
-        				    <div class="y-axis-label">Power [W]</div>
+        				    <div class="y-axis-label">Power [kW]</div>
         				    <div class="placeholders">
             					<div id="placeholder1_day" class="demo-placeholder" style="height: 50%"></div>
             					<div id="placeholder2_day" class="demo-placeholder" style="height: 50%"></div>
@@ -72,7 +72,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="intpowersupply_day" style="cursor:pointer">
 						        <div style="float:left; width:12px; height:12px; background-color:#088A08; border:1px solid #000000;"></div>
-						        <div class="legend-text">Internal power supply</div>
+						        <div class="legend-text">Self-consumption</div>
 						    </td>
 						    <td id="generation_day" style="cursor:pointer">
 						        <div style="float:left"><img src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/generation.png" style="width:12px; height:12px"></div>
@@ -80,7 +80,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="selfconsumption_day" style="cursor:pointer">
 						        <div style="float:left; width:12px; height:12px; background-color:#80FF00; border:1px solid #000000;"></div>
-						        <div class="legend-text">Self-consumption</div>
+						        <div class="legend-text">PV Production</div>
 						    </td>
 						    <td id="gridfeedin_day" style="cursor:pointer">
 						        <div style="float:left; width:12px; height:12px; background-color:#FFFF00; border:1px solid #000000;"></div>
