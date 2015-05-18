@@ -154,12 +154,12 @@ foreach($decomposedPath as &$value) {
 		</div>
     </div>
     <div class="row">
-        <div id="summarySchedule" class="panel span12">
-            <div class="panel-heading">Your scheduled tasks</div>
+        <div id="summarySchedule" class="panel span12 bcolor">
+            <div class="panel-heading">Your scheduled tasks<a href="<?php echo $path; ?>cossmiccontrol/view/scheduler"><img class="expand" id="scheduleredirect" src="<?php echo $path; ?>images/pluss-icon.png" /></a></div>
             <table class="table table-condensed" id="taskTable">
                 <thead>
                     <tr>
-                        <th>Device Name</th>
+                        <th>Appliance Name</th>
                         <th>Status</th>
                         <th>Program</th>
                         <th>Earliest Start Time</th>
@@ -775,13 +775,22 @@ $userlocation = $row['location'];
                 if (deviceHash.hasOwnProperty(devId)) {
                     name = deviceHash[devId];
                 }
-                var htmlRow= '<tr task-id="' +id+ '" device-id="' + devId + '"><td>' + name + ' </td><td> ' + status + ' </td><td> ' + mode +  ' </td><td> ' + est + ' </td><td> ' + lst +
+				var htmlRow= '<tr task-id="' +id+ '" device-id="' + devId + '"><td>' + name + ' </td><td> ' + status + ' </td><td> ' + mode +  ' </td><td> ' + est + ' </td><td> ' + lst +
+                ' </td><td> ' + ast + ' </td><td>' + aet + '</td><td></td></tr>';
+                /*
+				if users are supposed to be able to delete tasks from dashboard, replace the var htmlRow with the one below
+				
+				var htmlRow= '<tr task-id="' +id+ '" device-id="' + devId + '"><td>' + name + ' </td><td> ' + status + ' </td><td> ' + mode +  ' </td><td> ' + est + ' </td><td> ' + lst +
                 ' </td><td> ' + ast + ' </td><td>' + aet + '</td><td><a href="#" onclick="deleteTask('+id+',\''+aet+'\')"><i class="icon-trash"></i></a></td></tr>';
+				*/
                 $("#taskTable > tbody").prepend(htmlRow);        
             });
         });
     }
 
+	/*
+	function to remove a task. uncomment if it is desirable to be able to delete tasks from the dashboard
+	
     function deleteTask(id,aet){
         if (aet != "UNDEFINED"){
             window.alert("It is not possible to delete scheduled tasks ");
@@ -810,7 +819,7 @@ $userlocation = $row['location'];
                 window.alert("error when trying to delete the task");
             }
         }); // end ajax call
-    }
+    }*/
     //End of functions for the scheduled task table
 </script>
 <script>

@@ -41,7 +41,7 @@ Pending
 		<p>
 
 		<div id="cdpanel" class="panel span6 double">
-			<div class="panel-heading">Configurable Devices</div>
+			<div class="panel-heading">Available Appliances</div>
 			<ul id="myConfigDeviceList">
 			</ul>
 		</div>
@@ -72,9 +72,9 @@ Pending
 			</div>
 		 
 			<div id="configDeviceForm">
-				<div class="panel-heading">Configure your device</div>
+				<div class="panel-heading">Schedule your appliance</div>
 				<form id="configureForm" class="form-inline">
-					<label>Device Name: </label>  <span id="deviceNameOnConfigPane"></span><br> 
+					<label>Appliance Name: </label>  <span id="deviceNameOnConfigPane"></span><br> 
 					<label>Earliest Start Time: </label> 
 					<div id="estConfigDatetimepicker" class="input-append inputs">
 						<input data-format="hh:mm" type="text" id="estInput">
@@ -110,10 +110,10 @@ Pending
 	<div class="row">
 		<div id="taskTablePanel" class="panel span12">
 			<div class="panel-heading">Your scheduled tasks</div>
-			<table class="table table-condensed" id="taskTable">
+			<table class="table table-condensed bcolor" id="taskTable">
 				<thead>
 					<tr>
-						<th>Device Name</th>
+						<th>Appliance Name</th>
 						<th>Status</th>
 						<th>Program</th>
 						<th>Earliest Start Time</th>
