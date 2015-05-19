@@ -34,6 +34,8 @@ foreach($decomposedPath as &$value) {
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.axislabels.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.time.min.js"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.nagivate.js"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.selection.js"></script>
 <!-- The json parsing javascript -->
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
 <!-- Libraries used for the weather widget -->
@@ -181,7 +183,7 @@ foreach($decomposedPath as &$value) {
 	<div class="panel span12">
 		<div class="panel-heading">Community - today</div>
 		<div class="panel-neighborhoodGraph">
-			<div id="neighbGraphPlaceholder"></div>
+			<div id="neighbGraphPlaceholder" class="plot"></div>
 		</div>
 	</div>
 </div>
@@ -530,7 +532,6 @@ $userlocation = $row['location'];
         var arrays = [array1,data,array2];
             
         var res = Math.floor(Math.random()*3);
-        console.log(type+" "+res);
 
         if(type == "tree"){
 
@@ -1049,7 +1050,7 @@ function  summarySetup(){
         //console.log(resultConsumption);
 
         var consumHouseSerie = { label: "My Consumption", data: resultHouseConsumption[0],lines:{show:true}};
-        var prodHouseSerie = { label: "My Production", data: resultHouseConsumption[0],lines:{show:true}};
+        var prodHouseSerie = { label: "My Production", data: resultProduction[0],lines:{show:true}};
         var prodSerie = { label: "Community Production", data: resultProduction[0],lines:{show:true}};
         var consumSerie = { label: "Community Consumption", data: resultConsumption[0],lines:{show:true}};
         
@@ -1060,21 +1061,22 @@ function  summarySetup(){
 function plotNeighbGraph(d) {
 
     console.log(d);
-
+    var placeholders = $(".flot");
     var e = new Date();
     e.setHours(23,59,59,999);
     var s = new Date();
     s.setHours(0,0,0,0);
     var options = {
+        selection: {
+            mode: "xy"
+        },
         xaxis: {
-            transform: function (v) { return 1000*v; },
-            inversetransform: function (v) { return v/1000; },
             mode: "time",
             timeformat: "%H:%M",
             tickSize: [1, "hour"],
             twelveHourClock: true,
-            min: s,
-            max: e,
+            min: s.getTime(),
+            max: e.getTime(),
             timezone: "browser",
             font:{
                 color:"#fff"
@@ -1092,12 +1094,49 @@ function plotNeighbGraph(d) {
         grid: {
             color:"#fff",
             backgroundColor: "#1192d3",
-            tickColor:"#fff"
+            tickColor:"#fff",
         },
+        
         legend:{position:"nw"}
     }
+    //optionsoverview = {legend: {show: false}, selection{mode: "xy"}};
     $('.yaxisLabel').css('color', "#fff");
     $.plot("#neighbGraphPlaceholder", d, options);
+    
+    $("#neighbGraphPlaceholder").bind("plotselected", function(event, ranges){
+        console.log(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+        console.log(ranges.yaxis.from.toFixed(1) + " to " + ranges.yaxis.to.toFixed(1));
+        plot = $.plot("#neighbGraphPlaceholder", d,
+                        $.extend(true, {}, options, {
+                            xaxis: {min: ranges.xaxis.from, max: ranges.xaxis.to},
+                            yaxis: {min: ranges.yaxis.from, max: ranges.yaxis.to}
+                        }));
+        console.log(options);
+    });
+    console.log(options);
+    /*$("#neighbGraphPlaceholder").bind("plotclick", function(event, pos, item){
+                console.log(options);
+              $.plot("#neighbGraphPlaceholder", d, options, {
+                    xaxis: {min: 1432001635539261440.0, max: 1432053491205025792.0}, 
+                });
+    });
+    $("#neighbGraphPlaceholder").bind("plothover", function(event, pos, item){
+        
+    });
+    $("neighbGraphPlaceholder").bind("plotpan plotzoom", function(event,plot){
+        var axes = plot.getAxes();
+        for(var i=0; i< plots.length; i++) {
+            if (plot == plots[i]){
+                continue;   
+            }
+            plots[i].getOptions().xaxes[0].min = axes.xaxis.min;
+            plots[i].getOptions().xaxes[0].max = axes.xaxis.max;
+            plots[i].getOptions().yaxes[0].min = axes.yaxis.min;
+            plots[i].getOptions().yaxes[0].max = axes.yaxis.max;
+            plots[i].setupGrid();
+            plots[i].draw();
+        }
+    });*/
 }
 
 function createDummyGraph(){

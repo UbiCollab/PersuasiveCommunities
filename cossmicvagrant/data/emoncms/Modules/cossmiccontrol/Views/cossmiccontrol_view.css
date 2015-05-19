@@ -56,9 +56,13 @@
 }
 
 #neighbGraphPlaceholder{
-    width:100%;height:400px;
+    width:100%;
+    height:400px;
 }
 
+.plot{
+    cursor: move;
+}
 /*
 css for the weather box
 */
