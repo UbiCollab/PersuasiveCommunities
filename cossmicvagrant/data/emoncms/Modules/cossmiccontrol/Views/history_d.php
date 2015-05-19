@@ -137,7 +137,7 @@ $("#choices_day_d").find("input").change(function(){
         this.setAttribute("checked","checked");
     }
     else this.removeAttribute("checked");
-    plotAccordingToChoices("#choices_day_d", plotlist_power, start_day_d, end_day_d, "Load power [W]", "#placeholder_day", "day", nr_devices);
+    plotAccordingToChoices("#choices_day_d", plotlist_power, start_day_d, end_day_d, "Load power [kW]", "#placeholder_day", "day", nr_devices);
 });
 
 // date change

@@ -143,7 +143,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="intpowersupply_month" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#088A08; border:1px solid #000000;"></div>
-							<div class="legend-text">Internal power supply</div>
+							<div class="legend-text">Self-consumption</div>
 						    </td>
 						    <td id="generation_month" style="cursor:pointer">
 							<div style="float:left"><img src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/generation.png" style="width:12px; height:12px"></div>
@@ -151,7 +151,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="selfconsumption_month" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#80FF00; border:1px solid #000000;"></div>
-							<div class="legend-text">Self-consumption</div>
+							<div class="legend-text">PV Production</div>
 						    </td>
 						    <td id="gridfeedin_month" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#FFFF00; border:1px solid #000000;"></div>
@@ -231,7 +231,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="intpowersupply_year" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#088A08; border:1px solid #000000;"></div>
-							<div class="legend-text">Internal power supply</div>
+							<div class="legend-text">Self-consumption</div>
 						    </td>
 						    <td id="generation_year" style="cursor:pointer">
 							<div style="float:left"><img src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/generation.png" style="width:12px; height:12px"></div>
@@ -239,7 +239,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="selfconsumption_year" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#80FF00; border:1px solid #000000;"></div>
-							<div class="legend-text">Self-consumption</div>
+							<div class="legend-text">PV Production</div>
 						    </td>
 						    <td id="gridfeedin_year" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#FFFF00; border:1px solid #000000;"></div>
@@ -303,7 +303,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="intpowersupply_total" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#088A08; border:1px solid #000000;"></div>
-							<div class="legend-text">Internal power supply</div>
+							<div class="legend-text">Self-consumption</div>
 						    </td>
 						    <td id="generation_total" style="cursor:pointer">
 							<div style="float:left"><img src="<?php echo $path; ?>/Modules/cossmiccontrol/Views/generation.png" style="width:12px; height:12px"></div>
@@ -311,7 +311,7 @@ var current_month = today.getMonth();
 						    </td>
 						    <td id="selfconsumption_total" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#80FF00; border:1px solid #000000;"></div>
-							<div class="legend-text">Self-consumption</div>
+							<div class="legend-text">PV Production</div>
 						    </td>
 						    <td id="gridfeedin_total" style="cursor:pointer">
 							<div style="float:left; width:12px; height:12px; background-color:#FFFF00; border:1px solid #000000;"></div>
@@ -518,12 +518,41 @@ $(document).ready( function(){
 
 //function to find and add style to the link for the current page
 function highlightPageLink(){
+	//Dirty change of the first tab color (since that's where user will start)
+	document.getElementById("tab1_cg").style.background = "#1192d3 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";
+
 	var a = document.getElementsByTagName("a");
     for(var i=0;i<a.length;i++){
-        if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
+		if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
             a[i].id = "currentLink";
         }
+		if(a[i].href.split("#")[1] == "tabs-1-cg"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
+		if(a[i].href.split("#")[1] == "tabs-2-cg"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
+		if(a[i].href.split("#")[1] == "tabs-3-cg"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
+		if(a[i].href.split("#")[1] == "tabs-4-cg"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
     }
+}
+
+//Function to change the color of the selected tab in order to highlight where the user is
+function tabClicked(event){
+	event = event;
+	var target = event.target.parentElement;
+	for(var y=1;y<5;y++){
+		if(target.id == "tab"+y+"_cg"){
+			document.getElementById(target.id).style.background = "#1192d3 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";
+		}
+		else{
+			document.getElementById("tab"+y+"_cg").style.background = "#e6e6e6 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";
+		}
+	}
 }
 </script>
 

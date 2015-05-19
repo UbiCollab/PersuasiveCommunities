@@ -224,12 +224,42 @@ $(document).ready( function () {
 
 //function to find and add style to the link for the current page
 function highlightPageLink(){
+	//Dirty change of the first tab color (since that's where user will start)
+	document.getElementById("tab1_d").style.background = "#1192d3 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";
+
 	var a = document.getElementsByTagName("a");
     for(var i=0;i<a.length;i++){
         if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
             a[i].id = "currentLink";
         }
+		//Sections below add an onclick event listener to the tabs of the graph
+		if(a[i].href.split("#")[1] == "tabs-1-d"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
+		if(a[i].href.split("#")[1] == "tabs-2-d"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
+		if(a[i].href.split("#")[1] == "tabs-3-d"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
+		if(a[i].href.split("#")[1] == "tabs-4-d"){
+			a[i].addEventListener("click", tabClicked, false);
+		}
     }
+}
+
+//Function to change the color of the selected tab in order to highlight where user is
+function tabClicked(event){
+	event = event;
+	var target = event.target.parentElement;
+	for(var y=1;y<5;y++){
+		if(target.id == "tab"+y+"_d"){
+			document.getElementById(target.id).style.background = "#1192d3 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";;
+		}
+		else{
+			document.getElementById("tab"+y+"_d").style.background = "#e6e6e6 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";
+		}
+	}
 }
 
 function initList(){

@@ -6,35 +6,35 @@ var colors =  ["#000000", "#FF0000", "#00FF00", "#0000FF", "#FFFF00"
 // constant variables delimiting plotting options for cg (consumption/generation) graphs
 var optionsHash = new Object();
 optionsHash["day"] = {
-            grid: { show: true, hoverable: false, clickable: false },
-            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "hour"], timeformat: "%H", labelHeight:15, reserveSpace: true },
-            yaxis: { min: 0 },
+            grid: { show: true, hoverable: false, clickable: false, color: "#fff", backgroundColor: "#1192d3", tickColor: "#fff" },
+            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "hour"], timeformat: "%H", labelHeight:15, reserveSpace: true, font: {color: "#fff"} },
+            yaxis: { min: 0, font: {color: "#fff"}},
             yaxes: [{show: true, labelWidth:50}, {position: "right", show: false, labelWidth:25, reserveSpace: true}],
             legend: false,
             lines: { show: true }
     	};
 optionsHash["month"] = {
-            grid: { show: true, hoverable: false, clickable: false },
-            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "day"], timeformat: "%e", labelHeight:15, reserveSpace: true },
-            yaxis: { min: 0 },
+            grid: { show: true, hoverable: false, clickable: false, color: "#fff", backgroundColor: "#1192d3", tickColor: "#fff" },
+            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "day"], timeformat: "%e", labelHeight:15, reserveSpace: true, font: {color: "#fff"}  },
+            yaxis: { min: 0, font: {color: "#fff"}},
             yaxes: [{show: true, labelWidth:50}, {position: "right", show: false, labelWidth:25, reserveSpace: true}],
             legend: false,
             lines: { show: false },
 	    bars: { show: true, align: "center", fill: false, barWidth: 3600*1000*12} 
     	};
 optionsHash["year"] = {
-            grid: { show: true, hoverable: false, clickable: false },
-            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "month"], timeformat: "%b",labelHeight:15, reserveSpace: true },
-            yaxis: { min: 0 },
+            grid: { show: true, hoverable: false, clickable: false, color: "#fff", backgroundColor: "#1192d3", tickColor: "#fff" },
+            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "month"], timeformat: "%b",labelHeight:15, reserveSpace: true, font: {color: "#fff"}  },
+            yaxis: { min: 0, font: {color: "#fff"}},
             yaxes: [{show: true, labelWidth:50}, {position: "right", show: false, labelWidth:25, reserveSpace: true}],
             legend: false,
             lines: { show: false },
 	    bars: { show: true, align: "center", fill: false, barWidth: 3600*1000*24*15} 
     	};
 optionsHash["total"] = {
-            grid: { show: true, hoverable: false, clickable: false },
-            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "year"], timeformat: "%Y",  labelHeight:15, reserveSpace: true },
-            yaxis: { min: 0 },
+            grid: { show: true, hoverable: false, clickable: false, color: "#fff", backgroundColor: "#1192d3", tickColor: "#fff" },
+            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "year"], timeformat: "%Y",  labelHeight:15, reserveSpace: true, font: {color: "#fff"}  },
+            yaxis: { min: 0, font: {color: "#fff"}},
             yaxes: [{show: true, labelWidth:50}, {position: "right", show: false, labelWidth:25, reserveSpace: true}],
             legend: false,
             lines: { show: false },
@@ -859,15 +859,16 @@ function devices_get_plotdata_and_plot(choiceContainer, plotlist, start, end, ya
 // define devices plot
 function define_plot(plotdata, start, end, yaxislabel, placeholder, mode, nr_devices) {
     var options = {
-        grid: { show: true, hoverable: false, clickable: false },
-        xaxis: { show: true, mode: "time", timezone: "browser", min: start, max: end, minTickSize: [1, "hour"], timeformat: "%H" },
+        grid: { show: true, hoverable: false, clickable: false, color: "#fff", backgroundColor: "#1192d3", tickColor: "#fff"  },
+        xaxis: { show: true, mode: "time", timezone: "browser", min: start, max: end, minTickSize: [1, "hour"], timeformat: "%H", font: {color: "#fff"} },
         yaxis: {
 	    show: true,
             axisLabel: yaxislabel,
             axisLabelFontSizePixels: 8,
             axisLabelFontFamily: "Verdana, Arial",
             axisLabelPadding: 5,
-	    min: 0
+	    min: 0, 
+		font: {color: "#fff"} 
         },
         legend: false,
 	lines: { show: true },
@@ -925,12 +926,12 @@ function plot_mode(plotlist, placeholder, showxaxis, on1, on2, mode, start, end)
     if (mode == "day") {
 	get_plotdata_mode(plotlist, start, end, "day");
         options = {
-            grid: { show: true, hoverable: false, clickable: false },
-            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "hour"], timeformat: "%H", min: start, max: end, labelHeight:15, reserveSpace: true },
-            yaxis: { min: 0 },
+            grid: { show: true, hoverable: false, clickable: false, font: {color: "#fff"} },
+            xaxis: { show: true, mode: "time", timezone: "browser", minTickSize: [1, "hour"], timeformat: "%H", min: start, max: end, labelHeight:15, reserveSpace: true, font: {color: "#fff"} },
+            yaxis: { min: 0 , font: {color: "#fff"}},
             yaxes: [{show: true, labelWidth:50}, {position: "right", show: false, labelWidth:25, reserveSpace: true}],
             legend: false,
-            lines: { show: true }
+            lines: { show: true}
     	};
     }
     else if (mode == "month") {
