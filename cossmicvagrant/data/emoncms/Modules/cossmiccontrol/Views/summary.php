@@ -190,13 +190,22 @@ foreach($decomposedPath as &$value) {
 <?php
 global $mysqli, $session;
 $kwhlist = [];
-$pv2householdId = [];
-$consumptionkwhId = [];
-$grid2storageId = [];
-$pv2storage = [];
-$pv2gridId = [];
-$storage2gridId = [];
-$storage2householdId = [];
+$pv2householdKwhId = [];
+$pv2householdPowerId = [];
+$consumptionKwhId = [];
+$consumptionPowerId = [];
+$productionKwhId = [];
+$productionPowerId = [];
+$grid2storageKwhId = [];
+$grid2storagePowerId = [];
+$pv2storageKwhId = [];
+$pv2storagePowerId = [];
+$pv2gridKwhId = [];
+$pv2gridPowerId = [];
+$storage2gridKwhId = [];
+$storage2gridPowerId = [];
+$storage2householdKwhId = [];
+$storage2householdPowerId = [];
 $kwhdlist = [];
 $userid = $session['userid'];
 $userlocation;
@@ -224,15 +233,29 @@ while ($row = (array)$result->fetch_object()) {
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2household_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-	$pv2householdId[$i] = $row['id'];
+	$pv2householdKwhId[$i] = $row['id'];
 	$i++;
+}
+
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2household_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $pv2householdPowerId[$i] = $row['id'];
+    $i++;
 }
 
 // get the id of the user's grid2household power feed 
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2household_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-    $grid2householdId[$i] = $row['id'];
+    $grid2householdKwhId[$i] = $row['id'];
+    $i++;
+}
+
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2household_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $grid2householdPowerId[$i] = $row['id'];
     $i++;
 }
 
@@ -240,7 +263,14 @@ while($row = (array)$result->fetch_object()) {
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'consumption_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-    $consumptionkwhId[$i] = $row['id'];
+    $consumptionKwhId[$i] = $row['id'];
+    $i++;
+}
+
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'consumption_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $consumptionPowerId[$i] = $row['id'];
     $i++;
 }
 
@@ -248,15 +278,42 @@ while($row = (array)$result->fetch_object()) {
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2storage_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-    $grid2storageId[$i] = $row['id'];
+    $grid2storageKwhId[$i] = $row['id'];
     $i++;
 }
 
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'grid2storage_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $grid2storagePowerId[$i] = $row['id'];
+    $i++;
+}
+
+//get total production
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv_kwh$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $productionKwhId[$i] = $row['id'];
+    $i++;
+}
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv_production$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $productionPowerId[$i] = $row['id'];
+    $i++;
+}
 //get the id for the pv2storage feed
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2storage_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-    $pv2storageId[$i] = $row['id'];
+    $pv2storageKwhId[$i] = $row['id'];
+    $i++;
+}
+
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2storage_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $pv2storagePowerId[$i] = $row['id'];
     $i++;
 }
 
@@ -264,7 +321,13 @@ while($row = (array)$result->fetch_object()) {
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2grid_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-    $pv2gridId[$i] = $row['id'];
+    $pv2gridKwhId[$i] = $row['id'];
+    $i++;
+}
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv2grid_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $pv2gridPowerId[$i] = $row['id'];
     $i++;
 }
 
@@ -272,7 +335,14 @@ while($row = (array)$result->fetch_object()) {
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2grid_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-    $storage2gridId[$i] = $row['id'];
+    $storage2gridKwhId[$i] = $row['id'];
+    $i++;
+}
+
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2grid_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $storage2gridPowerId[$i] = $row['id'];
     $i++;
 }
 
@@ -280,7 +350,14 @@ while($row = (array)$result->fetch_object()) {
 $result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2household_kwh$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
-    $storage2householdId[$i] = $row['id'];
+    $storage2householdKwhId[$i] = $row['id'];
+    $i++;
+}
+
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'storage2household_power$' AND userid = '$userid'");
+$i = 0;
+while($row = (array)$result->fetch_object()) {
+    $storage2householdPowerId[$i] = $row['id'];
     $i++;
 }
 
@@ -405,24 +482,24 @@ $userlocation = $row['location'];
     values = [];
     var path = "<?php echo $path; ?>";
 
-    var consumptionkwhId = <?php echo json_encode($consumptionkwhId); ?>; 
-    var pv2householdId = <?php echo json_encode($pv2householdId); ?>;
-    var grid2householdId = <?php echo json_encode($grid2householdId); ?>;
-    var grid2storageId = <?php echo json_encode($grid2storageId); ?>;
-    var pv2storageId = <?php echo json_encode($grid2storageId); ?>;
-    var pv2gridId = <?php echo json_encode($pv2gridId); ?>;
-    var storage2gridId = <?php echo json_encode($storage2gridId); ?>;
-    var storage2householdId = <?php echo json_encode($storage2householdId); ?>;
+    var consumptionKwhId = <?php echo json_encode($consumptionKwhId); ?>; 
+    var pv2householdKwhId = <?php echo json_encode($pv2householdKwhId); ?>;
+    var grid2householdKwhId = <?php echo json_encode($grid2householdKwhId); ?>;
+    var grid2storageKwhId = <?php echo json_encode($grid2storageKwhId); ?>;
+    var pv2storageKwhId = <?php echo json_encode($grid2storageKwhId); ?>;
+    var pv2gridKwhId = <?php echo json_encode($pv2gridKwhId); ?>;
+    var storage2gridKwhId = <?php echo json_encode($storage2gridKwhId); ?>;
+    var storage2householdKwhId = <?php echo json_encode($storage2householdKwhId); ?>;
     
 	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
     function createBarChart(type){
 		var data=[];
         //if battery and the household is using battery power
-        if(storage2householdId != 0){
+        if(storage2householdKwhId != 0){
             data.push(["Battery usage", storage2household]);
         }
         //if battery and sharing to grid
-        if(storage2gridId != 0){
+        if(storage2gridKwhId != 0){
             data.push(["Sharing", Math.round(storage2grid*10)]);
         }
 
@@ -484,7 +561,7 @@ $userlocation = $row['location'];
             //get data from totalConsumption
             $.ajax({
                 type: 'get',
-                url: path+'/feed/data.json?id='+consumptionkwhId+'&start='+start+'&end='+end+'&dp=1',
+                url: path+'/feed/data.json?id='+consumptionKwhId+'&start='+start+'&end='+end+'&dp=1',
                 success: function(data){
                     var json = data[0];
                     
@@ -500,7 +577,7 @@ $userlocation = $row['location'];
             //get and set the data from pv2householdValue
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+pv2householdId+'&start='+start+'&end='+end+'&dp=1',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+pv2householdKwhId+'&start='+start+'&end='+end+'&dp=1',
                 success: function(data){
                     var json = data[0];
                     
@@ -516,7 +593,7 @@ $userlocation = $row['location'];
             //get and set data from grid2household
             $.ajax({
                 type: 'get',
-                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2householdId+'&start='+start+'&end='+end+'&dp=1 ',
+                url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2householdKwhId+'&start='+start+'&end='+end+'&dp=1 ',
                 success: function(data){
                     var json = data[0];
                     
@@ -532,9 +609,9 @@ $userlocation = $row['location'];
             //get and set grid2storage if it exists a feed
 			$.ajax({
 				type: 'get',
-				url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageId+'&start='+start+'&end='+end+'&dp=1 ',
+				url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageKwhId+'&start='+start+'&end='+end+'&dp=1 ',
 				success: function(data){
-					if(grid2storageId == 0){
+					if(grid2storageKwhId == 0){
 					   
 					   $("#batteryLabel").hide();
 					   $("#housebox_battery").hide();
@@ -926,54 +1003,101 @@ function highlightPageLink(){
 
 function  summarySetup(){
 
+    end = new Date().getTime();
+    start = new Date();
+    start.setHours(0,0,0,0);
+
+
+
+    var consumptionkwhId = <?php echo json_encode($consumptionKwhId); ?>;
+    var consumptionPowerId = <?php echo json_encode($consumptionPowerId); ?>;
+
+    var productionKwhdId = <?php echo json_encode($productionKwhId); ?>;
+    var productionPowerId = <?php echo json_encode($productionPowerId); ?>;
+
+    console.log(productionPowerId);
+
+
+    console.log(path+'/feed/data.json?id='+consumptionPowerId+'&start='+start.getTime()+'&end='+end+'&dp=400');
+    
     $.when(
-		$.ajax({
-			url: "http://cloud.cossmic.eu/cossmic/neighborhood/totalproduction.json",
-			type: "GET",
-			dataType: "json"
-		}),
-		$.ajax({
-			url: "http://cloud.cossmic.eu/cossmic/neighborhood/totalconsumption.json",
-			type: "GET",
-			dataType: "json"
+        $.ajax({
+            
+            type: 'get',
+            url: path+'/feed/data.json?id='+consumptionPowerId+'&start='+start.getTime()+'&end='+end+'&dp=400',
+            dataType: "json"
+        }),
+        $.ajax({
+            type: 'get',
+            url: path+'/feed/data.json?id='+productionPowerId+'&start='+start.getTime()+'&end='+end+'&dp=400',
+            dataType: "json"
+        }),
+        $.ajax({
+            url: "http://cloud.cossmic.eu/emoncms/feed/data.json?id=79&start="+start.getTime()+"&end="+end+"&dp=400&apikey=f3e4a2cf68ffda12cacd7d1e5bc44c08",
+            type: "GET",
+            dataType: "json"
+        }),
+        $.ajax({
+            url: "http://cloud.cossmic.eu/emoncms/feed/data.json?id=91&start="+start.getTime()+"&end="+end+"&dp=400&apikey=f3e4a2cf68ffda12cacd7d1e5bc44c08",
+            type: "GET",
+            dataType: "json"
       })
     ) 
-    .then(function( resultProduction,resultConsumption) {
-		var prodSerie = { label: "Total Production", data: resultProduction[0][0],lines:{show:true}};
-		var consumSerie = { label: "Total Consumption", data: resultConsumption[0][0],lines:{show:true}};
-		plotNeighbGraph([prodSerie,consumSerie]);
+    .then(function(resultHouseConsumption, resultHouseProduction,resultProduction,resultConsumption) {
+        //console.log(resultHouseConsumption);
+        //console.log(resultProduction);
+        //console.log(resultConsumption);
+
+        var consumHouseSerie = { label: "My Consumption", data: resultHouseConsumption[0],lines:{show:true}};
+        var prodHouseSerie = { label: "My Production", data: resultHouseConsumption[0],lines:{show:true}};
+        var prodSerie = { label: "Community Production", data: resultProduction[0],lines:{show:true}};
+        var consumSerie = { label: "Community Consumption", data: resultConsumption[0],lines:{show:true}};
+        
+        plotNeighbGraph([consumHouseSerie,prodHouseSerie, prodSerie,consumSerie]);
     });
 }
 
 function plotNeighbGraph(d) {
-	var options = {
-		xaxis: {
-			transform: function (v) { return 1000*v; },
-			inversetransform: function (v) { return v/1000; },
-			mode: "time",
-			timeformat: "%H:%M",
-			font:{
-				color:"#fff"
-			}
-		},
-		yaxis: {
-			axisLabel:"kWh",
-			
-			axisLabelFontSizePixels: "20",
-			font:{
-				color:"#fff",
-				size: 11,
-			}
-		},
-		grid: {
-			color:"#fff",
-			backgroundColor: "#1192d3",
-			tickColor:"#fff"
-		},
-		legend:{position:"nw"}
-	}
-    $('#today .yaxisLabel').css('color', "#fff");
-	$.plot("#neighbGraphPlaceholder", d, options);
+
+    console.log(d);
+
+    var e = new Date();
+    e.setHours(23,59,59,999);
+    var s = new Date();
+    s.setHours(0,0,0,0);
+    var options = {
+        xaxis: {
+            transform: function (v) { return 1000*v; },
+            inversetransform: function (v) { return v/1000; },
+            mode: "time",
+            timeformat: "%H:%M",
+            tickSize: [1, "hour"],
+            twelveHourClock: true,
+            min: s,
+            max: e,
+            timezone: "browser",
+            font:{
+                color:"#fff"
+            }
+        },
+        yaxis: {
+            axisLabel:"kWh",
+            axisLabelFontSizePixels: "20",
+            min: 0,
+            font:{
+                color:"#fff",
+                size: 11,
+            }
+        },
+        grid: {
+            color:"#fff",
+            backgroundColor: "#1192d3",
+            tickColor:"#fff"
+        },
+        legend:{position:"nw"}
+    }
+    $('.yaxisLabel').css('color', "#fff");
+    $.plot("#neighbGraphPlaceholder", d, options);
 }
 
 function createDummyGraph(){
