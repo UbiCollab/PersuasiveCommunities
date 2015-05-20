@@ -167,7 +167,7 @@ $(document).ready(function() {
 
         if (result.success)
         {
-            window.location.href = path+"cossmiccontrol/view/summary";
+            window.location.href = path+"cossmiccontrol/view/dashboard";
         }
         else
         {
