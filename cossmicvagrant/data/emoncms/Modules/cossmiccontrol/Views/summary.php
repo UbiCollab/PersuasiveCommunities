@@ -181,7 +181,9 @@ foreach($decomposedPath as &$value) {
 <!-- Div containing the full width graph for the neighborhood / community -->
 <div class="row" style="margin-top: 30px">
 	<div class="panel span12">
-		<div class="panel-heading">Community - today</div>
+		<div class="panel-heading">Community - today
+            <img class = "helpIcon" id = "graphHelp" src = "<?php echo $path; ?>images/help-icon.png"/>
+            <img class="expand" id="graphReset" src="<?php echo $path; ?>images/reset-icon.png" /></div>
 		<div class="panel-neighborhoodGraph">
 			<div id="neighbGraphPlaceholder" class="plot"></div>
 		</div>
@@ -789,12 +791,22 @@ $userlocation = $row['location'];
 
                     return tooltip;
                 });
+        $("#graphHelp").data("powertip", function(){
+            var tooltip =   "You can zoom in on the graph by clicking and making a selection to zoom in on. <br>"+
+                            "Click the <b>reset button</b> <img class = \"helpIcon\" id = \"graphHelp\" src = \"<?php echo $path; ?>images/reset-icon.png\"/> to reset the graph back to normal ratio."
 
+            return tooltip;
+        });
 
         $("#treeHelp").powerTip({
                 placement: "se",
                 mouseOnToPopup:true
             });
+
+        $("#graphHelp").powerTip({
+            placement: "se",
+            mouseOnToPopup: true
+        });
     }
 
     //Functions for loading the scheduled tasks table
@@ -1111,9 +1123,16 @@ function plotNeighbGraph(d) {
                             xaxis: {min: ranges.xaxis.from, max: ranges.xaxis.to},
                             yaxis: {min: ranges.yaxis.from, max: ranges.yaxis.to}
                         }));
-        console.log(options);
     });
-    console.log(options);
+    
+
+    $("#graphReset").on("click", function(){
+        plot = $.plot("#neighbGraphPlaceholder", d,
+                        $.extend(true, {}, options, {
+                            xaxis: {min: s, max: e}
+                            
+                        }));
+    });
     /*$("#neighbGraphPlaceholder").bind("plotclick", function(event, pos, item){
                 console.log(options);
               $.plot("#neighbGraphPlaceholder", d, options, {

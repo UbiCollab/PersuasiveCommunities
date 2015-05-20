@@ -61,7 +61,7 @@
 }
 
 .plot{
-    cursor: move;
+    cursor: crosshair;
 }
 /*
 css for the weather box
@@ -77,6 +77,11 @@ css for the cossmic score box
     width: 20px;
     height: 20px;
     display: none;
+}
+
+#graphHelp{
+    width: 20px;
+    height: 20px;
 }
 #tree-panel{
     width: 100%;
