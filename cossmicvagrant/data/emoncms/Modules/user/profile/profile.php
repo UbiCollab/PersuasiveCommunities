@@ -289,10 +289,8 @@ $(document).ready( function () {
 
 function highlightPageLink(){
 	var a = document.getElementsByTagName("a");
-	console.log("manual path: "+path+"user/view");
-    for(var i=0;i<a.length;i++){
-		console.log("code path: "+a[i].href.split("#")[0]);
-        if(a[i].href.split("#")[0] == path+"user/view"){
+	for(var i=0;i<a.length;i++){
+		if(a[i].href.split("#")[0] == path+"user/view"){
             a[i].id = "currentLink";
         }
     }
