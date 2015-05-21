@@ -41,7 +41,6 @@ while ($row = (array)$result->fetch_object()) {
     }
     $result2->free();
     $i++;
-
 }
 $result->free();
 $nr_devices = count($feedlist_power);
@@ -91,16 +90,13 @@ $.each(plotlist_power, function (key, val) {
 choiceContainerHtml = choiceContainerHtml + "</table>";
 $("#choices_day_d").html(choiceContainerHtml);
 
-
 // populate the graphs 
-
 timeWindowChanged = 1;
 devices_get_plotdata_and_plot("#choices_day_d", plotlist_power, start_day_d, end_day_d, "Load power [W]", "#placeholder_day", "day", nr_devices);
 timeWindowChanged = 1;
 devices_get_plotdata_and_plot("#choices_year_d", plotlist_kwh_year, start_year_d, end_year_d, "Meter reading consumption meter [kWh]", "#placeholder_year", "year", nr_devices);    
 timeWindowChanged = 1;
 devices_get_plotdata_and_plot("#choices_total_d", plotlist_kwh_total, start_total_d, end_total_d, "Meter reading consumption meter [kWh]", "#placeholder_total", "total", nr_devices);
-
 timeWindowChanged = 1;
 devices_get_plotdata_and_plot("#choices_month_d", plotlist_wh, start_month_d, end_month_d, "Meter reading consumption meter [Wh]", "#placeholder_month", "month", nr_devices);
 
@@ -109,7 +105,6 @@ for (var i in plotlist_wh) {
     scalarMultiplyY(plotlist_wh[i].plot.data,1000);
 } */
 
-    
 //kathrinas code for populating    
 /* get_plotdata_mode(plotlist_power, start_day_d, end_day_d, "day");
 get_plotdata_mode(plotlist_wh, start_month_d, end_month_d, "month");

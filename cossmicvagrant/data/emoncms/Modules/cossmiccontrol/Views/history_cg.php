@@ -1,6 +1,5 @@
 <?php
 global $mysqli, $session;
-
 $userid = $session['userid'];
 
 // get ids of the user's feeds for internal and external energy supply, grid feed-in, self-consumption, consumption, and generation (W and kWh/day)
@@ -84,7 +83,6 @@ get_plotdata_and_plot(plotlist_kwh_generation_month, start_month_cg, end_month_c
 //get_plotdata_mode(plotlist_kwh_consumption_month, start_month_cg, end_month_cg, "month");
 //get_plotdata_mode(plotlist_kwh_generation_month, start_month_cg, end_month_cg, "month");
 
-
 timeWindowChanged = 1;
 get_plotdata_and_plot(plotlist_kwh_consumption_year, start_year_cg, end_year_cg, "year","#placeholder1_year", true, extenergysupply_on, intpowersupply_on);
 timeWindowChanged = 1;
@@ -98,8 +96,6 @@ timeWindowChanged = 1;
 get_plotdata_and_plot(plotlist_kwh_generation_total, start_total_cg, end_total_cg, "total","#placeholder2_total", false, selfconsumption_on, gridfeedin_on); 
 //get_plotdata_mode(plotlist_kwh_consumption_total, start_total_cg, end_total_cg, "total");
 //get_plotdata_mode(plotlist_kwh_generation_total, start_total_cg, end_total_cg, "total");
-
-
 
 
 // plot graphs in tab1

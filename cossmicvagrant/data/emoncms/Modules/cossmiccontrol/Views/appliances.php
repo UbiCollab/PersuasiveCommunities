@@ -14,9 +14,11 @@ foreach ($decomposedPath as &$value) {
 // debugging echo implode("-",$decomposedPath); echo sizeof($decomposedPath); echo $vdPath;
 ?>
 
+<!-- Stylesheets -->
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/cossmiccontrol_view.css">
 
+<!-- Javascripts -->
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
@@ -37,11 +39,13 @@ var current_month = today.getMonth();
 
 <div id="appliances">
 	<div class="row">
+		<!-- Narrow panel containing the list of all household appliances -->
 		<div id="deviceListPanel" class="panel span2 bcolor">
 			<div class="panel-heading">Appliances</div>
 			<ul id="deviceList"></ul>
 		</div>
 		
+		<!-- Panel spanning the remaining page width, containing the graph of appliances power consumption -->
 		<div id="deviceGraph" class="panel span10 bcolor">
 			<div class="panel-heading">Appliance power consumption</div>
 			<!-- graph goes here -->
@@ -222,7 +226,7 @@ $(document).ready( function () {
 	highlightPageLink();
 });
 
-//function to find and add style to the link for the current page
+//function to find what page we are on and add the currentLink id to that navbar link to highlight current page
 function highlightPageLink(){
 	//Dirty change of the first tab color (since that's where user will start)
 	document.getElementById("tab1_d").style.background = "#1192d3 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";
@@ -232,7 +236,7 @@ function highlightPageLink(){
         if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
             a[i].id = "currentLink";
         }
-		//Sections below add an onclick event listener to the tabs of the graph
+		//Sections below add an onclick event listener to the tabs of the graph, firing the tabClicked function when one of the tabs are selected
 		if(a[i].href.split("#")[1] == "tabs-1-d"){
 			a[i].addEventListener("click", tabClicked, false);
 		}

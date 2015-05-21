@@ -41,8 +41,6 @@ optionsHash["total"] = {
 	    bars: { show: true, align: "center", fill: false, barWidth: 3600*1000*24*150} 
     	};
 
-
-
 // create year dropdown selection menu
 function create_year_dropdown(element_id, first_year, current_year) {
     year_dropdown = "";
@@ -257,7 +255,6 @@ function async_get_plotdata_mode(plotlist, start, end, mode) {
                     dataType: 'json',
                     success: function(datain) { plotlist[i].plot.data = datain; }
                     });
-
             }
             // histogram with kWh/day (month)
             else if (mode == "month") {
@@ -281,11 +278,9 @@ function async_get_plotdata_mode(plotlist, start, end, mode) {
                                 plotlist[i].plot.data.push(kwhtoday);
                                  }
                             });
-                           
                         }
                      }
                     });
-   
             }
             // histogram with kWh summed up for each month
             else if (mode == "year") {
@@ -342,10 +337,8 @@ function async_get_plotdata_mode(plotlist, start, end, mode) {
                                      }
                                 }); 
                         } 
-
                      }// end of years ajax success
                     });// end of years ajax
-
             }
             // histogram with kWh summed up for each year
             else if (mode == "total") {
@@ -401,11 +394,8 @@ function async_get_plotdata_mode(plotlist, start, end, mode) {
                                      }
                                 }); 
                         }
-                        
-
                      }// end of years ajax success
                     });// end of years ajax
-
            }// end of if (mode == "total") {
         }
     }
@@ -421,17 +411,12 @@ function plotWholeCG(plotlist,placeholder,options,start,end,showxaxis){
     if(plotlist[0].plot.data) flotdata.push(plotlist[0].plot);
     if(plotlist[1].plot.data)flotdata.push(plotlist[1].plot);
     if(plotlist[2].plot.data) flotdata.push(plotlist[2].plot);
-    $.plot(placeholder, flotdata, options); 
-
+    $.plot(placeholder, flotdata, options);
 }
 
 function get_plotdata_and_plot(plotlist, start, end, mode,placeholder, showxaxis, on1, on2) {
-
         // check if time has changed
-        if (timeWindowChanged == 0)
-        {
-            
-            
+        if (timeWindowChanged == 0){
             var flotdata = [];
             if (on1) {
                 flotdata.push(plotlist[0].plot);
@@ -454,10 +439,7 @@ function get_plotdata_and_plot(plotlist, start, end, mode,placeholder, showxaxis
         }
 
     for(var i in plotlist) {
-
-        if (!plotlist[i].plot.data)
-        {
-            
+        if (!plotlist[i].plot.data){
             var feedQuery = "&id="+plotlist[i].id+"&start="+start+"&end="+end+"&dp="+400;
             var valueQuery = "&id="+plotlist[i].id;
             // power (day)
@@ -472,7 +454,6 @@ function get_plotdata_and_plot(plotlist, start, end, mode,placeholder, showxaxis
                       plotWholeCG(this.plotlist,placeholder,optionsHash["day"],start,end,showxaxis);
                       }
                     });
-
             }
             // histogram with kWh/day (month)
             else if (mode == "month") {
@@ -501,11 +482,9 @@ function get_plotdata_and_plot(plotlist, start, end, mode,placeholder, showxaxis
                                 plotWholeCG(this.plotlist,placeholder,optionsHash["month"],start,end,showxaxis);
                                  }
                             });
-                           
                         }
                      }
                     });
-   
             }
             // histogram with kWh summed up for each month
             else if (mode == "year") {
@@ -569,10 +548,8 @@ function get_plotdata_and_plot(plotlist, start, end, mode,placeholder, showxaxis
                                      }
                                 }); 
                         } 
-
                      }// end of years ajax success
                     });// end of years ajax
-
             }
             // histogram with kWh summed up for each year
             else if (mode == "total") {
@@ -617,8 +594,8 @@ function get_plotdata_and_plot(plotlist, start, end, mode,placeholder, showxaxis
                                 success: function(dayData){
                                     this.plotlist[this.index].plot.data[j][1] += parseFloat(dayData);
                                     plotWholeCG(this.plotlist,placeholder,optionsHash["total"],start,end,showxaxis);
-                                     }
-                                });          
+                                }
+                            });          
                         }
                         else {
                             var kwhtoday = [];
@@ -629,17 +606,14 @@ function get_plotdata_and_plot(plotlist, start, end, mode,placeholder, showxaxis
                                 dataType: 'json',
                                 context: {index:refIndex, plotlist: refPlotlist,kwhtoday:kwhtoday},
                                 success: function(dayData){
-                                        this.kwhtoday[1] =  parseFloat(dayData);
-                                        this.plotlist[this.index].plot.data.push(this.kwhtoday);
-                                        plotWholeCG(this.plotlist,placeholder,optionsHash["total"],start,end,showxaxis);
-                                     }
-                                }); 
+									this.kwhtoday[1] =  parseFloat(dayData);
+									this.plotlist[this.index].plot.data.push(this.kwhtoday);
+									plotWholeCG(this.plotlist,placeholder,optionsHash["total"],start,end,showxaxis);
+                                }
+                            }); 
                         }
-                        
-
                      }// end of years ajax success
                     });// end of years ajax
-
            }// end of if (mode == "total") {
         }
     }
@@ -681,7 +655,6 @@ function devices_get_plotdata_and_plot(choiceContainer, plotlist, start, end, ya
                       plotAccordingToChoices(choiceContainer, this.plotlist, start, end, yaxislabel, placeholder, mode, nr_devices); 
                       }
                     });
-
             }
             // histogram with kWh/day (month)
             else if (mode == "month") {
@@ -712,11 +685,9 @@ function devices_get_plotdata_and_plot(choiceContainer, plotlist, start, end, ya
                                 plotAccordingToChoices(choiceContainer, this.plotlist, start, end, yaxislabel, placeholder, mode, nr_devices);
                                  }
                             });
-                           
                         }
                      }
                     });
-   
             }
             // histogram with kWh summed up for each month
             else if (mode == "year") {
@@ -780,10 +751,8 @@ function devices_get_plotdata_and_plot(choiceContainer, plotlist, start, end, ya
                                      }
                                 }); 
                         } 
-
                      }// end of years ajax success
                     });// end of years ajax
-
             }
             // histogram with kWh summed up for each year
             else if (mode == "total") {
@@ -846,11 +815,8 @@ function devices_get_plotdata_and_plot(choiceContainer, plotlist, start, end, ya
                                      }
                                 }); 
                         }
-                        
-
                      }// end of years ajax success
                     });// end of years ajax
-
            }// end of if (mode == "total") {
         }
     }

@@ -2,9 +2,11 @@
 global $path;
 ?>
 
+<!-- Stylesheets -->
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/jqueryui/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/cossmiccontrol_view.css">
 
+<!-- Javascripts -->
 <script type="application/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="application/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
 <script type="application/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.time.min.js"></script>
@@ -328,12 +330,11 @@ var current_month = today.getMonth();
 </div>
 
 <script type="text/javascript">
-
 $(document).ready( function(){
 	highlightPageLink();
 });
 
-//function to find and add style to the link for the current page
+//function to find what page we are on and add the currentLink id to that navbar link to highlight current page
 function highlightPageLink(){
 	//Dirty change of the first tab color (since that's where user will start)
 	document.getElementById("tab1_cg").style.background = "#1192d3 url(\"images/ui-bg_glass_75_e6e6e6_1x400.png\") 50% 50% repeat-x";
@@ -343,6 +344,8 @@ function highlightPageLink(){
 		if(a[i].href.split("#")[0] == window.location.href.split("#")[0]){
             a[i].id = "currentLink";
         }
+		
+		//Adds an onclick event listener to all 4 tabs, firing the tabClicked function whenever one of the tabs are selected
 		if(a[i].href.split("#")[1] == "tabs-1-cg"){
 			a[i].addEventListener("click", tabClicked, false);
 		}

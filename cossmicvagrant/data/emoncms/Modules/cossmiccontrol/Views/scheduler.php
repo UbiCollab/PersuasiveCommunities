@@ -1,5 +1,6 @@
 <?php
-global $path;
+global $path, $mysqli, $session;
+$userid = $session['userid'];
 $decomposedPath = explode("/", "$path");
 $vdPath = "";
 foreach($decomposedPath as &$value) {
@@ -10,27 +11,28 @@ foreach($decomposedPath as &$value) {
 			$vdPath .= $value . "/";
 		}
     }
-    
 }
 /*
 Pending
 -- change ajax urls to proper address
 --  userid is hardcoded in regard to virtual devices
 */
-
 ?>
 
+<!-- Stylesheets -->
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/cossmiccontrol_view.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Lib/pure-0.5.0/pure-min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>Modules/cossmiccontrol/Views/css/scheduler.css">
 
+<!-- Javascript imports -->
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/jqueryui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
 
 <div id="settings">
+	<!-- Row for the appliances and the configure containers -->
 	<div class="row">
 		<p>
 		<div id="addDeviceDiv" class="pure-menu pure-menu-open">
@@ -40,12 +42,14 @@ Pending
 		</div>
 		<p>
 
+		<!-- Container with the available configurable devices -->
 		<div id="cdpanel" class="panel span6 double">
 			<div class="panel-heading">Available Appliances</div>
 			<ul id="myConfigDeviceList">
 			</ul>
 		</div>
 		
+		<!-- Container for the add device and configure device forms -->
 		<div id="settingMidPane" class="panel span6 double">
 			<div id="addDeviceForm">
 				<legend>Specify your device</legend>
@@ -107,6 +111,7 @@ Pending
 	
 	<p />
 	
+	<!-- Row for the scheduled task list -->
 	<div class="row">
 		<div id="taskTablePanel" class="panel span12">
 			<div class="panel-heading">Your scheduled tasks</div>
@@ -129,22 +134,6 @@ Pending
 		</div>
 	</div>
 </div>
-
-<?php
-global $mysqli, $session;  
-$inputlist = []; 
-$userid = $session['userid'];
-
-// get list of names of all the user's inputs
-/*$result = $mysqli->query("SELECT name FROM input WHERE userid = '$userid'");
-$i = 0;
-while ($row = (array)$result->fetch_object()) {
-    $inputlist[$i] = $row['name'];
-    $i++;
-}
-
-$nr_inputs = count($inputlist);*/
-?>
 
 <script>
 
@@ -169,7 +158,6 @@ function highlightPageLink(){
 }
 
 function initSettings(){
-
 	//Ajax call to populate the add device list
 	$.ajax({
         url: '<?php echo $vdPath; ?>virtualDevices/device.php',
@@ -194,10 +182,7 @@ function initSettings(){
         }
 	}); // end ajax call
 
-	//Ajax call to populate the device lists
-	
-	//Modified for now to fit into the design with panel spans. The var listItem was moved into the if/else clause
-	//to make it easier to remove the a href link from those going into the nonconfigurable device list.
+	//Ajax call to populate the appliance list
     $.ajax({
         url: '<?php echo $vdPath; ?>virtualDevices/device.php',
         type: 'get',
@@ -233,7 +218,6 @@ function initSettings(){
 }
 
 function clickAddDeviceListItem(event){
-
     var target = $( event.target );
     var itemLi = target.parent();
     var deviceType =  itemLi.attr("dev-name");
@@ -267,7 +251,6 @@ function clickAddMode(event){
       var mode = $('#inputModeText').val();
       var listItem = '<li data="' + mode +'"><a tabindex="-1" href="#" onclick="removeMode(event)">' + mode +'<i class="icon-remove"></i></a></li>';
       $("#dropDownModeList").append(listItem);
-
 }
 
 function removeMode(event){
@@ -287,7 +270,6 @@ function clickAddDevice(event){
   var addVirtDevJson = '?json={"cmd":"add","template":"'+ templateId + '","name":"'+ deviceName+'","user":"1"}';
   
   //var arr = {json: {cmd: "add", template: "43", name: "tst", user: "1"}};
-  
     $.ajax({
         url: '<?php echo $vdPath; ?>virtualDevices/device.php'+addVirtDevJson,
         type: 'get',
@@ -306,7 +288,6 @@ function clickAddDevice(event){
           console.log('Details: ' + desc + '\nError:' + err);
         }
   }); // end ajax call
-  
 }
 
 function clickMyDeviceListItem(event,deviceId){
@@ -341,9 +322,6 @@ function clickMyDeviceListItem(event,deviceId){
 
 function clickAddTask(event){
       // get selected device
-	  
-	  //TODO: This has to be modified now to get rid of the pure-menu-selected option. Need a new way to get which item was selected
-	  
       var selectedListItem = $("#myDeviceList").children(".pure-menu-selected");
       var deviceId = selectedListItem.attr("dev-id");
       var estString = $('#estInput').val();
@@ -353,7 +331,7 @@ function clickAddTask(event){
       
       if(null == mode) mode ="none";
       
-      // check validity of inputed times
+      // check validity of input times
       var currentTime = new Date();
       var currHours = currentTime.getHours();
       var currMinutes = currentTime.getMinutes();
