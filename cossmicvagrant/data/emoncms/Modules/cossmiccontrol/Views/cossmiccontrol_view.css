@@ -264,13 +264,16 @@ css for the my household box
     width: 570px;
     float: right;
 }
-
+#batterLabel{
+    display: none;
+}
 #house-icon{
     margin-top: 8%;
     margin-right: 10px;
     float: right;
     height:150px; 
     width:80%;
+    display: none;
 }
 
 #houseboxTable{

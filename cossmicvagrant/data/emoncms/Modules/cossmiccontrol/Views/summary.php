@@ -34,7 +34,7 @@ foreach($decomposedPath as &$value) {
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.axislabels.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.time.min.js"></script>
-<script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.nagivate.js"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.nagivate..min.js"></script>
 <script type="text/javascript" src="<?php echo $path; ?>Lib/flot/jquery.flot.selection.js"></script>
 <!-- The json parsing javascript -->
 <script type="text/javascript" src="<?php echo $path; ?>Modules/cossmiccontrol/Views/json.js"></script>
@@ -100,13 +100,13 @@ foreach($decomposedPath as &$value) {
 			<div class="panel-body">
                 <div id="houseIconBody">
                     <table id="houseboxTable">
-                        <tr id="firstRowHousebox">
-                            <td><div><img id="housebox_panel" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_panel.png"></div></td>
-                            <td><div><img id="housebox_grid" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_grid.png"></div></td>
+                        <tr id="firstRowHousebox" >
+                            <td id="housebox_panelTd" class="hboxElement"><div><img id="housebox_panel" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_panel.png"></div></td>
+                            <td id="housebox_gridTd"><div><img id="housebox_grid" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_grid.png"></div></td>
                         </tr>
                         <tr id="firstRowHouseboxText">
-                            <td id="houseboxPanelTd"><div id="houseboxPanelText" class="houseboxIconText">Panel</div></td>
-                            <td id="houseboxGridTd"><div id="houseboxGridText" class="houseboxIconText">Grid</div></td>
+                            <td id="houseboxPanelTextTd"><div id="houseboxPanelText" class="houseboxIconText">Panel</div></td>
+                            <td id="houseboxGridTextTd"><div id="houseboxGridText" class="houseboxIconText">Grid</div></td>
                         </tr>
                         <tr id="secondRowHousebox">
                             <td><div><img id="housebox_battery" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_battery.png"></div></td>
@@ -129,7 +129,7 @@ foreach($decomposedPath as &$value) {
                                 <tr>
                                     <td>Grid</td>
                                     <td id="gridN" class="elFlowStats">0 kWh</td></tr>
-                                <tr>
+                                <tr id="pvLabel">
                                     <td class="elFlowStats">PV</td>
                                     <td id="pvN">kWh</td> </tr>
                                 <tr id="batteryLabel">
@@ -149,7 +149,7 @@ foreach($decomposedPath as &$value) {
                         </div>
                         <div id="elTotalConsumptionHeader">Total:</div>
                         <div id="elTotalConsumption"></div>
-                        <img id="house-icon" src="<?php echo $path; ?>images/housebox_content/house_el_flow.png"> 
+                        <img id="house-icon"> 
                     </div>
                 </div>
 			</div>
@@ -300,7 +300,7 @@ while($row = (array)$result->fetch_object()) {
     $productionKwhId[$i] = $row['id'];
     $i++;
 }
-$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv_production$' AND userid = '$userid'");
+$result = $mysqli->query("SELECT id FROM feeds WHERE name REGEXP 'pv_power$' AND userid = '$userid'");
 $i = 0;
 while($row = (array)$result->fetch_object()) {
     $productionPowerId[$i] = $row['id'];
@@ -484,17 +484,49 @@ $userlocation = $row['location'];
     storage2household = 0;
     ids = [1,10,13];
     values = [];
+    var feedResult = [];
     var path = "<?php echo $path; ?>";
 
     var consumptionKwhId = <?php echo json_encode($consumptionKwhId); ?>; 
-    var pv2householdKwhId = <?php echo json_encode($pv2householdKwhId); ?>;
+    var pv2householdKwhId = <?php echo json_encode($pv2householdKwhId); ?>; feedResult.push(pv2householdKwhId[0]);
+
     var grid2householdKwhId = <?php echo json_encode($grid2householdKwhId); ?>;
     var grid2storageKwhId = <?php echo json_encode($grid2storageKwhId); ?>;
     var pv2storageKwhId = <?php echo json_encode($grid2storageKwhId); ?>;
     var pv2gridKwhId = <?php echo json_encode($pv2gridKwhId); ?>;
     var storage2gridKwhId = <?php echo json_encode($storage2gridKwhId); ?>;
-    var storage2householdKwhId = <?php echo json_encode($storage2householdKwhId); ?>;
+    var storage2householdKwhId = <?php echo json_encode($storage2householdKwhId); ?>; feedResult.push(storage2householdKwhId[0]);
     
+    setCorrectHouseIcon(feedResult);
+    //Function setting the correct icon for the different hardware connected to the house.
+    function setCorrectHouseIcon(a){
+        isPv = a[0];
+        isBattery = a[1];        
+        console.log("Is there pv: "+isPv+" and is battery:"+isBattery);
+
+        if(isPv && isBattery){
+            console.log("we got both!");
+
+            $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow.png");
+            $("#house-icon").show();
+        }
+        else if(isPv){
+            $("#pvLabel").show();
+            $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
+            $("#house-icon").show();   
+            console.log("we got pv only.");
+        }
+        else if(isBattery){
+            console.log("we got battery only.");
+        }
+    }
+
+    function setHiddenContent(){
+        $("#batteryLabel").hide();
+        $("#housebox_battery").hide();
+
+    }
+
 	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
     function createBarChart(type){
 		var data=[];
@@ -582,15 +614,25 @@ $userlocation = $row['location'];
                 type: 'get',
                 url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+pv2householdKwhId+'&start='+start+'&end='+end+'&dp=1',
                 success: function(data){
-                    var json = data[0];
+                if(!pv2householdKwhId){
+
+                    $("#pvLabel").hide();
+                    $("#firstRowHousebox").find('#housebox_panelTd').remove();
+                    $("#firstRowHouseboxText").find('#houseboxPanelTextTd').remove();
                     
+                    setPv2householdValue(0);
+                }
+                else{
+
+                    var json = data[0];
+                
                     if(json[0] <= start){
                         setPv2householdValue(json[1]);    
                     }
-                    else{
-                        setPv2householdValue(0);
-                    }
+
                 }
+            }
+                
             }),
 			
             //get and set data from grid2household
@@ -614,11 +656,8 @@ $userlocation = $row['location'];
 				type: 'get',
 				url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageKwhId+'&start='+start+'&end='+end+'&dp=1 ',
 				success: function(data){
-					if(grid2storageKwhId == 0){
-					   
-					   $("#batteryLabel").hide();
-					   $("#housebox_battery").hide();
-					   $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
+					if(grid2storageKwhId == false){
+					       
 					   $("#elFlowText1").css({"margin-top":"65px"})
 						
 						if(hidden == 0){
@@ -650,6 +689,7 @@ $userlocation = $row['location'];
 				}
 			})
         }
+    
 
     function setTotalconsumptionValue(value){
         $(function(){
@@ -709,11 +749,11 @@ $userlocation = $row['location'];
         //set text for the pvPanel icon
         var houseBoxPanelValue = (pv2household/totalconsumption).toFixed(2)*100;
         $("#houseboxPanelText").html((pv2household/totalconsumption).toFixed(2)*100+"%");
-        $("#houseboxPanelTd").html('<span class="whiteText">The PV is producing </span> <span class="houseboxIconText">'+houseBoxPanelValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
+        $("#houseboxPanelTextTd").html('<span class="whiteText">The PV is producing </span> <span class="houseboxIconText">'+houseBoxPanelValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
         //set text for the grid icon
         var houseBoxGridValue = (grid2household/totalconsumption).toFixed(2)*100;
         $("#houseboxGridText").html((grid2household/totalconsumption).toFixed(2)*100+"%");
-        $("#houseboxGridTd").html('<span class="whiteText">The grid is supplying </span> <span class="houseboxIconText">'+houseBoxGridValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
+        $("#houseboxGridTextTd").html('<span class="whiteText">The grid is supplying </span> <span class="houseboxIconText">'+houseBoxGridValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
         //set % of shared el to the grid. 
         $("#houseboxCommunityText").html(pv2grid+storage2grid+"%");
     }
@@ -913,78 +953,6 @@ $userlocation = $row['location'];
     //End of functions for the scheduled task table
 </script>
 <script>
-/*
-// TODO: uncomment when integrating Katharinas code
-
-var path = "<?php echo $path; ?>";
-
-var today = new Date();
-var yesterday = today.setHours(0,0,0,0) - 1;
-
-// get the current kWh/day values for grid use, CoSSMic use, Self-PV use, and own Battery use
-// code here...
-// Test with feed ids hard-coded:
-var grid_use = parseFloat(  (5));
-var cossmic_use = parseFloat(get_feedvalue(6));
-var pv_use = 0;
-var battery_use = 0;
-
-// usage bar
-var usingwidth = 750;
-var total_use = grid_use + cossmic_use + pv_use + battery_use;
-var gridwidth = Math.round(grid_use/total_use*usingwidth);
-var cossmicwidth = Math.round(cossmic_use/total_use*usingwidth);
-var pvwidth = Math.round(pv_use/total_use*usingwidth);
-var batterywidth = Math.round(battery_use/total_use*usingwidth);
-
-if (gridwidth>0) $("#griduse").css({width: gridwidth, visibility: "visible"});
-if (cossmicwidth>0) $("#cossmicuse").css({width: cossmicwidth, visibility: "visible"});
-if (pvwidth>0) $("#selfpvuse").css({width: pvwidth, visibility: "visible"});
-if (batterywidth>0) $("#ownbatteryuse").css({width: batterywidth, visibility: "visible"});
-
-var kwhlist = <?php echo json_encode($kwhlist); ?>;
-// get the current kWh value for all devices
-// sum up current kWh values = overall accumulated consumption
-var overall_consumption = 0;
-for (var i = 0; i < kwhlist.length; i++) {
-    overall_consumption += parseFloat(get_feedvalue(kwhlist[i]));
-}
-
-// get the previous day's last kWh value for all devices
-// sum up previous day's last kWh values = overall accumulated consumption for previous day
-var overall_consumption_yesterday = 0;
-for (var i = 0; i < kwhlist.length; i++) {
-    var data = get_feed_data(kwhlist[i], 0, yesterday, 800);
-    if(data.length>1)
-      overall_consumption_yesterday += parseFloat(data[data.length-1][1]);
-}
-
-// overall load = overall accumulated consumption for today - overall accumulated consumption for previous day
-var overall_load = overall_consumption - overall_consumption_yesterday;
-
-var kwhdlist = <?php echo json_encode($kwhdlist); ?>;
-// get the current kWh/day value for all devices
-var overall_load_kwhd = 0;
-for (var i = 0; i < kwhdlist.length; i++) {
-    overall_load_kwhd += parseFloat(get_feedvalue(kwhdlist[i]));
-}
-
-// get the current power value for PV
-// pv_power = get_feedvalue(pv_power_feed_id);
-
-// get the current kWh value for the battery
-// battery_kwh = get_feedvalue(battery_kwh_feed_id);
-
-$('#loadtable').ready(
-
-function () {
-    theTable = "<tr><th>Overall load</th><th>"+Number(overall_load).toFixed(1)+" kWh/"+Number(overall_load_kwhd).toFixed(1)+"kWh</th></tr>";
-    theTable += "<tr><td>Overall consumption</td><td>"+Math.round(overall_consumption)+" kWh</td></tr>";
-    theTable += "<tr><td>PV performance</td><td></td></tr>";
-    theTable += "<tr><td>Battery status</td><td></td></tr>";
-    $('#loadtable').append(theTable);
-});
-*/
 
 //Waiting till the DOM is fully loaded before running this code
 $(document).ready( function () {
@@ -992,12 +960,14 @@ $(document).ready( function () {
 	//If geolocation fails, use the location field in users profile on emoncms.
     navigator.geolocation.getCurrentPosition(function(position) {
 	console.log("Found users position with geolocation. Fetching weather data");
-    loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
+    //loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
+    errorWeather("<?php echo $userlocation; ?>");
 }, function(position){
 	console.log("Geolocation failed, attempting to use location from the user data in emoncms");
 	errorWeather("<?php echo $userlocation; ?>");
 }, {timeout: 10000});
 
+    setHiddenContent();
 	summarySetup();
 	addDataValues();
     setTooltips();
@@ -1028,10 +998,10 @@ function  summarySetup(){
     var productionKwhdId = <?php echo json_encode($productionKwhId); ?>;
     var productionPowerId = <?php echo json_encode($productionPowerId); ?>;
 
-    console.log(productionPowerId);
+    console.log("Prod: "+productionPowerId);
 
 
-    console.log(path+'/feed/data.json?id='+consumptionPowerId+'&start='+start.getTime()+'&end='+end+'&dp=400');
+    console.log(path+'/feed/data.json?id='+productionPowerId+'&start='+start.getTime()+'&end='+end+'&dp=400');
     
     $.when(
         $.ajax({
@@ -1056,28 +1026,27 @@ function  summarySetup(){
             dataType: "json"
       })
     ) 
-    .then(function(resultHouseConsumption, resultHouseProduction,resultProduction,resultConsumption) {
+    .then(function(resultHouseConsumption, resultHouseProduction,resultConsumption,resultProduction) {
         //console.log(resultHouseConsumption);
         //console.log(resultProduction);
         //console.log(resultConsumption);
-
-        var consumHouseSerie = { label: "My Consumption", data: resultHouseConsumption[0],lines:{show:true}};
-        var prodHouseSerie = { label: "My Production", data: resultProduction[0],lines:{show:true}};
-        var prodSerie = { label: "Community Production", data: resultProduction[0],lines:{show:true}};
-        var consumSerie = { label: "Community Consumption", data: resultConsumption[0],lines:{show:true}};
         
-        plotNeighbGraph([consumHouseSerie,prodHouseSerie, prodSerie,consumSerie]);
+        var consumHouseSerie = { label: "My Consumption", data: resultHouseConsumption[0],lines:{show:true}};
+        var prodHouseSerie = { label: "My Production", data: resultHouseProduction[0],lines:{show:true}};
+        var consumSerie = { label: "Community Consumption", data: resultConsumption[0],lines:{show:true}};
+        var prodSerie = { label: "Community Production", data: resultProduction[0],lines:{show:true}};
+        
+        plotNeighbGraph([consumHouseSerie,prodHouseSerie,consumSerie, prodSerie]);
     });
 }
 
 function plotNeighbGraph(d) {
-
     console.log(d);
-    var placeholders = $(".flot");
     var e = new Date();
     e.setHours(23,59,59,999);
     var s = new Date();
     s.setHours(0,0,0,0);
+    placeholder = $("#neighbGraphPlaceholder");
     var options = {
         selection: {
             mode: "xy"
@@ -1092,7 +1061,7 @@ function plotNeighbGraph(d) {
             timezone: "browser",
             font:{
                 color:"#fff"
-            }
+            },
         },
         yaxis: {
             axisLabel:"kWh",
@@ -1108,13 +1077,10 @@ function plotNeighbGraph(d) {
             backgroundColor: "#1192d3",
             tickColor:"#fff",
         },
-        
         legend:{position:"nw"}
     }
-    //optionsoverview = {legend: {show: false}, selection{mode: "xy"}};
-    $('.yaxisLabel').css('color', "#fff");
-    $.plot("#neighbGraphPlaceholder", d, options);
-    
+
+    $.plot(placeholder, d,  options);
     $("#neighbGraphPlaceholder").bind("plotselected", function(event, ranges){
         console.log(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
         console.log(ranges.yaxis.from.toFixed(1) + " to " + ranges.yaxis.to.toFixed(1));
@@ -1127,73 +1093,11 @@ function plotNeighbGraph(d) {
     
 
     $("#graphReset").on("click", function(){
-        plot = $.plot("#neighbGraphPlaceholder", d,
+        $.plot("#neighbGraphPlaceholder", d,
                         $.extend(true, {}, options, {
                             xaxis: {min: s, max: e}
                             
                         }));
     });
-    /*$("#neighbGraphPlaceholder").bind("plotclick", function(event, pos, item){
-                console.log(options);
-              $.plot("#neighbGraphPlaceholder", d, options, {
-                    xaxis: {min: 1432001635539261440.0, max: 1432053491205025792.0}, 
-                });
-    });
-    $("#neighbGraphPlaceholder").bind("plothover", function(event, pos, item){
-        
-    });
-    $("neighbGraphPlaceholder").bind("plotpan plotzoom", function(event,plot){
-        var axes = plot.getAxes();
-        for(var i=0; i< plots.length; i++) {
-            if (plot == plots[i]){
-                continue;   
-            }
-            plots[i].getOptions().xaxes[0].min = axes.xaxis.min;
-            plots[i].getOptions().xaxes[0].max = axes.xaxis.max;
-            plots[i].getOptions().yaxes[0].min = axes.yaxis.min;
-            plots[i].getOptions().yaxes[0].max = axes.yaxis.max;
-            plots[i].setupGrid();
-            plots[i].draw();
-        }
-    });*/
-}
-
-function createDummyGraph(){
-	var s1 = [[0, 0], [0, 0], [0, 0], [0, 77], [0, 3636], [0, 3575], [0, 2736], [0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
-	[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],  
-	[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
-	[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
-	[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327]];
-	
-	var s2 = [
-	[0, 1086], [0, 676], [0, 1205], [0, 906], [0, 710], [0, 639], [0, 540], 
-	 
-	[0, 462], [0, 448], [0, 442], [0, 403], [0, 204], [0, 194], [0, 327],
-	[0, 279], [0, 449], [0, 468], [0, 392], [0, 282], [0, 208], [0, 229], 
-	[0, 435], [0, 301], [0, 575], [0, 481], [0, 591], [0, 608], [0, 459],
-	[0, 177], [0, 374], [0, 436], [0, 404], [0, 253], [0, 218], [0, 476], 
-
-	[0, 0],   [0, 0],   [0, 0],   [0, 77],  [0, 3636], [0, 3575], [0, 2736],
-	];
-
-	var midnight = new Date();
-	midnight.setHours(0,0,0,0);
-	var initial =  Date.parse(midnight);
-
-	var now = new Date();
-	var finalDate =  Date.parse(now);
-	
-	var increment = Math.round( (finalDate - initial)/(s1.length) );    
-	
-	for (var i = 0; i < s1.length; ++i) {
-		initial = initial + increment;
-		s1[i][0] = initial;
-		s2[i][0] = initial;
-	}
-	
-	var serie1 = { label: "Serie 1", data: s1,lines:{show:true}};
-	var serie2 = { label: "Serie 2", data: s2, lines:{show:true}};
-	
-	plotNeighbGraph([serie1,serie2]);
 }
 </script>
