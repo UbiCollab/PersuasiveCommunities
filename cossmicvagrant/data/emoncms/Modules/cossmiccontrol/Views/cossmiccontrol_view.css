@@ -20,7 +20,7 @@
 .panel .panel-heading{
     background: #fff;
     border-bottom: 1px solid #1192d3;
-    font-size: 30px;
+    font-size: 2vw;
     text-align: left;
     border-radius: 5px 5px 0 0;
     color: #1192d3;
@@ -33,7 +33,7 @@
     text-align: left;
     border-radius: 0 0 0 0 ;
     color: #1192d3;
-    height: 270px;
+    height: 100%;
 }
 
 .panel .panel-body{
@@ -70,9 +70,21 @@ css for the weather box
 	display: inline-block;
 }
 
+
+.flot-overlay{
+    width: 100%;
+    height: 100%;
+}
+
 /*
 css for the cossmic score box
 */
+
+.outerChart{
+    height: 100%;
+    width: 100%;
+}
+
 #treeHelp{
     width: 20px;
     height: 20px;
@@ -90,19 +102,19 @@ css for the cossmic score box
 }
 
 #cossmictree{
-    margin-left: 100px;
+    margin-left:55%;
     width: auto;
 }
 
 #cossmictreeContainer{
 	float:left;
     width: 49.8%;
-	height: 270px;
+	height: 100%;
     display: inline-block;
 }
 
 #treeImgContainer{
-    width: auto;
+    width: 100%;
     height: 100%;
     float:left;
 }
@@ -121,33 +133,25 @@ css for the cossmic score box
     display: none;
     height: 100%;
     width: 60%;
-    margin-left: 30px;
-    float:left;
+    float:right;
 }
 
 #cossmicforestbarchart{
     height: 100%;
-    width: 50%;
+    width: 60%;
     float:left;
 }
 
 /*
 css for the my household box
 */
-.houseboxsmall{
-    float:right;
-    width: 570px;
-}
-
-.houseboxbig{
-    width: 1170px;
-}
 
 .elFlowHeaders{
     display: inline-block;
     text-align: center;
-    margin-top: 15px;
-    margin-left: 36%;
+    width:100%;
+    margin-top: 5%;
+    
 }
 
 .houseboxIconText{
@@ -163,15 +167,16 @@ css for the my household box
 }
 
 .housebox_content{
-    width: 95px;
+    width: 50%;
     height: auto;
-    margin: 15% 140px 5% 30px;
+    margin: 15% ;
     float: left;
 }
 
 .elFlowStats{
     padding-right: 45px;
     width: 90px;
+    
     float:right;
 }
 
@@ -181,13 +186,14 @@ css for the my household box
 
 #myHouseTag{
     color: #fff;
+    margin-left: 40%; 
     float: left;
 }
 
 #myCommunityTag{
     color: #fff;
-    margin-left: 160px;
-    float: right;
+    margin-left: 69%;
+    
 }
 
 #elFlowTableAndIcons{
@@ -197,32 +203,32 @@ css for the my household box
 
 #elFlowText1{
     position: absolute;
-    margin-top: 50px;
-    margin-left: 20px;
+    margin-top: 11.8%;
+    margin-left: 3%;
     width: 50%;
-    height: 150px;
+    height: 60%;
     float:left;
     position: absolute;
 }
 
 #elFlowText1 tr td{
-    padding-top: 15px;
-    padding-right: 5px;
+    padding-top: 3%;
+    padding-right: 2px;
     color: #ffffff;
 }
 
 #elFlowText2{
     position: absolute;
-    margin-top: 58px;
+    margin-top: 10%;
     margin-left: 63%;
     width: 50%;
-    height: 150px;
+    height: 60%;
     float:right;
 }
 
 #elFlowText2 tr td{
-    padding-top: 20px;
-    padding-right: 15px;
+    padding-top: 27%;
+    padding-right: 2%;
     color: #ffffff;
 }
 
@@ -236,13 +242,13 @@ css for the my household box
 #elTotalConsumptionHeader{
     position: absolute;
     color: #1192d3;
-    margin: 17% 0 0 43%;
+    margin: 15% 0 0 43%;
 }
 
 #elTotalConsumption{
     position: absolute;
     color: #1192d3;
-    margin: 21% 0 0 41%;
+    margin: 18% 0 0 41%;
 }
 
 #housebox{
@@ -260,8 +266,8 @@ css for the my household box
 }
 
 #housebody{
-    height: 270px;
-    width: 570px;
+    height: 100%;
+    width: 100%;
     float: right;
 }
 #batterLabel{
@@ -271,15 +277,21 @@ css for the my household box
     margin-top: 8%;
     margin-right: 10px;
     float: right;
-    height:150px; 
+    height:auto; 
     width:80%;
     display: none;
 }
 
 #houseboxTable{
+    width:100%;
     margin-top: 13%;
     margin-left: 10px;
     color: #fff;
+}
+
+#houseboxTable tr{
+
+    width:;
 }
 
 /*
