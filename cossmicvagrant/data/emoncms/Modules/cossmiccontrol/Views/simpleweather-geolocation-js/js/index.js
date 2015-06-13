@@ -14,105 +14,62 @@ function loadWeather(location, woeid) {
     woeid: woeid,
     unit: 'c',
     success: function(weather) {
-		var html0;
-		var wcode1;
-		var wcode2;
-		var wcode3;
-		var wcode4;
-		var wcode5;
+		var wcode;
+		var day;
+		var forecast = [];
 		
+		//Setting data for the weather forecast. 0 is the default view, 1-5 is for the 5-day extended forecast
 		for(i=0;i<6;i++){
 			if(i==0){
 				if(weather.code == '3200'){
-					html0 = '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
+					day = '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
 				}
 				else{
-					html0 = '<i class="icn-'+weather.code+'"></i><br />';
+					day = '<i class="icn-'+weather.code+'"></i><br />';
 				}
+				day += '<h2>'+weather.temp+'&deg;C</h2><br />';
+				day += '<ul><li>Estimated PV efficiency: '+pvProd(weather.code)+'%</li></ul><br />'; 
+				day += '<a href="https://www.yahoo.com/?ilc=401" target="_blank"> <img src="https://poweredby.yahoo.com/white.png" width="100" height="21"/> </a>'
+				
+				forecast[i] = day;
 			}
-			else if(i==1){
-				if(weather.forecast[i-1].code == '3200'){
-					wcode1 = '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
+			else{
+				if(i==1){
+					day = '<h3>TODAY</h3>';
 				}
 				else{
-					wcode1 = '<i class="icn-'+weather.forecast[i-1].code+'"></i><br />';
+					day = '<h3>'+weather.forecast[i-1].day+'</h3>';
 				}
-			}
-			else if(i==2){
 				if(weather.forecast[i-1].code == '3200'){
-					wcode2 = '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
+					day += '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
 				}
 				else{
-					wcode2 = '<i class="icn-'+weather.forecast[i-1].code+'"></i><br />';
+					day += '<i class="icn-'+weather.forecast[i-1].code+'"></i><br />';
 				}
-			}
-			else if(i==3){
-				if(weather.forecast[i-1].code == '3200'){
-					wcode3 = '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
-				}
-				else{
-					wcode3 = '<i class="icn-'+weather.forecast[i-1].code+'"></i><br />';
-				}
-			}
-			else if(i==4){
-				if(weather.forecast[i-1].code == '3200'){
-					wcode4 = '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
-				}
-				else{
-					wcode4 = '<i class="icn-'+weather.forecast[i-1].code+'"></i><br />';
-				}
-			}
-			else if(i==5){
-				if(weather.forecast[i-1].code == '3200'){
-					wcode5 = '<br /><br /><img src="../../Modules/cossmiccontrol/Views/simpleweather-geolocation-js/errorWeatherIcon.png" /><br /><br />';
-				}
-				else{
-					wcode5 = '<i class="icn-'+weather.forecast[i-1].code+'"></i><br />';
-				}
+				day += '<h2>'+weather.forecast[i-1].high+'&deg;C</h2><br />';
+				day += '<ul><li>Estimated PV efficiency: '+pvProd(weather.forecast[i-1].code)+'%</li></ul>';
+				
+				console.log("Weather code for "+weather.forecast[i-1].day+" is: "+weather.forecast[i-1].code);
+				
+				forecast[i] = day;
 			}
 		}
 		
-		
-		html0 += '<h2>'+weather.temp+'&deg;C</h2><br />';
-		html0 += '<ul><li>'+weather.city+'</li>';
-		html0 += '<li class="currently">'+weather.currently+'</li></ul>';  
-
-		html1 = '<h3>TODAY</h3><br />';
-		html1 += wcode1;
-		html1 += '<h2>'+weather.forecast[0].high+'&deg;C</h2><br />';
-		html1 += '<ul><li>'+weather.city+'</li>';
-		html1 += '<li class="currently">'+weather.forecast[0].text+'</li></ul>'; 
-
-		html2 = '<h3>'+weather.forecast[1].day+'</h3><br />';
-		html2 += wcode2;
-		html2 += '<h2>'+weather.forecast[1].high+'&deg;C</h2><br />';
-		html2 += '<ul><li>'+weather.city+'</li>';
-		html2 += '<li class="currently">'+weather.forecast[1].text+'</li></ul>'; 
-
-		html3 = '<h3>'+weather.forecast[2].day+'</h3><br />';
-		html3 += wcode3;
-		html3 += '<h2>'+weather.forecast[2].high+'&deg;C</h2><br />';
-		html3 += '<ul><li>'+weather.city+'</li>';
-		html3 += '<li class="currently">'+weather.forecast[2].text+'</li></ul>'; 
-
-		html4 = '<h3>'+weather.forecast[3].day+'</h3><br />';
-		html4 += wcode4;
-		html4 += '<h2>'+weather.forecast[3].high+'&deg;C</h2><br />';
-		html4 += '<ul><li>'+weather.city+'</li>';
-		html4 += '<li class="currently">'+weather.forecast[3].text+'</li></ul>'; 
-
-		html5 = '<h3>'+weather.forecast[4].day+'</h3><br />';
-		html5 += wcode5;
-		html5 += '<h2>'+weather.forecast[4].high+'&deg;C</h2><br />';
-		html5 += '<ul><li>'+weather.city+'</li>';
-		html5 += '<li class="currently">'+weather.forecast[4].text+'</li></ul>'; 
-
-		$("#weather").html(html0);
-		$("#weather1").html(html1);
-		$("#weather2").html(html2);
-		$("#weather3").html(html3);
-		$("#weather4").html(html4);
-		$("#weather5").html(html5);
+		//Injecting the weather data into the page elements.
+		for(i=0; i<6; i++){
+			if(i==0)
+				$("#weather").html(forecast[i]);
+			if(i==1)
+				$("#weather1").html(forecast[i]);
+			if(i==2)
+				$("#weather2").html(forecast[i]);
+			if(i==3)
+				$("#weather3").html(forecast[i]);
+			if(i==4)
+				$("#weather4").html(forecast[i]);
+			if(i==5)
+				$("#weather5").html(forecast[i]);
+		}
     },
     error: function(error) {
 		$("#weather").html('<p>'+error+'</p>');
@@ -125,6 +82,7 @@ function loadWeather(location, woeid) {
   });
 }
 
+//Fires if the geolocation fails.
 function errorWeather(location){
 	if(location == ""){
 		err = '<h3>Location unavailable</h3></ br>';
@@ -136,4 +94,84 @@ function errorWeather(location){
 	else{
 		loadWeather(location);
 	}
+}
+
+//Checks weather code and gives a rough estimate in percent for PV efficiency.
+//These values aren't grounded in any science, just a guesstimate so might want to fine-tune a bit....
+
+/* Yahoo weather codes:
+0 - Tornado
+1 - Tropical Storm
+2 - Hurricane
+3 - Severe Thunderstorms
+4 - Thunderstorms
+5 - Mixed Rain and Snow
+6 - Mixed Rain and Sleet
+7 - Mixed Snow and Sleet
+8 - Freezing Drizzle
+9 - Drizzle
+10 - Freezing Rain
+11 - Showers
+12 - Showers
+13 - Snow Flurries
+14 - Light Snow Showers
+15 - Blowing Snow
+16 - Snow
+17 - Hail
+18 - Sleet
+19 - Dust
+20 - Foggy
+21 - Haze
+22 - Smoky
+23 - Blustery
+24 - Windy
+25 - Cold
+26 - Cloudy
+27 - Mostly Cloudy (night)
+28 - Mostly Cloudy (day)
+29 - Partly Cloudy (night)
+30 - Partly Cloudy (day)
+31 - Clear (night)
+32 - Sunny
+33 - Fair (night)
+34 - Fair (day)
+35 - Mixed Rain and Hail
+36 - Hot
+37 - Isolated Thunderstorms
+38 - Scattered Thunderstorms
+39 - Scattered Thunderstorms
+40 - Scattered Showers
+41 - Heavy Snow
+42 - Scattered Snow Showers
+43 - Heavy Snow
+44 - Partly Cloudy
+45 - Thundershowers
+46 - Snow Showers
+47 - Isolated Thundershowers
+3200 - Not Available
+*/
+
+function pvProd(code){
+	if(code == 41 || code == 43 || code == 42 || code == 46 || code == 45 || code == 47 || code == 5 || code == 6 || code == 7 || code == 27 || code == 29 || code == 31 || code == 33)
+		return 10;
+	else if(code == 0 || code == 1 || code == 2 || code == 3 || code == 4 || code == 8 || code == 10 || code == 13 || code == 14)
+		return 20;
+	else if(code == 9 || code == 15 || code == 16 || code == 28 || code == 37 || code == 38 || code == 39 || code == 40 || code == 42)
+		return 30;
+	else if(code == 17 || code == 18 || code == 35)
+		return 40;
+	else if(code == 19 || code == 21 || code == 22)
+		return 50;
+	else if(code == 11 || code == 12 || code == 23)
+		return 60;
+	else if(code == 26)
+		return 70;
+	else if(code == 20)
+		return 80;
+	else if(code == 30 || code == 44)
+		return 90;
+	else if(code == 36 || code == 32 || code == 34 || code == 24 || code == 25)
+		return 100;
+	else
+		return "unknown";
 }
