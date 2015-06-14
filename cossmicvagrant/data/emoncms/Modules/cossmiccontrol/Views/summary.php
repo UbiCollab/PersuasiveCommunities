@@ -51,10 +51,13 @@ foreach($decomposedPath as &$value) {
 
 <!-- Enclosing div for the top main page content -->
 <div id="today">
-    <div class="row-fluid">
+    <div class="row">
 		<!-- Div containing the weather widget -->
 		<div id="weatherbox" class="panel span2">
-			<div id="weatherhead" class="panel-heading"><div id="weatherheading">Weather </div><img class="expand" id="weatherexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
+			<div id="weatherhead" class="panel-heading"><div id="weatherheading">Weather </div>
+				<img class = "helpIcon" id = "weatherHelp" src = "<?php echo $path; ?>images/help-icon.png"/>
+				<img class="expand" id="weatherexpand" src="<?php echo $path; ?>images/pluss-icon.png" />
+			</div>
 			<div id="weathercont" class="panel-body">
 				<!-- The content for the small widget view -->
 				<div id="weather" class="weatherclass"><script src="<?php echo $path; ?>Modules/cossmiccontrol/Views/simpleweather-geolocation-js/js/index.js"></script></div>
@@ -95,7 +98,7 @@ foreach($decomposedPath as &$value) {
 		</div>
 		
 		<!-- Div containing the graphical representation of the household -->
-		<div id="housebox" class="panel span6">
+		<div id="housebox" class="panel houseboxsmall">
 			<div class="panel-heading">My household <img class="expand" id="houseexpand" src="<?php echo $path; ?>images/pluss-icon.png" /></div>
 			<div class="panel-body">
                 <div id="houseIconBody">
@@ -128,22 +131,22 @@ foreach($decomposedPath as &$value) {
                             <table style="table-layout: fixed">
                                 <tr>
                                     <td>Grid</td>
-                                    <td id="gridN" class="elFlowStats"></td></tr>
+                                    <td id="gridN" class="elFlowStats">0 kWh</td></tr>
                                 <tr id="pvLabel">
                                     <td class="elFlowStats">PV</td>
-                                    <td id="pvN"></td> </tr>
+                                    <td id="pvN">kWh</td> </tr>
                                 <tr id="batteryLabel">
-                                    <td class="elFlowStats">Battery</td>
-                                    <td id="batteryN" >0 kWh</td></tr>
+                                    <td id="batteryText">Battery</td>
+                                    <td id="batteryN" class ="elFlowStats">0 kWh</td></tr>
                             </table>
                         </div>
                         <div id="elFlowText2">
                             <table>
                                 <tr>
-                                    <td id="houseToCommunityN">0 kWh</td>
+                                    <td id="houseToGridN">0 kWh</td>
                                 </tr>
                                 <tr>
-                                    <td id="communityToHouseN">0 kWh</td>
+                                    <td id="gridToHouseN">0 kWh</td>
                                 </tr>
                             </table>
                         </div>
@@ -155,7 +158,7 @@ foreach($decomposedPath as &$value) {
 			</div>
 		</div>
     </div>
-    <div class="row-fluid">
+    <div class="row">
         <div id="summarySchedule" class="panel span12 bcolor">
             <div class="panel-heading">Your scheduled tasks<a href="<?php echo $path; ?>cossmiccontrol/view/scheduler"><img class="expand" id="scheduleredirect" src="<?php echo $path; ?>images/pluss-icon.png" /></a></div>
             <table class="table table-condensed" id="taskTable">
@@ -179,7 +182,7 @@ foreach($decomposedPath as &$value) {
 </div>
 
 <!-- Div containing the full width graph for the neighborhood / community -->
-<div class="row-fluid" style="margin-top: 30px">
+<div class="row" style="margin-top: 30px">
 	<div class="panel span12">
 		<div class="panel-heading">Community - today
             <img class = "helpIcon" id = "graphHelp" src = "<?php echo $path; ?>images/help-icon.png"/>
@@ -374,8 +377,6 @@ $userlocation = $row['location'];
 
 <script>
 //This script section contains the code to gracefully expand and retract the three main information boxes on the summary page
-var spanMargin = $(".span4").css("margin-left");
-
     $(function(){
 		//The expand / retract of the weatherbox
 		$("#weatherexpand").on('click', function(){
@@ -391,6 +392,7 @@ var spanMargin = $(".span4").css("margin-left");
 				$("#weather3").switchClass("weathertable", "weatherclass2");
 				$("#weather4").switchClass("weathertable", "weatherclass2");
 				$("#weather5").switchClass("weathertable", "weatherclass2");
+				$("#weatherHelp").toggle();
             }
             else{
 				$("#weatherexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
@@ -401,6 +403,7 @@ var spanMargin = $(".span4").css("margin-left");
 				$("#weather3").switchClass("weatherclass2","weathertable");
 				$("#weather4").switchClass("weatherclass2","weathertable");
 				$("#weather5").switchClass("weatherclass2","weathertable");
+				$("#weatherHelp").toggle();
                 $("#weather").toggle();
 				
                 setTimeout(function(){
@@ -412,38 +415,30 @@ var spanMargin = $(".span4").css("margin-left");
 	
 		//The expand / retract of the cossmic score box
         $("#treeexpand").on('click', function(){
-            
             if($("#treebox").hasClass("panel span4")){
 				$("#treeexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
 				$("#weatherbox").toggle(400);
-				$("#housebox").toggle(400);
+				$("#housebox").toggle(400);  
 				$("#treebox").switchClass("span4", "span12", 500, "easeInOutQuad");
-                $("#treeImgContainer").css({"width":"auto"});
-                $("#treebox").css({"margin-left":"0"}); 
 				$("#cossmictreeContainer").css({"width":"50%"});
 
                 setTimeout(function(){
                     $("#cossmicforestContainer").toggle();
                     $("#treeHelp").toggle();
-
                     $("#cossmictreeContainer").css({"border-right":"1px solid","border-right-color":"#fff"});
                     $("#cossmictreebarchart").toggle();
                 }, 500);
 				
-				$("#cossmictree").animate({"margin-left":"0"});
+				$("#cossmictree").animate({"margin-left":"10px"});
                 $("#cossmictree").animate({"float":"left"}); 
             }
             else{
 				$("#treeexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
-                $("#cossmictree").animate({"margin-left":"55%"});
                 $("#cossmictreebarchart").toggle();
 				$("#cossmicforestContainer").toggle();
-                
                 $("#treebox").switchClass("span12", "span4", 500, "easeInOutQuad");
-                console.log("margin second click: "+spanMargin);
-                $("#treebox").css({"margin-left":spanMargin});
-                $("#treeImgContainer").css({"width":"auto"});
-                $("#cossmictreeContainer").css({"width":"100%"});
+				$("#cossmictreeContainer").css({"width":"100%"});
+				$("#cossmictree").animate({"margin-left":"100px"});
                 $("#treeHelp").toggle();
                 
                 setTimeout(function(){
@@ -457,13 +452,11 @@ var spanMargin = $(".span4").css("margin-left");
         $("#houseexpand").on('click', function(){
             var margin = 630;
             
-            if($("#housebox").hasClass("panel span6")){
+            if($("#housebox").hasClass("panel houseboxsmall")){
 				$("#houseexpand").attr("src","<?php echo $path; ?>/images/minus-icon.png");
 				$("#weatherbox").toggle(400);
-				$("#treebox").toggle(400);
-                var width = $("#housebox").width();
-                $("#housebody").css({"width":width});  
-				$("#housebox").switchClass("span6", "span12", 500, "easeInOutQuad");
+				$("#treebox").toggle(400);  
+				$("#housebox").switchClass("houseboxsmall", "houseboxbig", 500, "easeInOutQuad");
 
                 setTimeout(function(){
                     $("#houseIconBody").toggle();
@@ -471,9 +464,8 @@ var spanMargin = $(".span4").css("margin-left");
             }
             else{
 				$("#houseexpand").attr("src","<?php echo $path; ?>/images/pluss-icon.png");
-                
                 $("#houseIconBody").toggle();
-                $("#housebox").switchClass("span12", "span6", 500,"easeInOutQuad");
+                $("#housebox").switchClass("houseboxbig", "houseboxsmall", 500,"easeInOutQuad");
                 
                 setTimeout(function(){
                   $("#weatherbox").toggle(500);
@@ -510,61 +502,34 @@ var spanMargin = $(".span4").css("margin-left");
     var storage2gridKwhId = <?php echo json_encode($storage2gridKwhId); ?>;
     var storage2householdKwhId = <?php echo json_encode($storage2householdKwhId); ?>; feedResult.push(storage2householdKwhId[0]);
     
-    setCorrectHouseIcons(feedResult);
+    setCorrectHouseIcon(feedResult);
     //Function setting the correct icon for the different hardware connected to the house.
-    function setCorrectHouseIcons(a){
+    function setCorrectHouseIcon(a){
         isPv = a[0];
         isBattery = a[1];        
+        console.log("Is there pv: "+isPv+" and is battery:"+isBattery);
 
         if(isPv && isBattery){
             console.log("we got both!");
 
             $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow.png");
             $("#house-icon").show();
-            $("#houseboxTable").css({"margin-top":"0px"});
-            $(".housebox_content").css({"margin-top":"10px"});
-            $("#houseboxBatteryTd").html('<span class="whiteText">Your battery is providing  </span> <span class="houseboxIconText">'+storage2household+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
-            $("#houseboxCommunityTd").html('<span class="whiteText">You are sharing </span> <span id="houseboxCommunityText" class="houseboxIconText"></span><span class="whiteText"> of <br>the power within CoSSMic project!</span>');
-
-           
         }
         else if(isPv){
             $("#pvLabel").show();
-            $("#batteryLabel").hide();
             $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
             $("#house-icon").show();   
-            
-
-            $("#secondRowHousebox").hide();
-            $("#firstRowHousebox").append('<td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>');
-            $("#secondRowHouseboxText").hide();
-            $("#firstRowHouseboxText").append('<td id="houseboxCommunityTd"><span class="whiteText">You are sharing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> of the power within the CoSSMic project!</span></td>');
-
-            $("#houseboxTable").css({"margin-top":"18%"});
-            $(".housebox_content").css({"margin-top":"10px"});
-            $("#houseboxCommunityTd").html('<span class="whiteText">You are sharing </span> <span id="houseboxCommunityText" class="houseboxIconText"></span><span class="whiteText"> of the power within CoSSMic project!</span>');
-
-
             console.log("we got pv only.");
         }
         else if(isBattery){
             console.log("we got battery only.");
-
-            $("#house-icon").attr("src","<?php echo $path; ?>/images/housebox_content/house_el_flow_without_battery.png");
-            $("#house-icon").show();   
-            $("#pvLabel").hide();
-            $("#firstRowHousebox").find('#housebox_panelTd').remove();
-            $("#firstRowHouseboxText").find('#houseboxPanelTextTd').remove();
-
-            $("#elFlowText1").css({"margin-top":"65px"});
-
-            $("#secondRowHousebox").hide();
-    
-            $("#firstRowHousebox").append('<td><div><img id ="housebox_battery" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_w_battery.png"></div></td>');
-            $("#secondRowHouseboxText").hide();
-            $("#firstRowHouseboxText").append('<td><span class="whiteText">Your battery is providing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> <br>of the consumption within <br>the household!</span></td>');
-
         }
+    }
+
+    function setHiddenContent(){
+        $("#batteryLabel").hide();
+        $("#housebox_battery").hide();
+
     }
 
 	//Function to gather the data and create the CoSSMic tree bar chart as well as select the CoSSMic tree image to display
@@ -654,7 +619,11 @@ var spanMargin = $(".span4").css("margin-left");
                 type: 'get',
                 url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+pv2householdKwhId+'&start='+start+'&end='+end+'&dp=1',
                 success: function(data){
-                if(pv2householdKwhId == false){
+                if(!pv2householdKwhId){
+
+                    $("#pvLabel").hide();
+                    $("#firstRowHousebox").find('#housebox_panelTd').remove();
+                    $("#firstRowHouseboxText").find('#houseboxPanelTextTd').remove();
                     
                     setPv2householdValue(0);
                 }
@@ -691,17 +660,34 @@ var spanMargin = $(".span4").css("margin-left");
 			$.ajax({
 				type: 'get',
 				url: 'http://127.0.0.1:4567/emoncms/feed/data.json?id='+grid2storageKwhId+'&start='+start+'&end='+end+'&dp=1 ',
-				success: function(data){		
-                  if(grid2storageKwhId!= false){  
-    					var json = data[0];
-    					//console.log(data);
-    					if(json[0] <= start){
-    						setGrid2storageValue(json[1]);
-    					}
-    					else{
-    						setGrid2storageValue(0);   
-    					}
-				    }
+				success: function(data){
+					if(grid2storageKwhId == false){
+					       
+					   $("#elFlowText1").css({"margin-top":"65px"})
+						
+						if(hidden == 0){
+						   $("#secondRowHousebox").hide();
+						   $("#firstRowHousebox").append('<td><div><img id ="housebox_community" class="housebox_content" src="<?php echo $path; ?>images/housebox_content/house_to_community.png"></div></td>');
+						   $("#secondRowHouseboxText").hide();
+						   $("#firstRowHouseboxText").append('<td><span class="whiteText">You are sharing </span><span id="houseboxCommunityText" class ="houseboxIconText"></span><span class="whiteText"> of the power within the CoSSMic project!</span></td>');
+							hidden = 1;
+						}
+					}
+					else{
+						$("#houseboxTable").css({"margin-top":"0px"});
+						$(".housebox_content").css({"margin-top":"10px"});
+						$("#houseboxBatteryTd").html('<span class="whiteText">Your battery is providing  </span> <span class="houseboxIconText">'+storage2household+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
+						$("#houseboxCommunityTd").html('<span class="whiteText">You are sharing </span> <span id="houseboxCommunityText" class="houseboxIconText"></span><span class="whiteText"> of the power within CoSSMic project!</span>');
+
+						var json = data[0];
+						//console.log(data);
+						if(json[0] <= start){
+							setGrid2storageValue(json[1]);
+						}
+						else{
+							setGrid2storageValue(0);   
+						}
+					}
 				},
 				error: function(data, message){
 					console.log(message);
@@ -768,31 +754,33 @@ var spanMargin = $(".span4").css("margin-left");
         //set text for the pvPanel icon
         var houseBoxPanelValue = (pv2household/totalconsumption).toFixed(2)*100;
         $("#houseboxPanelText").html((pv2household/totalconsumption).toFixed(2)*100+"%");
-        $("#houseboxPanelTextTd").html('<span class="whiteText">The PV is producing </span> <span class="houseboxIconText">'+houseBoxPanelValue+"%"+'</span><span class="whiteText"><br> of the total consumption!</span>');
+        $("#houseboxPanelTextTd").html('<span class="whiteText">The PV is producing </span> <span class="houseboxIconText">'+houseBoxPanelValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
         //set text for the grid icon
         var houseBoxGridValue = (grid2household/totalconsumption).toFixed(2)*100;
         $("#houseboxGridText").html((grid2household/totalconsumption).toFixed(2)*100+"%");
-        $("#houseboxGridTextTd").html('<span class="whiteText">The grid is supplying </span> <span class="houseboxIconText">'+houseBoxGridValue+"%"+'</span><span class="whiteText"><br> of the total consumption!</span>');
+        $("#houseboxGridTextTd").html('<span class="whiteText">The grid is supplying </span> <span class="houseboxIconText">'+houseBoxGridValue+"%"+'</span><span class="whiteText"> of the total consumption!</span>');
         //set % of shared el to the grid. 
         $("#houseboxCommunityText").html(pv2grid+storage2grid+"%");
     }
 
     function addDataValues(){
-		
-
-        setTimeout(function(){
+		setTimeout(function(){
             var pv2householdValue = totalconsumption/pv2household;
             var grid2householdValue = totalconsumption/grid2household;
-
+            var height = $("#usagebarcontainer").height()/2;
+            var width = $("#usagebarcontainer").width()/2;
+            
+            $("#griduse").css({'width': width/grid2householdValue});
+            $("#gridusePercentage").html(Math.round((grid2household/totalconsumption)*100)+"%");
+            $("#selfpvuse").css({'width': width/pv2householdValue});
+            $("#selfpvusePercentage").html(Math.round((pv2household/totalconsumption)*100)+"%");
+            $("#griduse").css({'float': "left"});
+            $("#selfpvuse").css({'float': "left"}); 
             setHouseboxIconText();
             //Call the javascript to populate the tree bar chart with the gathered data
-            var barWidth = ($(".span12").width()/2)*0.6;
-
-            var barHeight = $("#tree-panel").height();
-
-            console.log("Span12 width: "+barWidth+" "+barHeight);
-            barChart("#outerTreeChart", "tree", createBarChart("tree"), barWidth, barHeight);
-			barChart("#outerForestChart", "forest", createBarChart("forest"),barWidth, barHeight);
+            
+            barChart("#outerTreeChart", "tree", createBarChart("tree"));
+			barChart("#outerForestChart", "forest", createBarChart("forest"));
 			addTooltips("tree");
 			addTooltips("forest");
         }, 1000);
@@ -802,6 +790,15 @@ var spanMargin = $(".span4").css("margin-left");
 			setTimeout(function(){
 				var pv2householdValue = totalconsumption/pv2household;
 				var grid2householdValue = totalconsumption/grid2household;
+				var height = $("#usagebarcontainer").height()/2;
+				var width = $("#usagebarcontainer").width()/2;
+				
+				$("#griduse").css({'width': width/grid2householdValue});
+                $("#gridusePercentage").html(Math.round((grid2household/totalconsumption)*100)+"%");
+                $("#selfpvuse").css({'width': width/pv2householdValue});
+                $("#selfpvusePercentage").html(Math.round((pv2household/totalconsumption)*100)+"%");
+                $("#griduse").css({'float': "left"});
+                $("#selfpvuse").css({'float': "left"}); 
 				setHouseboxIconText();
                
                 updateBarChart("#outerTreeChart", "tree", createBarChart("tree"));
@@ -845,6 +842,11 @@ var spanMargin = $(".span4").css("margin-left");
 
             return tooltip;
         });
+		
+		$("#weatherHelp").data("powertip", function(){
+			var tooltip = "Click on the estimated PV production text to go directly to scheduler and schedule some tasks!"
+			return tooltip;
+		});
 
         $("#treeHelp").powerTip({
                 placement: "se",
@@ -855,6 +857,11 @@ var spanMargin = $(".span4").css("margin-left");
             placement: "se",
             mouseOnToPopup: true
         });
+		
+		$("#weatherHelp").powerTip({
+			placement: "se",
+			mouseOnToPopup: true
+		});
     }
 
     //Functions for loading the scheduled tasks table
@@ -975,6 +982,7 @@ $(document).ready( function () {
 	errorWeather("<?php echo $userlocation; ?>");
 }, {timeout: 10000});
 
+    setHiddenContent();
 	summarySetup();
 	addDataValues();
     setTooltips();
@@ -1004,6 +1012,11 @@ function  summarySetup(){
 
     var productionKwhdId = <?php echo json_encode($productionKwhId); ?>;
     var productionPowerId = <?php echo json_encode($productionPowerId); ?>;
+
+    console.log("Prod: "+productionPowerId);
+
+
+    console.log(path+'/feed/data.json?id='+productionPowerId+'&start='+start.getTime()+'&end='+end+'&dp=400');
     
     $.when(
         $.ajax({

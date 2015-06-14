@@ -46,10 +46,8 @@ function loadWeather(location, woeid) {
 				else{
 					day += '<i class="icn-'+weather.forecast[i-1].code+'"></i><br />';
 				}
-				day += '<h2>'+weather.forecast[i-1].high+'&deg;C</h2><br />';
-				day += '<ul><li>Estimated PV efficiency: '+pvProd(weather.forecast[i-1].code)+'%</li></ul>';
-				
-				day +=
+				day += '<h2>'+weather.forecast[i-1].high+'&deg;C</h2>';
+				day += '<a href="scheduler"><ul><li>Estimated PV efficiency: '+pvProd(weather.forecast[i-1].code)+'%</li></ul></a><br />';
 				
 				forecast[i] = day;
 			}
