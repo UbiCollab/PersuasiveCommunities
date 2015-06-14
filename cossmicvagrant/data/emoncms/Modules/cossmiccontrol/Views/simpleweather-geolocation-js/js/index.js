@@ -49,7 +49,7 @@ function loadWeather(location, woeid) {
 				day += '<h2>'+weather.forecast[i-1].high+'&deg;C</h2><br />';
 				day += '<ul><li>Estimated PV efficiency: '+pvProd(weather.forecast[i-1].code)+'%</li></ul>';
 				
-				console.log("Weather code for "+weather.forecast[i-1].day+" is: "+weather.forecast[i-1].code);
+				day +=
 				
 				forecast[i] = day;
 			}
