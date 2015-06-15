@@ -328,6 +328,7 @@ function clickAddTask(event){
       var lstString = $('#lstInput').val();
       var lstArray =  estString.split(":");
       var mode = $('#selectModeConfigList').val();
+	  var name = $('#deviceNameOnConfigPane').text();
       
       if(null == mode) mode ="none";
       
@@ -352,7 +353,7 @@ function clickAddTask(event){
       // end of validity check
       
       //TODO: mode and execution type are currently hard coded
-      var addTaskJson = '?json={"EST":"' + estString+ '","LST":"' + lstString + '","deviceID":"'+ deviceId+'","execution_type": "single_run","mode":"' +mode+'"}';
+      var addTaskJson = '?json={"EST":"' + estString+ '","LST":"' + lstString + '","deviceID":"'+ deviceId+'","execution_type": "single_run","mode":"' +mode+'","appName":"'+name+'"}';
       console.log(addTaskJson);
       $.ajax({
         url: '<?php echo $path; ?>mas/add.json' + addTaskJson,
@@ -424,7 +425,7 @@ function scheduledTaskSetup(){
 			var lst = item.LST;
 			var aet = item.AET;
 			var ast = item.AST;
-			var name = '';
+			var name = item.appName;
 			if (deviceHash.hasOwnProperty(devId)) {
 				console.log("has own property");
 				name = deviceHash[devId];

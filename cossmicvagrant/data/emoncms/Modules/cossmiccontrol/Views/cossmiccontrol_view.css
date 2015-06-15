@@ -293,7 +293,7 @@ css for the scheduled tasks list box
 	display: none;
 }
 
-#taskTable tr:hover{
+#taskTable tbody tr:hover{
 	background: #fff;
 	color: #1192d3;
 }

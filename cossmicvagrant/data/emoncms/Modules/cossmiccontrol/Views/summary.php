@@ -916,7 +916,7 @@ $userlocation = $row['location'];
                 var lst = item.LST;
                 var aet = item.AET;
                 var ast = item.AST;
-                var name = '';
+                var name = item.appName;
                 if (deviceHash.hasOwnProperty(devId)) {
                     name = deviceHash[devId];
                 }
