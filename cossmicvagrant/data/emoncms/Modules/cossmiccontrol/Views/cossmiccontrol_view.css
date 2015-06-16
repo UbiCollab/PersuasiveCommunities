@@ -293,10 +293,16 @@ css for the scheduled tasks list box
 	display: none;
 }
 
-#taskTable tbody tr:hover{
+#taskTable tbody tr{
 	background: #fff;
 	color: #1192d3;
 }
+
+.content table{
+	width: 100%;
+	border-color: #1192d3;
+}
+
 
 /*
 css for the community graph
@@ -376,11 +382,6 @@ input[type=checkbox] {
 	height: 100%;
 	font-size: 14px;
 	line-height: 1.2em;
-}
-
-.content table{
-	width: 100%;
-	border-color: #1192d3;
 }
 
 .ui-tabs{

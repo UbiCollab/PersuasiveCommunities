@@ -174,7 +174,7 @@ foreach($decomposedPath as &$value) {
                         <th></th>
                     </tr>
               </thead>
-              <tbody>
+              <tbody id="scheduleTableList">
               </tbody>
             </table>
         </div>
@@ -847,6 +847,8 @@ $userlocation = $row['location'];
 			var tooltip = "Click on the estimated PV production text to go directly to scheduler and schedule some tasks!"
 			return tooltip;
 		});
+		
+		var scheduleRows = $("#taskTable").find("tbody>tr");
 
         $("#treeHelp").powerTip({
                 placement: "se",
@@ -883,8 +885,6 @@ $userlocation = $row['location'];
             })
         )
         .then(function( resultListTask,resultListDevices) {
-            //console.log(JSON.stringify(resultListTask[0]));
-            //console.log(JSON.stringify(resultListDevices[0]));
             var deviceHash = new Object();
             $.each(resultListDevices[0].devicelist, function(idx, item){
                 $("#summarySchedule").show();
@@ -892,6 +892,7 @@ $userlocation = $row['location'];
             });
             $.each(resultListTask[0].tasks, function(idx, item){
                 var id = item.id;
+				var trId = "scheduleTip"+id;
                 var devId = item.deviceID;
                 var status;
                 switch(item.status) {
@@ -921,50 +922,23 @@ $userlocation = $row['location'];
                     name = deviceHash[devId];
                 }
 				var htmlRow= '<tr task-id="' +id+ '" device-id="' + devId + '"><td>' + name + ' </td><td> ' + status + ' </td><td> ' + mode +  ' </td><td> ' + est + ' </td><td> ' + lst +
-                ' </td><td> ' + ast + ' </td><td>' + aet + '</td><td></td></tr>';
-                /*
-				if users are supposed to be able to delete tasks from dashboard, replace the var htmlRow with the one below
+                ' </td><td> ' + ast + ' </td><td>' + aet + '</td><td ><img class = "helpIcon" id="'+trId+'" src = "<?php echo $path; ?>images/help-icon.png"/></td></tr>';
+                
+                $("#taskTable > tbody").prepend(htmlRow); 
+
+				$('#' + trId).data("powertip", function(){
+					var tooltip = "With the program you have selected for your "+name+", expect to use approximately 1.5kWh electricity. <br />"+
+					"In order to conserve energy, consider going with the eco-program instead, it will only use 1kWh!";
+					return tooltip;
+				});
 				
-				var htmlRow= '<tr task-id="' +id+ '" device-id="' + devId + '"><td>' + name + ' </td><td> ' + status + ' </td><td> ' + mode +  ' </td><td> ' + est + ' </td><td> ' + lst +
-                ' </td><td> ' + ast + ' </td><td>' + aet + '</td><td><a href="#" onclick="deleteTask('+id+',\''+aet+'\')"><i class="icon-trash"></i></a></td></tr>';
-				*/
-                $("#taskTable > tbody").prepend(htmlRow);        
+				$('#' + trId).powerTip({
+					placement: "sw",
+					mouseOnToPopup:true
+				});
             });
         });
     }
-
-	/*
-	function to remove a task. uncomment if it is desirable to be able to delete tasks from the dashboard
-	
-    function deleteTask(id,aet){
-        if (aet != "UNDEFINED"){
-            window.alert("It is not possible to delete scheduled tasks ");
-            return;
-        }
-        
-        $.ajax({
-            url: '<?php echo $path; ?>mas/delete.json?id=' + id,
-            type: 'get',
-            dataType: 'json',
-            success: function(output) {
-                console.log(output);
-                if(null != output) {
-                    if (output.result != "success"){
-                        if(!output.result){ // task deleted
-                            window.alert("It was not possible to delete the task, it probably has already been scheduled");
-                        }
-                        location.reload();
-                    }
-                }
-                 location.reload();
-            },
-            error: function(xhr, desc, err) {
-                console.log(xhr);
-                console.log('Details: ' + desc + '\nError:' + err);
-                window.alert("error when trying to delete the task");
-            }
-        }); // end ajax call
-    }*/
     //End of functions for the scheduled task table
 </script>
 <script>
@@ -999,7 +973,7 @@ function highlightPageLink(){
     }
 }
 
-function  summarySetup(){
+function summarySetup(){
 
     end = new Date().getTime();
     start = new Date();
