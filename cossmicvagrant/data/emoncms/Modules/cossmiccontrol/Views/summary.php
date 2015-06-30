@@ -216,6 +216,7 @@ $storage2householdPowerId = [];
 $kwhdlist = [];
 $userid = $session['userid'];
 $userlocation;
+$userkeyread;
 
 // get the ids of the user's grid use, CoSSMic use, Self-PV use, and own Battery use kWh/day feeds
 // code here...
@@ -373,6 +374,11 @@ $result = $mysqli->query("SELECT location FROM users WHERE id = '$userid'");
 $row = (array)$result->fetch_object();
 $userlocation = $row['location'];
 
+//get the users read apikey
+$result = $mysqli->query("SELECT apikey_read FROM users WHERE id = '$userid'");
+$row = (array)$result->fetch_object();
+$userkeyread = $row['apikey_read'];
+
 ?>
 
 <script>
@@ -491,6 +497,8 @@ $userlocation = $row['location'];
     values = [];
     var feedResult = [];
     var path = "<?php echo $path; ?>";
+	
+	var userkeyread = <?php echo json_encode($userkeyread); ?>;
 
     var consumptionKwhId = <?php echo json_encode($consumptionKwhId); ?>; 
     var pv2householdKwhId = <?php echo json_encode($pv2householdKwhId); ?>; feedResult.push(pv2householdKwhId[0]);
@@ -501,6 +509,7 @@ $userlocation = $row['location'];
     var pv2gridKwhId = <?php echo json_encode($pv2gridKwhId); ?>;
     var storage2gridKwhId = <?php echo json_encode($storage2gridKwhId); ?>;
     var storage2householdKwhId = <?php echo json_encode($storage2householdKwhId); ?>; feedResult.push(storage2householdKwhId[0]);
+	
     
     setCorrectHouseIcon(feedResult);
     //Function setting the correct icon for the different hardware connected to the house.
